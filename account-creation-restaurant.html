@@ -1,49 +1,10 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <style src="/home/justin/Desktop/GitHub-Repositories/Scarborough-Dining/default-style.css"></style>
-        <style>
-            .form {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                font-family: Arial, Helvetica, sans-serif;
-
-            }
-
-            input {
-                color: #000000;
-                font-size: 20px;
-                padding: 16px;
-                margin-top: 10px;
-                margin-bottom: 10px;;
-            }
-
-            input:focus {
-                color: #616160;
-            }
-
-            h2 {
-                font-size: 30px;
-            }
-        </style>
-        <script>
-            function validation() {
-                var password = document.getElementById("password").value;
-                var passwordConfirm = document.getElementById("password-confirm").value;
-                var message = document.getElementById("password-match-message");
-                if (password == passwordConfirm) {
-                    message.innerHTML = "Passwords match";
-                    message.style.color = "green";
-                    document.getElementById("create-account").disabled = false;
-                } else {
-                    message.innerHTML = "Passwords do not match";
-                    message.style.color = "red";
-                    document.getElementById("create-account").disabled = true;
-                }
-                
-            }
-        </script>
+        <title>Create and Account | Scarborough Dining</title>
+        <meta lang="English">
+        <link rel="stylesheet" type="text/css" href="account-creation-style.css">
+        <script src="account-creation-validation.js"></script>
     </head>
     <body>
         <div class="form">

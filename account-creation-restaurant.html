@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <style src="/home/justin/Desktop/GitHub-Repositories/Scarborough-Dining/default-style.css"></style>
+        <style>
+            .form {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-family: Arial, Helvetica, sans-serif;
+
+            }
+
+            input {
+                color: #000000;
+                font-size: 20px;
+                padding: 16px;
+                margin-top: 10px;
+                margin-bottom: 10px;;
+            }
+
+            input:focus {
+                color: #616160;
+            }
+
+            h2 {
+                font-size: 30px;
+            }
+        </style>
+        <script>
+            function validation() {
+                var password = document.getElementById("password").value;
+                var passwordConfirm = document.getElementById("password-confirm").value;
+                var message = document.getElementById("password-match-message");
+                if (password == passwordConfirm) {
+                    message.innerHTML = "Passwords match";
+                    message.style.color = "green";
+                    document.getElementById("create-account").disabled = false;
+                } else {
+                    message.innerHTML = "Passwords do not match";
+                    message.style.color = "red";
+                    document.getElementById("create-account").disabled = true;
+                }
+                
+            }
+        </script>
+    </head>
+    <body>
+        <div class="form">
+            <h2>Create an Account</h2>
+            <form class="form" onsubmit="return validation()">
+                <div class="form">
+                    <h3>Account Information</h3>
+                    <input id="name" type="text" required="true" placeholder="Full Name">
+                    <input id="email" type="email" required="true" placeholder="Email">
+                    <input id="phone-number" type="tel" required="true" placeholder="Personal Phone Number">
+                    <input id="password" type="password" required="true" placeholder="Password" onkeyup="validation();">
+                    <input id="password-confirm" type="password" required="true" placeholder="Confirm Password" onkeyup="validation();">
+                    <span id="password-match-message"></span>
+                </div>
+                <div class="form">
+                    <h3>Restaurant Information</h3>
+                    <input id="restaurant-name" type="text" required="true" placeholder="Business Name">
+                    <input id="restaurant-phone" type="tel" required="true" placeholder="Business Phone Number">
+                    <input id="restaurant-location" type="text" required="true" placeholder="Business Address">
+                </div>
+                <input id="create-account" type="submit" value="Create Account">
+            </form>
+        </div>
+    </body>
+</html>

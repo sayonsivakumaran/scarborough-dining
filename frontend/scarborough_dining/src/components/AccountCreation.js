@@ -34,6 +34,7 @@ function RestaurantForm() {
     )
 }
 
+//Renders the customer vs restaurant account creation form depending on which link user clicks
 export class AccountCreation extends Component {
 
     render() {
@@ -55,119 +56,6 @@ export class AccountCreation extends Component {
                 </div>
             )
         }
-        /*
-        if (this.props.userType === 'restaurant') {
-             return (
-                <div style ={{formStyle}}>
-                <form style ={formStyle} name="user-information">
-                    <input
-                        style={{inputStyle}}
-                        type="text"
-                        name="fullName"
-                        placeholder="Full Name"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="tel"
-                        name="phoneNumber"
-                        placeholder="Phone Number"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        required={true}
-                    />
-                </form>
-                <form style={{formStyle}} name="restaurant-information">
-                    <input
-                        style={{inputStyle}}
-                        type="text"
-                        placeholder="Restaurant Name"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="tel"
-                        placeholder="Restaurant Phone Number"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="text"
-                        placeholder="Restaurant Address"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="text"
-                        placeholder="Type of Cuisine"
-                        required={true}
-                    />
-                </form>
-                </div>
-             )   
-        } else {
-            return (
-                <div>
-                <form style ={formStyle} name="user-information">
-                    <input
-                        style={{inputStyle}}
-                        type="text"
-                        name="fullName"
-                        placeholder="Full Name"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="tel"
-                        name="phoneNumber"
-                        placeholder="Phone Number"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        required={true}
-                    />
-                    <input
-                        style={{inputStyle}}
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        required={true}
-                    />
-                </form>
-                </div>
-            )
-        }
-        */
     }
 }
 

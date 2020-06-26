@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers"
+    },
+    {
+        "id": 2,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers"
+    },
+    {
+        "id": 3,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers"
+    },
+    {
+        "id": 4,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers"
+    },
+    {
+        "id": 5,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers"
+    },
+    {
+        "id": 6,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers"
+    },
+    {
+        "id": 7,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers"
+    },
+    {
+        "id": 8,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers"
+    } 
+]

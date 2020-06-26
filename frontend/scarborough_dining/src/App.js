@@ -1,4 +1,7 @@
 import React from 'react';
+import {Switch, Route} from 'react-router-dom';
+import RestaurantList from './components/RestaurantList'
+import Unknown from './components/Unknown';
 import logo from './logo.svg';
 import './App.css';
 
@@ -19,6 +22,14 @@ function App() {
           Learn React
         </a>
       </header>
+      <body>
+        <React.Fragment>
+          <Switch>
+            <Route exact path="/" component={RestaurantList} />
+            <Route component={Unknown} />
+          </Switch>
+        </React.Fragment>
+        </body>
     </div>
   );
 }

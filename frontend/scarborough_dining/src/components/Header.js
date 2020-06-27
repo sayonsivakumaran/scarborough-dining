@@ -22,7 +22,8 @@ export class Header extends Component {
                 <h1 style={{fontSize: '3em'}}>Scarborough Dining</h1>
                 <Link to="/" style={linkStyle}>Home</Link> | 
                 <Link to="/account-creation/user" style={linkStyle}>Sign-Up for an Account</Link> |    
-                <Link to="/account-creation/restaurant" style={linkStyle}>Register Restaurant</Link>
+                <Link to="/account-creation/restaurant" style={linkStyle}>Register Restaurant</Link> |
+                <Link to="/manage-restaurant-information" style={linkStyle}>Manage Restaurant Information</Link>
             </header>
         )
     }

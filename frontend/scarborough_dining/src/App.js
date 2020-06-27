@@ -4,6 +4,7 @@ import {Switch, Route} from 'react-router-dom';
 
 import Header from './components/Header';
 import AccountCreation from './components/AccountCreation';
+import ManageRestaurantInformation from './components/ManageRestaurantInformation';
 //import Restaurant from './components/Restaurant';
 import RestaurantList from './components/RestaurantList';
 import Unknown from './components/Unknown';
@@ -29,6 +30,9 @@ export class App extends Component {
               } />
               <Route path="/account-creation/restaurant" render={
                 () => <AccountCreation userType={"restaurant"} />
+              } />
+              <Route path="/manage-restaurant-information" render={
+                () => <ManageRestaurantInformation />
               } />
               <Route component={Unknown} />
             </Switch>

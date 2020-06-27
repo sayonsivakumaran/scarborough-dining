@@ -72,4 +72,4 @@ export class AccountCreation extends Component {
     }
 }
 
-export default AccountCreation
+export default AccountCreation;

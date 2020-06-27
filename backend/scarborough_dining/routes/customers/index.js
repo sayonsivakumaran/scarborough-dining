@@ -1,17 +1,40 @@
-const router = require('express').Router();
-let Customer = require('../models/customer');
+const express = require('express');
+const router = express.Router();
+const Password = require('../../utilities/password');
+let Customer = require('../../models/customer');
 
 router.route('/').get((req, res) => {
     Customer.find()
         .then(customers => res.json(customers))
-        .catch(err => res.status(400).json('Error: ' + err))
+        .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/add').post((req, res) => {
-    const { email, firstName, lastName } = req.body;
+    const { 
+        email,
+        password, 
+        firstName, 
+        middleName,
+        lastName,
+        address,
+        city,
+        province,
+        postalCode
+    } = req.body;
 
-    const newCustomer = new Customer({email, firstName, lastName});
-
+    const newCustomer = new Customer({
+        email, 
+        password, 
+        firstName, 
+        middleName, 
+        lastName, 
+        address, 
+        city, 
+        province, 
+        postalCode
+    });
+    newCustomer.password = Password.generateHashedPassword(password);
+    
     newCustomer.save()
         .then(() => res.json('Customer has been added.'))
         .catch(err => res.status(400).json('Error: ' + err));
@@ -33,8 +56,14 @@ router.route('/update/:id').post((req, res) => {
     Customer.findById(req.params.id)
         .then(customer => {
             customer.email = req.body.email;
+            customer.password = Password.generateHashedPassword(req.body.password);
             customer.firstName = req.body.firstName;
+            customer.middleName = req.body.middleName;
             customer.lastName = req.body.lastName;
+            customer.address = req.body.address;
+            customer.city = req.body.city;
+            customer.province = req.body.province;
+            customer.postalCode = req.body.postalCode;
 
             customer.save()
                 .then(() => res.json('Customer has been updated.'))

@@ -19,7 +19,9 @@ router.route('/add').post((req, res) => {
         address,
         city,
         province,
-        postalCode
+        postalCode,
+        favouriteRestaurantIDs,
+        ratings
     } = req.body;
 
     const newCustomer = new Customer({
@@ -31,7 +33,9 @@ router.route('/add').post((req, res) => {
         address, 
         city, 
         province, 
-        postalCode
+        postalCode,
+        favouriteRestaurantIDs,
+        ratings
     });
     newCustomer.password = Password.generateHashedPassword(password);
     
@@ -64,6 +68,8 @@ router.route('/update/:id').post((req, res) => {
             customer.city = req.body.city;
             customer.province = req.body.province;
             customer.postalCode = req.body.postalCode;
+            customer.favouriteRestaurantIDs = req.body.favouriteRestaurantIDs;
+            customer.ratings = req.body.ratings;
 
             customer.save()
                 .then(() => res.json('Customer has been updated.'))

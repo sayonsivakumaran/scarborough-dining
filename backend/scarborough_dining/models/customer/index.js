@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt-nodejs');
 const Schema = mongoose.Schema;
 
 const customerSchema = new Schema({
@@ -65,6 +64,17 @@ const customerSchema = new Schema({
         unique: false,
         trim: true,
         minlength: 6
+    },
+    favouriteRestaurantIDs: {
+        type: [String],
+        required: true,
+        unique: false
+    },
+    ratings: {
+        type: Map,
+        of: Number,
+        required: true,
+        unique: false
     }
 }, {
     timestamps: true

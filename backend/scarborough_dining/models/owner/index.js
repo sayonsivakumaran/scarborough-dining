@@ -6,36 +6,31 @@ const customerSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        trim: true,
-        minlength: 3
+        trim: true
     },
     password: {
         type: String,
         required: true,
         unique: false,
-        trim: false, 
-        minlength: 10
+        trim: false
     },
     firstName: {
         type: String,
         required: true,
         unique: false,
-        time: true,
-        minlength: 1
+        time: true
     },
     middleName: {
         type: String,
         required: false,
         unique: false,
-        trime: true,
-        minlength: 1
+        trime: true
     },
     lastName: {
         type: String,
         required: true,
         unique: false,
-        trim: true,
-        minlength: 1
+        trim: true
     },
     restaurantID: {
         type: String,

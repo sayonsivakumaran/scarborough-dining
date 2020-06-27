@@ -1,36 +1,32 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const customerSchema = new Schema({
-    email: {
+const restaurantSchema = new Schema({
+    ownerID: {
         type: String,
         required: true,
         unique: true,
         trim: true
     },
-    password: {
-        type: String,
-        required: true,
-        unique: false,
-        trim: false
+    ratings: {
+        type: [Number],
+        required: true
     },
-    firstName: {
+    name: {
         type: String,
-        required: true,
-        unique: false,
-        time: true
+        required: true
     },
-    middleName: {
+    logoURL: {
         type: String,
-        required: false,
-        unique: false,
-        trime: true
+        required: true
     },
-    lastName: {
+    imageURLs: {
+        type: [String],
+        required: true
+    },
+    phoneNumber: {
         type: String,
-        required: true,
-        unique: false,
-        trim: true
+        required: true
     },
     address: {
         type: String,
@@ -56,21 +52,22 @@ const customerSchema = new Schema({
         unique: false,
         trim: true
     },
-    favouriteRestaurantIDs: {
+    cuisineTypes: {
         type: [String],
-        required: true,
-        unique: false
+        required: true
     },
-    ratings: {
-        type: Map,
-        of: Number,
-        required: true,
-        unique: false
+    description: {
+        type: String,
+        required: true
+    },
+    menuItemIDs: {
+        type: [String],
+        required: true
     }
 }, {
     timestamps: true
 }); 
 
-const Customer = mongoose.model('Customer', customerSchema);
+const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 
-module.exports = Customer;
+module.exports = Restaurant;

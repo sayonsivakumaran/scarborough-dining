@@ -10,6 +10,7 @@ const headerStyle = {
 
 const linkStyle = {
     color: '#fff',
+    padding: '1em 1em',
     textDecoration:'none'
 }
 
@@ -26,7 +27,7 @@ export class Header extends Component {
     render() {
         return (
             <header style={headerStyle}>
-                <h1>Scarborough Dining</h1>
+                <h1 style={{fontSize: '3em'}}>Scarborough Dining</h1>
                 <Link to="/" style={linkStyle}>Home</Link> | 
                 <Link to="/account-creation" style={linkStyle} onClick={this.customerUser}>Sign-Up for an Account</Link> |    
                 <Link to="/account-creation" style={linkStyle} onClick={this.restaurantUser}>Register Restaurant</Link>

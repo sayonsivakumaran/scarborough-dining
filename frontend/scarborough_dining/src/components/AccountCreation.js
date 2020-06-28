@@ -1,5 +1,188 @@
 import React, { Component } from 'react'
 
+const inputStyle = {
+
+}
+
+export class AccountCreation extends React.Component {
+
+    constructor(props) {
+
+        super(props);
+
+        this.state = {
+            //Account Information
+            fullName: '',
+            email: '',
+            phoneNumber: '',
+            password: '',
+            passwordMatch: 'hidden',
+            //Restaurant Information
+            restaurantName: '',
+            restaruantPhone: '',
+            restaurantAddress: '',
+            restaurantCuisine: '',
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.passwordValidate = this.passwordValidate.bind(this);
+    }
+
+    //Handles when fields in the input are changed
+    handleChange(event) {
+        const value = event.target.value;
+        const name = event.target.name;
+
+        this.setState({
+            [name]: value 
+        })
+    }
+
+    //Handle when the "submit" button on the form is pressed
+    handleSubmit(event) {
+        
+    }
+
+    passwordValidate(event) {
+        const confirmPassword = event.target.value;
+        if (this.state.password === confirmPassword) {
+            this.setState({
+                passwordMatch: 'hidden'
+            })
+        }
+        else {
+            this.setState({
+                passwordMatch: 'visible'
+            })
+        }
+    }
+
+    UserForm = () => {
+        return (
+            <div>
+                <h2>Account Information</h2>
+                <input 
+                    name="fullName"
+                    type="text"
+                    placeholder="Full Name"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="email"
+                    type="email"
+                    placeholder="Email"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="phoneNumber"
+                    type="tel"
+                    pattern="[0-9]{10}"
+                    placeholder="Phone Number"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="passwordConfirm"
+                    type="password"
+                    placeholder="Confirm Password"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.passwordValidate}
+                />
+                <p style={{color: 'red', visibility: `${this.state.passwordMatch}`}}>Passwords Do Not Match</p>
+            </div>
+        )
+    }
+
+    RestaurantForm = () => {
+        return (
+            <div>
+                <h2>Restaurant Information</h2>
+                <input 
+                    name="restaurantName"
+                    type="text"
+                    placeholder="Restaurant Name"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="restaurantPhone"
+                    type="tel"
+                    pattern="[0-9]{10}"
+                    placeholder="Restaurant Phone"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="restaurantAddress"
+                    type="text"
+                    placeholder="Restaurant Address"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="restaurantCuisine"
+                    type="text"
+                    placeholder="Restaurant Cuisine"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+            </div>
+        )
+    }
+
+    render() {
+        if (this.props.userType === "user") {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <this.UserForm />
+                    <div>
+                        <input
+                            name="submit"
+                            type="submit"
+                            value="Create Account"
+                        />
+                    </div>
+                </form>
+            )
+        } else {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <this.UserForm />
+                    <this.RestaurantForm />
+                    <div>
+                        <input
+                            name="submit"
+                            type="submit"
+                            value="Register Restaurant"
+                        />
+                    </div>
+                </form>
+            )
+        }
+    }
+
+
+
+/*
 const formStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -44,13 +227,58 @@ function RestaurantForm() {
     )
 }
 
+
+var i = 1;
+
 //Renders the customer vs restaurant account creation form depending on which link user clicks
-export class AccountCreation extends Component {
+export class AccountCreation extends React.Component {
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: ''
+        }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        console.log("Hello " + (i + 1));
+    }
+
+    UserForm() {
+        return (
+            <div>
+
+            </div>
+        )
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <input type="text" placeholder="hello"/>
+                <input type="submit" value="Submit" />
+            </form>
+        )
+    }
+    /*
+
+    onChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+    onSubmit = (e) => {
+
+    }
+
 
     render() {
         if (this.props.userType === "restaurant") {
             return (
-                <form style={formStyle} name="accountCreationForm">
+                <form style={formStyle} name="accountCreationForm" >
                     <UserForm />
                     <RestaurantForm />
                     <div style={{padding: '0 10%'}}>
@@ -64,12 +292,12 @@ export class AccountCreation extends Component {
                 <form style={formStyle} name="accountCreationForm">
                     <UserForm />
                     <div style={{padding: '0 10%'}}>
-                        <input style={inputStyle} name="createAccount" type="submit" value="Create Account"/>
+                        <input style={inputStyle} name="createAccount" type="submit" value="Create Account" />
                     </div>
                 </form>
             )
         }
     }
 }
-
-export default AccountCreation
+*/
+} export default AccountCreation

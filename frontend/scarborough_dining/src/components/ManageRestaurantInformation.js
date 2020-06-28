@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import FileUpload from './FileUpload';
 
 const formStyle = {
     display: 'flex',
@@ -27,6 +28,7 @@ function RestaurantInformationForm() {
             <input style={inputStyle} name="logo" type="email" placeholder="Logo" required={true} />
             <input style={inputStyle} name="images" type="tel" placeholder="Images & Videos" required={true} />
             <input style={inputStyle} name="description" type="password" placeholder="Password" required={true} />
+            <input style={inputStyle} name="submitRestaurantInformation" type="submit" value="Submit Information"/>
         </div>
     )
 }
@@ -38,9 +40,7 @@ export class ManageRestaurantInformation extends Component {
         return (
             <form style={formStyle} name="accountCreationForm">
                 <RestaurantInformationForm />
-                <div style={{padding: '0 10%'}}>
-                    <input style={inputStyle} name="submitRestaurantInformation" type="submit" value="Submit Information"/>
-                </div>
+                <FileUpload/>
             </form>
         )
     }

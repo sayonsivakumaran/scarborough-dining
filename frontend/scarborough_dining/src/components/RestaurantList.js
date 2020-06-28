@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Restaurant from './Restaurant';
 import data from '../mock/restaurant.json';
 
@@ -16,7 +16,7 @@ export default class RestaurantList extends Component {
                         }
                     </div>
                 </div>
-            </React.Fragment>        
+            </React.Fragment>
         )
     }
 }

@@ -1,7 +1,22 @@
 import React, { Component } from 'react'
 
-const inputStyle = {
+const formStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: '10% 30%'
+}
 
+const containerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '10px 0'
+}
+
+const inputStyle = {
+    padding: '1em',
+    fontSize: '20px',
+    margin: '10px 0px'
 }
 
 export class AccountCreation extends React.Component {
@@ -60,8 +75,8 @@ export class AccountCreation extends React.Component {
 
     UserForm = () => {
         return (
-            <div>
-                <h2>Account Information</h2>
+            <div style={containerStyle}>
+                <h2 style={{fontSize: '2em'}}>Account Information</h2>
                 <input 
                     name="fullName"
                     type="text"
@@ -110,8 +125,8 @@ export class AccountCreation extends React.Component {
 
     RestaurantForm = () => {
         return (
-            <div>
-                <h2>Restaurant Information</h2>
+            <div style={containerStyle}>
+                <h2 style={{fontSize: '2em'}}>Restaurant Information</h2>
                 <input 
                     name="restaurantName"
                     type="text"
@@ -152,27 +167,29 @@ export class AccountCreation extends React.Component {
     render() {
         if (this.props.userType === "user") {
             return (
-                <form onSubmit={this.handleSubmit}>
+                <form style={formStyle} onSubmit={this.handleSubmit}>
                     <this.UserForm />
-                    <div>
+                    <div style={containerStyle}>
                         <input
                             name="submit"
                             type="submit"
                             value="Create Account"
+                            style={inputStyle}
                         />
                     </div>
                 </form>
             )
         } else {
             return (
-                <form onSubmit={this.handleSubmit}>
+                <form style={formStyle} onSubmit={this.handleSubmit}>
                     <this.UserForm />
                     <this.RestaurantForm />
-                    <div>
+                    <div style={containerStyle}>
                         <input
                             name="submit"
                             type="submit"
                             value="Register Restaurant"
+                            style={inputStyle}
                         />
                     </div>
                 </form>

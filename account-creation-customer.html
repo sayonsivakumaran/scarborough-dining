@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create and Account | Scarborough Dining</title>
+        <meta lang="English">
+        <link rel="stylesheet" type="text/css" href="account-creation-style.css">
+        <script src="account-creation-validation.js"></script>
+    </head>
+    <body>
+        <div class="form">
+            <h2>Create an Account</h2>
+            <form class="form" onsubmit="return validation()">
+                <div class="form">
+                    <h3>Account Information</h3>
+                    <input id="name" type="text" required="true" placeholder="Full Name">
+                    <input id="email" type="email" required="true" placeholder="Email">
+                    <input id="phone-number" type="tel" required="true" placeholder="Personal Phone Number">
+                    <input id="password" type="password" required="true" placeholder="Password" onkeyup="validation();">
+                    <input id="password-confirm" type="password" required="true" placeholder="Confirm Password" onkeyup="validation();">
+                    <span id="password-match-message"></span>
+                </div>
+                <input id="create-account" type="submit" value="Create Account">
+            </form>
+        </div>
+    </body>
+</html>

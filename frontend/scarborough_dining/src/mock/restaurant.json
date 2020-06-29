@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers",
+        "phone" : "123-456-7890"
+    },
+    {
+        "id": 2,
+        "name" : "DapperQuokas fish shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Tokyo, Japan",
+        "description" : "the yummiest of fish",
+        "phone" : "123-456-7890"
+    },
+    {
+        "id": 3,
+        "name" : "DapperQuokas badger shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Mount Everest",
+        "description" : "the yummiest of badgers",
+        "phone" : "123-456-7890"
+    },
+    {
+        "id": 4,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers",
+        "phone" : "123-456-7890"
+    },
+    {
+        "id": 5,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers",
+        "phone" : "123-456-7890"
+    },
+    {
+        "id": 6,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers",
+        "phone" : "123-456-7890"
+    },
+    {
+        "id": 7,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers",
+        "phone" : "123-456-7890"
+    },
+    {
+        "id": 8,
+        "name" : "DapperQuokas beaver shop",
+        "picture" : "mock/sushi-shop.png",
+        "address" : "Niagra falls",
+        "description" : "the yummiest of beavers",
+        "phone" : "123-456-7890"
+    } 
+]

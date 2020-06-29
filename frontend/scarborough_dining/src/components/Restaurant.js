@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './Restaurants.css';
+import { Link } from 'react-router-dom';
 
 export default class Restaurant extends Component {
     render() {
@@ -13,11 +14,13 @@ export default class Restaurant extends Component {
             id = this.props.restaurant.id;
 
         }
-        
+
         return (
             <div className="restaurant">
-                <img className="logo" src={picture} />
-                <p className="title">{name}</p>  
+                <Link to={`/restaurants/${id}`}>
+                    <img className="logo" src={picture} />
+                </Link>
+                <p className="title">{name}</p>
                 <p className="description">{address}</p>
                 <p className="description">{description}</p>
             </div>

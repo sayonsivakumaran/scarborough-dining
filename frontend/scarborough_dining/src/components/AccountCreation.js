@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios'
 
 const formStyle = {
     display: 'flex',
@@ -34,7 +35,7 @@ export class AccountCreation extends React.Component {
             passwordMatch: 'hidden',
             //Restaurant Information
             restaurantName: '',
-            restaruantPhone: '',
+            restaurantPhone: '',
             restaurantAddress: '',
             restaurantCuisine: '',
         }
@@ -56,7 +57,29 @@ export class AccountCreation extends React.Component {
 
     //Handle when the "submit" button on the form is pressed
     handleSubmit(event) {
-        
+        event.preventDefault();
+        let info = '';
+        if (this.props.userType === "user") {
+
+        } else { 
+            //restaurant owner information from the field
+            const name = this.state.fullName.split(" ");
+            let middleName = name.length === 3 ? name[1] : "";
+            info = 
+            {
+                firstName: name[0],
+                middleName: middleName,
+                lastName: name[name.length-1],
+                email: this.state.email,
+                password: this.state.password,
+                restaurantID: -100 //placeholder value for now as the field is required
+            }
+
+            //sending a post request to the owners backend route with the information from the form
+            axios.post('http://localhost:5000/owners/add', info) //change this to support heroku
+            .then(console.log("success"));      
+        }
+
     }
 
     passwordValidate(event) {

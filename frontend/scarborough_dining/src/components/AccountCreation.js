@@ -1,23 +1,5 @@
 import React, { Component } from 'react'
-
-const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '10% 30%'
-}
-
-const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '10px 0'
-}
-
-const inputStyle = {
-    padding: '1em',
-    fontSize: '20px',
-    margin: '10px 0px'
-}
+import './style/AccountCreation.css';
 
 export class AccountCreation extends React.Component {
 
@@ -75,14 +57,14 @@ export class AccountCreation extends React.Component {
 
     UserForm = () => {
         return (
-            <div style={containerStyle}>
-                <h2 style={{fontSize: '2em'}}>Account Information</h2>
+            <div className="containerStyle">
+                <h2 className="title">Account Information</h2>
                 <input 
                     name="fullName"
                     type="text"
                     placeholder="Full Name"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -90,7 +72,7 @@ export class AccountCreation extends React.Component {
                     type="email"
                     placeholder="Email"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -99,7 +81,7 @@ export class AccountCreation extends React.Component {
                     pattern="[0-9]{10}"
                     placeholder="Phone Number"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -107,7 +89,7 @@ export class AccountCreation extends React.Component {
                     type="password"
                     placeholder="Password"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -115,7 +97,7 @@ export class AccountCreation extends React.Component {
                     type="password"
                     placeholder="Confirm Password"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.passwordValidate}
                 />
                 <p style={{color: 'red', visibility: `${this.state.passwordMatch}`}}>Passwords Do Not Match</p>
@@ -125,14 +107,14 @@ export class AccountCreation extends React.Component {
 
     RestaurantForm = () => {
         return (
-            <div style={containerStyle}>
-                <h2 style={{fontSize: '2em'}}>Restaurant Information</h2>
+            <div className="containerStyle">
+                <h2 className="title">Restaurant Information</h2>
                 <input 
                     name="restaurantName"
                     type="text"
                     placeholder="Restaurant Name"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -141,7 +123,7 @@ export class AccountCreation extends React.Component {
                     pattern="[0-9]{10}"
                     placeholder="Restaurant Phone"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -149,7 +131,7 @@ export class AccountCreation extends React.Component {
                     type="text"
                     placeholder="Restaurant Address"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -157,7 +139,7 @@ export class AccountCreation extends React.Component {
                     type="text"
                     placeholder="Restaurant Cuisine"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
             </div>
@@ -167,29 +149,32 @@ export class AccountCreation extends React.Component {
     render() {
         if (this.props.userType === "user") {
             return (
-                <form style={formStyle} onSubmit={this.handleSubmit}>
+                <form className="formStyle" onSubmit={this.handleSubmit}>
                     <this.UserForm />
-                    <div style={containerStyle}>
+                    <div className="containerStyle">
                         <input
                             name="submit"
                             type="submit"
                             value="Create Account"
-                            style={inputStyle}
+                            className="inputStyle"
                         />
                     </div>
                 </form>
             )
         } else {
             return (
-                <form style={formStyle} onSubmit={this.handleSubmit}>
-                    <this.UserForm />
-                    <this.RestaurantForm />
-                    <div style={containerStyle}>
+                <form className="formStyle" onSubmit={this.handleSubmit}>
+                    <div className="formContainer">
+                        <this.UserForm />
+                        <this.RestaurantForm />
+                    </div>
+
+                    <div className="containerStyle">
                         <input
                             name="submit"
                             type="submit"
                             value="Register Restaurant"
-                            style={inputStyle}
+                            className="inputStyle"
                         />
                     </div>
                 </form>
@@ -197,124 +182,4 @@ export class AccountCreation extends React.Component {
         }
     }
 
-
-
-/*
-const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '10% 30%'
-}
-
-const inputStyle = {
-    padding: '1em',
-    fontSize: '20px',
-    margin: '10px 0px'
-}
-
-const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '10px 0'
-}
-
-function UserForm() {
-    return (
-        <div style={containerStyle} name="accountInformation">
-            <h2 style={{fontSize: '2em'}}>Account Information</h2>
-            <input style={inputStyle} name="fullName" type="text" placeholder="Full Name" required={true} />
-            <input style={inputStyle} name="email" type="email" placeholder="Email" required={true} />
-            <input style={inputStyle} name="phoneNumber" type="tel" placeholder="Phone Number" required={true} />
-            <input style={inputStyle} name="password" type="password" placeholder="Password" required={true} />
-            <input style={inputStyle} name="confirmPassword" type="password" placeholder="Confirm Password" required={true} />
-        </div>
-    )
-}
-
-function RestaurantForm() {
-    return (
-        <div style={containerStyle} name="restaurantInformation">
-            <h2 style={{fontSize: '2em'}}>Restaurant Information</h2>
-            <input style={inputStyle} name="restaurantName" type="text" placeholder="Business Name" required={true} />
-            <input style={inputStyle} name="restaurantPhone" type="tel" placeholder="Business Number" required={true} />
-            <input style={inputStyle} name="restaurantLocation" type="text" placeholder="Business Address" required={true} />
-            <input style={inputStyle} name="restaurantCuisine" type="text" placeholder="Type of Food" required={true} />
-        </div>
-    )
-}
-
-
-var i = 1;
-
-//Renders the customer vs restaurant account creation form depending on which link user clicks
-export class AccountCreation extends React.Component {
-
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: ''
-        }
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        console.log("Hello " + (i + 1));
-    }
-
-    UserForm() {
-        return (
-            <div>
-
-            </div>
-        )
-    }
-
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="hello"/>
-                <input type="submit" value="Submit" />
-            </form>
-        )
-    }
-    /*
-
-    onChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-    }
-
-    onSubmit = (e) => {
-
-    }
-
-
-    render() {
-        if (this.props.userType === "restaurant") {
-            return (
-                <form style={formStyle} name="accountCreationForm" >
-                    <UserForm />
-                    <RestaurantForm />
-                    <div style={{padding: '0 10%'}}>
-                        <input style={inputStyle} name="createAccount" type="submit" value="Register Restaurant"/>
-                    </div>
-                </form>
-            )
-        }
-        else {
-            return (
-                <form style={formStyle} name="accountCreationForm">
-                    <UserForm />
-                    <div style={{padding: '0 10%'}}>
-                        <input style={inputStyle} name="createAccount" type="submit" value="Create Account" />
-                    </div>
-                </form>
-            )
-        }
-    }
-}
-*/
 } export default AccountCreation

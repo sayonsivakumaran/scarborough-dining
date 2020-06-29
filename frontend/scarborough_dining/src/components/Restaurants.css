@@ -23,3 +23,15 @@
     max-width: 400px;
 
 }
+
+.restaurant-info{
+    background-color: #f3f3f3;
+    padding: 10px;
+}
+
+.restaurant-header{
+    background: cadetblue;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}

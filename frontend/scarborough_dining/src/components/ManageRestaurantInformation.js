@@ -73,6 +73,7 @@ export class ManageRestaurantInformation extends Component {
     createItemForms = (e) => {
         e.preventDefault()
         const {totalItems} = this.state;
+        console.log(process.env);
         this.setState({
             totalItems: totalItems + 1
         })

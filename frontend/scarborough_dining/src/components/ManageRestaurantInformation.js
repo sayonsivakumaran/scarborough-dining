@@ -30,12 +30,14 @@ function RestaurantInformationForm() {
     return (
         <div style={containerStyle} name="accountInformation">
             {/* TODO: change the input types */}
-            <h2 style={{fontSize: '2em'}}>Account Information</h2>
-            <h2 style={{fontSize: '1.5em'}}>Logo</h2>
-            <FileUpload/>
-            <h2 style={{fontSize: '1.5em'}}>Images & Videos</h2>
-            <FileUpload/>
-            <h2 style={{fontSize: '1.5em'}}>Item Description</h2>
+            {/*
+                <h2 className='font-weight-bold' style={{fontSize: '2em'}}>Account Information</h2>
+                <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Logo</h2>
+                <FileUpload/>
+                <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Images & Videos</h2>
+                <FileUpload/>
+            */}
+            <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
             <textarea style={descriptionStyle} name="itemDescription"/>    
         </div>
     )
@@ -44,11 +46,18 @@ function RestaurantInformationForm() {
 function MenuItemForm(props) {
     return (
         <div style={containerStyle} name="menuItemForm">
-            <h2 style={{fontSize: '1.5em'}}>Item #{props.number}</h2>
-            <input style={inputStyle} name="dishName" type="text" placeholder="Name" required={true} />
-            <input style={inputStyle} name="dishPrice" type="text" placeholder="Price" required={true} />
-            <textarea style={descriptionStyle} placeholder="Description" name="itemDescription"/>  
-            <input style={inputStyle} name="dishType" type="text" placeholder="Dish Type" required={true} />
+            <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Item #{props.number}</h2>
+            <input className='mt-4' style={inputStyle} name="dishName" type="text" placeholder="Name" required={true} />
+            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Price</h2>
+            <input className='mt-4' style={inputStyle} name="dishPrice" type="text" placeholder="Price" required={true} />
+            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Description</h2>
+            <textarea className='mt-4' style={descriptionStyle} placeholder="Description" name="itemDescription"/>  
+            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Dish Type</h2>
+            <input className='mt-4' style={inputStyle} name="dishType" type="text" placeholder="Dish Type" required={true} />
+            {/*
+            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Image</h2>
+            <FileUpload />
+            */}
         </div>
     )
 }
@@ -69,10 +78,20 @@ export class ManageRestaurantInformation extends Component {
         })
     }
 
+    onSubmit = (event) => {
+        event.preventDefault();
+        console.log('eeeee');
+        console.log(event.target[0].value);
+        console.log(event.target[1].value);
+        console.log(event.target[2].value);
+        console.log(event.target[3].value);
+        console.log(event.target[4].value);
+    }
+
     render() {
         return (
             <div style={containerStyle}>
-                <form style={formStyle} name="accountCreationForm">
+                <form style={formStyle} name="accountCreationForm" onSubmit={this.onSubmit}>
                     <div className='mb-4'>
                         <RestaurantInformationForm />
                     </div>

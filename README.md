@@ -13,3 +13,7 @@
 - [Richard Gao](https://github.com/Specttt)
 - [Riyasat Talukder](https://github.com/RiyasatTalukder)
 - [Sayon Sivakumaran](https://github.com/sayonsivakumaran)
+
+### Latest Release
+
+- [Scarborough Dining](https://scarborough-dining-v1.herokuapp.com/)

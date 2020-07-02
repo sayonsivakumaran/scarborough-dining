@@ -76,7 +76,7 @@ export class AccountCreation extends React.Component {
             }
 
             //sending a post request to the owners backend route with the information from the form
-            axios.post('http://localhost:5000/owners/add', info) //change this to support heroku
+            axios.post('/owners/add', info) //change this to support heroku
             .then(console.log("success"));      
         }
 

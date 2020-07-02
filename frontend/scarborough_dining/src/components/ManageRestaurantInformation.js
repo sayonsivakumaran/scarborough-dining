@@ -26,17 +26,20 @@ const descriptionStyle = {
 }
 
 
-function RestaurantInformationForm() {
+function RestaurantInformationForm(props) {
     return (
         <div style={containerStyle} name="accountInformation">
-            {/* TODO: change the input types */}
-            {/*
-                <h2 className='font-weight-bold' style={{fontSize: '2em'}}>Account Information</h2>
-                <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Logo</h2>
-                <FileUpload/>
-                <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Images & Videos</h2>
-                <FileUpload/>
-            */}
+            <h2 className='font-weight-bold' style={{fontSize: '2em'}}>Account Information</h2>
+            <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Logo</h2>
+            <FileUpload onUpload={props.onLogoInputChange}/>
+            <div className='upload-file mb-4'>
+                <input type='submit' value='Upload' className='btn btn-primary btn-block mt-4'/>
+            </div>
+            <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Images & Videos</h2>
+            <FileUpload/>
+            <div className='upload-file mb-4'>
+                <input type='submit' value='Upload' className='btn btn-primary btn-block mt-4'/>
+            </div>
             <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
             <textarea style={descriptionStyle} name="itemDescription"/>    
         </div>
@@ -66,27 +69,38 @@ export class ManageRestaurantInformation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            totalItems: 0
+            totalItems: 0,
+            logo: '',
+            logoname: 'Choose File',
+            uploadedLogo: {}
         }
     }
 
-    createItemForms = (e) => {
+    createItemForms = e => {
         e.preventDefault()
         const {totalItems} = this.state;
-        console.log(process.env);
+        // console.log(process.env);
         this.setState({
             totalItems: totalItems + 1
         })
+    }
+
+    onLogoInputChange = e => {
+        this.setState({
+            logo: e.target.files[0],
+            logoname: e.target.files[0].name
+        })
+        console.log(e);
     }
 
     onSubmit = (event) => {
         event.preventDefault();
         console.log('eeeee');
         console.log(event.target[0].value);
-        console.log(event.target[1].value);
-        console.log(event.target[2].value);
-        console.log(event.target[3].value);
-        console.log(event.target[4].value);
+        // console.log(event.target[1].value);
+        // console.log(event.target[2].value);
+        // console.log(event.target[3].value);
+        // console.log(event.target[4].value);
     }
 
     render() {
@@ -94,7 +108,7 @@ export class ManageRestaurantInformation extends Component {
             <div style={containerStyle}>
                 <form style={formStyle} name="accountCreationForm" onSubmit={this.onSubmit}>
                     <div className='mb-4'>
-                        <RestaurantInformationForm />
+                        <RestaurantInformationForm onLogoInputChange={this.onLogoInputChange}/>
                     </div>
                     {
                         [...Array(this.state.totalItems)].map((k, i) => <MenuItemForm number={i + 1}/>)

@@ -33,6 +33,7 @@ export class App extends Component {
                 () => <AccountCreation userType={"restaurant"} />
               } />
               <Route path="/restaurants/:id" component={RestaurantProfile} />
+              <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

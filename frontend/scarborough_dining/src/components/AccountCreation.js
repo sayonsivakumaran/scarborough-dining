@@ -72,11 +72,11 @@ export class AccountCreation extends React.Component {
                 lastName: name[name.length-1],
                 email: this.state.email,
                 password: this.state.password,
-                restaurantID: -100 //placeholder value for now as the field is required
+                restaurantID: Math.floor((Math.random()*1000)+1)  //random placeholder value for now as the field is required
             }
 
             //sending a post request to the owners backend route with the information from the form
-            axios.post('/owners/add', info) //change this to support heroku
+            axios.post('/owners/add', info) 
             .then(console.log("success"));      
         }
 

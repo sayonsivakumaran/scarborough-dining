@@ -14,9 +14,9 @@ export default class FileUpload extends Component {
 
     onFileInputChange = e => {
         this.setState({
-            file: e.target.files[0],
             filename: e.target.files[0].name
-        })
+        });
+        this.props.onFileUpload(e);
     }
 
     onSubmit = async e => {
@@ -42,12 +42,12 @@ export default class FileUpload extends Component {
 
     render() {
         return (
-                <div className='custom-file mt-4'>
-                    <input type='file' className='custom-file-input' id='customFile' onChange={this.props.onUpload}/>
-                    <label className='custom-file-label' htmlFor='customFile'>
-                        {this.state.filename}
-                    </label>
-                </div>
+            <div style={{zIndex: 0}} className='custom-file mt-4'>
+                <input type='file' className='custom-file-input' id='customFile' onChange={this.onFileInputChange}/>
+                <label className='custom-file-label' htmlFor='customFile'>
+                    {this.state.filename}
+                </label>
+            </div>
         );
     }
 }

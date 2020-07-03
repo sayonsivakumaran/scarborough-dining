@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import FileUpload from './FileUpload';
+import Select from 'react-select';
+import MENU_CATEGORIES from '../enums/menu_categories';
+
+const options = Object.keys(MENU_CATEGORIES).map(k => {
+	return { value : k, label : MENU_CATEGORIES[k] }
+});
+
+console.log(options);
 
 const formStyle = {
     display: 'flex',
@@ -25,44 +33,35 @@ const descriptionStyle = {
     width: '100%'
 }
 
-
-function RestaurantInformationForm(props) {
+function MenuItemForm(props) {
     return (
-        <div style={containerStyle} name="accountInformation">
-            <h2 className='font-weight-bold' style={{fontSize: '2em'}}>Account Information</h2>
-            <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Logo</h2>
-            <FileUpload onUpload={props.onLogoInputChange}/>
-            <div className='upload-file mb-4'>
-                <input type='submit' value='Upload' className='btn btn-primary btn-block mt-4'/>
+        <div style={containerStyle} name="menuItemForm">
+            <h2 className='mt-4 font-weight-bold' style={{fontSize: '1.5em'}}>Item #{props.number}</h2>
+            <input onChange={props.onChange} className='mt-4' style={inputStyle} name="name" type="text" placeholder="Name" required={true} />
+            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Price</h2>
+            <input onChange={props.onChange} className='mt-4' style={inputStyle} name="price" type="text" placeholder="Price" required={true} />
+            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Description</h2>
+            <textarea onChange={props.onChange} className='mt-4' style={descriptionStyle} placeholder="Description" name="description"/>  
+            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Dish Type</h2>
+            <div className='w-100' style={{zIndex: 2}}>
+                <Select onChange={props.onAddCuisineType} className='w-100 mt-4' isMulti options={options} />
             </div>
-            <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Images & Videos</h2>
-            <FileUpload/>
-            <div className='upload-file mb-4'>
-                <input type='submit' value='Upload' className='btn btn-primary btn-block mt-4'/>
-            </div>
-            <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
-            <textarea style={descriptionStyle} name="itemDescription"/>    
+            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Image</h2>
+            <FileUpload onFileUpload={props.onImageChange}/>
         </div>
     )
 }
 
-function MenuItemForm(props) {
-    return (
-        <div style={containerStyle} name="menuItemForm">
-            <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Item #{props.number}</h2>
-            <input className='mt-4' style={inputStyle} name="dishName" type="text" placeholder="Name" required={true} />
-            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Price</h2>
-            <input className='mt-4' style={inputStyle} name="dishPrice" type="text" placeholder="Price" required={true} />
-            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Description</h2>
-            <textarea className='mt-4' style={descriptionStyle} placeholder="Description" name="itemDescription"/>  
-            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Dish Type</h2>
-            <input className='mt-4' style={inputStyle} name="dishType" type="text" placeholder="Dish Type" required={true} />
-            {/*
-            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Image</h2>
-            <FileUpload />
-            */}
-        </div>
-    )
+function DeleteItem(props) {
+    if (props.totalItems > 0) {
+        return (
+            <div className='delete-item mb-4'>
+                <input type='submit' onClick={props.onClick} value='Delete Item' className='bg-danger btn btn-primary btn-block mt-4'/>
+            </div>
+        );
+    } else {
+        return null;
+    }
 }
 
 export class ManageRestaurantInformation extends Component {
@@ -70,33 +69,78 @@ export class ManageRestaurantInformation extends Component {
         super(props);
         this.state = {
             totalItems: 0,
-            logo: '',
-            logoname: 'Choose File',
-            uploadedLogo: {}
+            logo: {},
+            description: '',
+            menuItems: []
         }
     }
 
-    createItemForms = e => {
+    addMenuItem = e => {
         e.preventDefault()
-        const {totalItems} = this.state;
-        // console.log(process.env);
+        let {totalItems, menuItems} = this.state;
+        menuItems = menuItems.concat({
+            name: '',
+            restaurantID: 'RestaurantID1',      // TODO: change when log in works as expected
+            price: 0, 
+            image: {},
+            description: '',
+            cuisineTypes: []
+        });
         this.setState({
-            totalItems: totalItems + 1
+            totalItems: totalItems + 1,
+            menuItems: menuItems
         })
     }
 
-    onLogoInputChange = e => {
+    deleteMenuItem = e => {
+        e.preventDefault();
+        const {totalItems} = this.state;
         this.setState({
-            logo: e.target.files[0],
-            logoname: e.target.files[0].name
-        })
-        console.log(e);
+            totalItems: totalItems - 1
+        });
+    }
+
+    onLogoInputChange = e => {
+        e.preventDefault();
+        this.setState({
+            logo: e.target.files[0]
+        });
+    }
+
+    onRestaurantDescriptionChange = e => {
+        this.setState({
+            description: e.target.value
+        });
+    }
+
+    onMenuItemChange = (e, i) => {
+        let {menuItems} = this.state;
+        menuItems[i][e.target.name] = e.target.value;
+        this.setState({
+            menuItems: menuItems
+        });
+    }
+
+    onMenuCuisineChange = (e, i) => {
+        let {menuItems} = this.state;
+        menuItems[i]['cuisineTypes'] = e.map(v => v.value);
+        this.setState({
+            menuItems: menuItems
+        });
+    }
+
+    onMenuImageChange = (e, i) => {
+        let {menuItems} = this.state;
+        menuItems[i]['image'] = e.target.files[0];
+        this.setState({
+            menuItems: menuItems
+        });
     }
 
     onSubmit = (event) => {
         event.preventDefault();
         console.log('eeeee');
-        console.log(event.target[0].value);
+        console.log(this.state);
         // console.log(event.target[1].value);
         // console.log(event.target[2].value);
         // console.log(event.target[3].value);
@@ -105,17 +149,31 @@ export class ManageRestaurantInformation extends Component {
 
     render() {
         return (
-            <div style={containerStyle}>
+            <div>
                 <form style={formStyle} name="accountCreationForm" onSubmit={this.onSubmit}>
-                    <div className='mb-4'>
-                        <RestaurantInformationForm onLogoInputChange={this.onLogoInputChange}/>
+                    <div className='mb-4' style={containerStyle} name="accountInformation">
+                        <h2 className='font-weight-bold' style={{fontSize: '2em'}}>Account Information</h2>
+                        <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Logo</h2>
+                        <FileUpload onFileUpload={this.onLogoInputChange}/>
+                        <h2 className='font-weight-bold mt-4' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
+                        <textarea onChange={this.onRestaurantDescriptionChange} style={descriptionStyle} name="itemDescription"/>    
                     </div>
                     {
-                        [...Array(this.state.totalItems)].map((k, i) => <MenuItemForm number={i + 1}/>)
+                        // TODO: find a way to update the state array
+                        [...Array(this.state.totalItems)].map(
+                            (k, i) => <MenuItemForm 
+                                onAddCuisineType={e => this.onMenuCuisineChange(e, i)}
+                                onImageChange={e => this.onMenuImageChange(e, i)}
+                                onChange={e => this.onMenuItemChange(e, i)}
+                                key={i + 1}
+                                number={i + 1}/>
+                        )
                     }
-                    <input style={inputStyle} onClick={this.createItemForms} name="addMenuItem" type="submit" value="Add Menu Item"/>
+                    <DeleteItem totalItems={this.state.totalItems} onClick={this.deleteMenuItem}/>
+                    <input style={inputStyle} onClick={this.addMenuItem} name="addMenuItem" type="submit" value="Add Menu Item"/>
                     <input style={inputStyle} name="submitRestaurantInformation" type="submit" value="Submit Information"/>
                 </form>
+                
             </div>
         )
     }

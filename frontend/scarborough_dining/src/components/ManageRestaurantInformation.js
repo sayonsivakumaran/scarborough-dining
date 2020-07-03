@@ -8,8 +8,6 @@ const options = Object.keys(MENU_CATEGORIES).map(k => {
 	return { value : k, label : MENU_CATEGORIES[k] }
 });
 
-console.log(options);
-
 const formStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -42,7 +40,7 @@ function MenuItemForm(props) {
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Price</h2>
             <input onChange={props.onPriceChange} className='mt-4' style={inputStyle} name="price" type="number" step="0.01" placeholder="Price" required={true} />
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Description</h2>
-            <textarea onChange={props.onDescriptionChange} className='mt-4' style={descriptionStyle} placeholder="Description" name="description"/>  
+            <textarea onChange={props.onDescriptionChange} className='mt-4' style={descriptionStyle} placeholder='' name="description"/>  
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Dish Type</h2>
             <div className='w-100' style={{zIndex: 2}}>
                 <Select onChange={props.onAddCuisineType} className='w-100 mt-4' isMulti options={options} />
@@ -106,7 +104,7 @@ export class ManageRestaurantInformation extends Component {
     onLogoInputChange = e => {
         e.preventDefault();
         this.setState({
-            logo: e.target.files[0]
+            logo: e.target.files[0] || undefined
         });
     }
 
@@ -150,34 +148,68 @@ export class ManageRestaurantInformation extends Component {
 
     onMenuImageChange = (e, i) => {
         let {menuItems} = this.state;
-        menuItems[i].image = e.target.files[0];
+        menuItems[i].image = e.target.files[0] || undefined;
         this.setState({
             menuItems: menuItems
         });
     }
 
-    onSubmit = e => {
-        e.preventDefault();
-        let {menuItems} = this.state;
-        // console.log('eeeee');
-        // console.log(this.state);
-        // // console.log(event.target[1].value);
-        // // console.log(event.target[2].value);
-        // // console.log(event.target[3].value);
-        // // console.log(event.target[4].value);
+    _retreiveMenuImageURLs = async menuItems => {
         let responses = menuItems.map(menuItem => {
             const formData = new FormData();
             formData.append('file', menuItem.image);
-            return axios.post('http://localhost:5000/media_upload', formData, {
+            return axios.post('http://localhost:5000/media_upload', formData, {    // TODO: change to relative URL when that is set up properly
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 } 
             });
         });
 
-        Promise.all(responses).then(data => {
-            console.log(data);
+        return Promise.all(responses).then(responseArray => {
+            return responseArray.map(response => response.data.result.secure_url || '');
         });
+    }
+
+    _retreiveLogoImageURL = async logo => {
+        const formData = new FormData();
+        formData.append('file', logo);
+        return axios.post('http://localhost:5000/media_upload', formData, {     // TODO: change to relative URL when that is set up properly
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            } 
+        }).then(
+            response => response.data.result.secure_url || ''
+        );
+    }
+
+    _postMenuItemData = async menuItems => {
+        let responses = menuItems.map(menuItem => axios.post('http://localhost:5000/menu_items/add', menuItem));
+
+        return Promise.all(responses).then(responseArray => {
+            return responseArray.map(response => response);
+        });
+    }
+
+    onSubmit = async e => {
+        e.preventDefault();
+        let {menuItems, logo} = this.state;
+        // TODO: add the logo image URL to the account once the login feature is
+        let [logoImageURL, menuImageURLs] = await Promise.all(
+            [this._retreiveLogoImageURL(logo), this._retreiveMenuImageURLs(menuItems)]
+        );
+        
+        let menuItemReqs = menuItems.map((menuItem, i) => {
+            return {
+                name: menuItem.name,
+                restaurantID: menuItem.restaurantID,
+                price: menuItem.price,
+                description: menuItem.description,
+                imageURL: menuImageURLs[i],
+                cuisineTypes: menuItem.cuisineTypes
+            };
+        });
+
+        let response = await this._postMenuItemData(menuItemReqs);
     }
 
     render() {
@@ -185,10 +217,10 @@ export class ManageRestaurantInformation extends Component {
             <div>
                 <form style={formStyle} name="accountCreationForm" onSubmit={this.onSubmit}>
                     <div className='mb-4' style={containerStyle} name="accountInformation">
-                        <h2 className='font-weight-bold' style={{fontSize: '2em'}}>Account Information</h2>
+                        <h2 className='mb-4 font-weight-bold' style={{fontSize: '2em'}}>Account Information</h2>
                         <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Logo</h2>
                         <FileUpload onFileUpload={this.onLogoInputChange}/>
-                        <h2 className='font-weight-bold mt-4' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
+                        <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
                         <textarea onChange={this.onRestaurantDescriptionChange} style={descriptionStyle} name="itemDescription"/>    
                     </div>
                     {

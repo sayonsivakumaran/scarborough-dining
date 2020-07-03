@@ -13,8 +13,9 @@ export default class FileUpload extends Component {
     }
 
     onFileInputChange = e => {
+        const filename = e.target.files[0] ? e.target.files[0].name : 'Choose File';
         this.setState({
-            filename: e.target.files[0].name
+            filename: filename
         });
         this.props.onFileUpload(e);
     }

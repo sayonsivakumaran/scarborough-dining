@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FileUpload from './FileUpload';
 import Select from 'react-select';
 import MENU_CATEGORIES from '../enums/menu_categories';
+import axios from 'axios';
 
 const options = Object.keys(MENU_CATEGORIES).map(k => {
 	return { value : k, label : MENU_CATEGORIES[k] }
@@ -37,11 +38,11 @@ function MenuItemForm(props) {
     return (
         <div style={containerStyle} name="menuItemForm">
             <h2 className='mt-4 font-weight-bold' style={{fontSize: '1.5em'}}>Item #{props.number}</h2>
-            <input onChange={props.onChange} className='mt-4' style={inputStyle} name="name" type="text" placeholder="Name" required={true} />
+            <input onChange={props.onNameChange} className='mt-4' style={inputStyle} name="name" type="text" placeholder="Name" required={true} />
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Price</h2>
-            <input onChange={props.onChange} className='mt-4' style={inputStyle} name="price" type="text" placeholder="Price" required={true} />
+            <input onChange={props.onPriceChange} className='mt-4' style={inputStyle} name="price" type="number" step="0.01" placeholder="Price" required={true} />
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Description</h2>
-            <textarea onChange={props.onChange} className='mt-4' style={descriptionStyle} placeholder="Description" name="description"/>  
+            <textarea onChange={props.onDescriptionChange} className='mt-4' style={descriptionStyle} placeholder="Description" name="description"/>  
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Dish Type</h2>
             <div className='w-100' style={{zIndex: 2}}>
                 <Select onChange={props.onAddCuisineType} className='w-100 mt-4' isMulti options={options} />
@@ -94,9 +95,11 @@ export class ManageRestaurantInformation extends Component {
 
     deleteMenuItem = e => {
         e.preventDefault();
-        const {totalItems} = this.state;
+        let {totalItems, menuItems} = this.state;
+        menuItems.pop()
         this.setState({
-            totalItems: totalItems - 1
+            totalItems: totalItems - 1,
+            menuItems: menuItems
         });
     }
 
@@ -113,9 +116,25 @@ export class ManageRestaurantInformation extends Component {
         });
     }
 
-    onMenuItemChange = (e, i) => {
+    onMenuNameChange = (e, i) => {
         let {menuItems} = this.state;
-        menuItems[i][e.target.name] = e.target.value;
+        menuItems[i].name = e.target.value;
+        this.setState({
+            menuItems: menuItems
+        });
+    }
+
+    onMenuPriceChange = (e, i) => {
+        let {menuItems} = this.state;
+        menuItems[i].price = parseFloat(e.target.value);
+        this.setState({
+            menuItems: menuItems
+        });
+    }
+
+    onMenuDescriptionChange = (e, i) => {
+        let {menuItems} = this.state;
+        menuItems[i].description = e.target.value;
         this.setState({
             menuItems: menuItems
         });
@@ -123,7 +142,7 @@ export class ManageRestaurantInformation extends Component {
 
     onMenuCuisineChange = (e, i) => {
         let {menuItems} = this.state;
-        menuItems[i]['cuisineTypes'] = e.map(v => v.value);
+        menuItems[i].cuisineTypes = e.map(v => v.value);
         this.setState({
             menuItems: menuItems
         });
@@ -131,20 +150,34 @@ export class ManageRestaurantInformation extends Component {
 
     onMenuImageChange = (e, i) => {
         let {menuItems} = this.state;
-        menuItems[i]['image'] = e.target.files[0];
+        menuItems[i].image = e.target.files[0];
         this.setState({
             menuItems: menuItems
         });
     }
 
-    onSubmit = (event) => {
-        event.preventDefault();
-        console.log('eeeee');
-        console.log(this.state);
-        // console.log(event.target[1].value);
-        // console.log(event.target[2].value);
-        // console.log(event.target[3].value);
-        // console.log(event.target[4].value);
+    onSubmit = e => {
+        e.preventDefault();
+        let {menuItems} = this.state;
+        // console.log('eeeee');
+        // console.log(this.state);
+        // // console.log(event.target[1].value);
+        // // console.log(event.target[2].value);
+        // // console.log(event.target[3].value);
+        // // console.log(event.target[4].value);
+        let responses = menuItems.map(menuItem => {
+            const formData = new FormData();
+            formData.append('file', menuItem.image);
+            return axios.post('http://localhost:5000/media_upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                } 
+            });
+        });
+
+        Promise.all(responses).then(data => {
+            console.log(data);
+        });
     }
 
     render() {
@@ -164,7 +197,9 @@ export class ManageRestaurantInformation extends Component {
                             (k, i) => <MenuItemForm 
                                 onAddCuisineType={e => this.onMenuCuisineChange(e, i)}
                                 onImageChange={e => this.onMenuImageChange(e, i)}
-                                onChange={e => this.onMenuItemChange(e, i)}
+                                onNameChange={e => this.onMenuNameChange(e, i)}
+                                onPriceChange={e => this.onMenuPriceChange(e, i)}
+                                onDescriptionChange={e => this.onMenuDescriptionChange(e, i)}
                                 key={i + 1}
                                 number={i + 1}/>
                         )

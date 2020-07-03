@@ -13,6 +13,10 @@ router.route('/').post((req, res) => {
     console.log(req);
     const { file } = req.files;
 
+    if (file === {}) {
+        res.json({ "result" : {} });
+    }
+
     cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
         if (err) {
             console.error(err);

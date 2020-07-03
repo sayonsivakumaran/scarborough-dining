@@ -15,6 +15,9 @@
 - June 30
     - [taskboard](sprint2/tuesday_june_30_snapshot/taskboard_snapshot.png)
     - [burndown](sprint2/tuesday_june_30_snapshot/burndown_chart_snapshot.jpg)
+- July 2
+    - [taskboard](sprint2/thursday_july_2_snapshot/taskboard_snapshot.png)
+    - [burndown](sprint2/thursday_july_2_snapshot/burndown_chart_snapshot.jpg)
 
 
 

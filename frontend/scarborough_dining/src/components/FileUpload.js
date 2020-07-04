@@ -1,54 +1,45 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import * as Validation from '../utilities/validation';
 
 export default class FileUpload extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            file: '',
-            filename: 'Choose File',
-            uploadedFile: {}
+            filename: 'Choose File'
         }
     }
 
     onFileInputChange = e => {
-        const filename = e.target.files[0] ? e.target.files[0].name : 'Choose File';
-        this.setState({
-            filename: filename
-        });
-        this.props.onFileUpload(e);
+        const file = e.target.files[0];
+        if (Validation.isImageFile(file)) {
+            const filename = file ? file.name : 'Choose File';
+            this.setState({
+                filename: filename
+            });
+            this.props.onFileUpload(e);
+        }
     }
 
-    onSubmit = async e => {
-        e.preventDefault()
-        const formData = new FormData();
-        formData.append('file', this.state.file);
-        
-        try {
-            const res = await axios.post('http://localhost:5000/media_upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                } 
-            });
-
-            const { secure_url } = res.data.result;
-            console.log(secure_url);
-        } catch (err) {
-            if (err.response.status === 500) {
-                console.error('Problem found in the server');
-            } 
-        }
+    onFileInputDelete = e => {
+        this.setState({
+            filename: 'Choose File'
+        });
+        this.props.onImageDelete(e);
     }
 
     render() {
         return (
-            <div style={{zIndex: 0}} className='custom-file mt-4'>
-                <input type='file' className='custom-file-input' id='customFile' onChange={this.onFileInputChange}/>
-                <label className='custom-file-label' htmlFor='customFile'>
-                    {this.state.filename}
-                </label>
-            </div>
+            <Fragment>
+                <div style={{zIndex: 0}} className='custom-file mt-4'>
+                    <input type='file' className='custom-file-input' id='customFile' accept={this.props.acceptedFiles} onChange={this.onFileInputChange}/>
+                    <label className='custom-file-label' htmlFor='customFile'>
+                        {this.state.filename}
+                    </label>
+                </div>
+                <input type='submit' onClick={this.onFileInputDelete} value='Delete Image' className='bg-danger btn btn-primary mt-1'/>
+            </Fragment>
         );
     }
 }

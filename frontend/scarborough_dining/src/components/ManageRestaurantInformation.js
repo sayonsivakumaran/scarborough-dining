@@ -37,6 +37,8 @@ function MenuItemForm(props) {
         <div style={containerStyle} name="menuItemForm">
             <h2 className='mt-4 font-weight-bold' style={{fontSize: '1.5em'}}>Item #{props.number}</h2>
             <input onChange={props.onNameChange} className='mt-4' style={inputStyle} name="name" type="text" placeholder="Name" required={true} />
+            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Image</h2>
+            <FileUpload acceptedFiles={'image/*'} onFileUpload={props.onImageChange} onImageDelete={props.onImageDelete}/>
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Price</h2>
             <input onChange={props.onPriceChange} className='mt-4' style={inputStyle} name="price" type="number" step="0.01" placeholder="Price" required={true} />
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Description</h2>
@@ -45,8 +47,6 @@ function MenuItemForm(props) {
             <div className='w-100' style={{zIndex: 2}}>
                 <Select onChange={props.onAddCuisineType} className='w-100 mt-4' isMulti options={options} />
             </div>
-            <h2 className='mt-4' style={{fontSize: '1.5em'}}>Image</h2>
-            <FileUpload onFileUpload={props.onImageChange}/>
         </div>
     )
 }
@@ -68,7 +68,7 @@ export class ManageRestaurantInformation extends Component {
         super(props);
         this.state = {
             totalItems: 0,
-            logo: {},
+            logo: undefined,
             description: '',
             menuItems: []
         }
@@ -81,7 +81,7 @@ export class ManageRestaurantInformation extends Component {
             name: '',
             restaurantID: 'RestaurantID1',      // TODO: change when log in works as expected
             price: 0, 
-            image: {},
+            image: undefined,
             description: '',
             cuisineTypes: []
         });
@@ -106,6 +106,13 @@ export class ManageRestaurantInformation extends Component {
         this.setState({
             logo: e.target.files[0] || undefined
         });
+    }
+
+    onLogoInputDelete = e => {
+        e.preventDefault();
+        this.setState({
+            logo: undefined
+        })
     }
 
     onRestaurantDescriptionChange = e => {
@@ -149,6 +156,15 @@ export class ManageRestaurantInformation extends Component {
     onMenuImageChange = (e, i) => {
         let {menuItems} = this.state;
         menuItems[i].image = e.target.files[0] || undefined;
+        this.setState({
+            menuItems: menuItems
+        });
+    }
+
+    onMenuImageDelete = (e, i) => {
+        e.preventDefault();
+        let {menuItems} = this.state;
+        menuItems[i].image = undefined;
         this.setState({
             menuItems: menuItems
         });
@@ -209,6 +225,7 @@ export class ManageRestaurantInformation extends Component {
             };
         });
 
+        // TODO: use the response to get the menu item IDs and associate them with the restaurant owners
         let response = await this._postMenuItemData(menuItemReqs);
     }
 
@@ -219,7 +236,7 @@ export class ManageRestaurantInformation extends Component {
                     <div className='mb-4' style={containerStyle} name="accountInformation">
                         <h2 className='mb-4 font-weight-bold' style={{fontSize: '2em'}}>Account Information</h2>
                         <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Logo</h2>
-                        <FileUpload onFileUpload={this.onLogoInputChange}/>
+                        <FileUpload acceptedFiles={'image/*'} onFileUpload={this.onLogoInputChange} onImageDelete={this.onLogoInputDelete}/>
                         <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
                         <textarea onChange={this.onRestaurantDescriptionChange} style={descriptionStyle} name="itemDescription"/>    
                     </div>
@@ -232,6 +249,7 @@ export class ManageRestaurantInformation extends Component {
                                 onNameChange={e => this.onMenuNameChange(e, i)}
                                 onPriceChange={e => this.onMenuPriceChange(e, i)}
                                 onDescriptionChange={e => this.onMenuDescriptionChange(e, i)}
+                                onImageDelete={e => this.onMenuImageDelete(e, i)}
                                 key={i + 1}
                                 number={i + 1}/>
                         )

@@ -196,8 +196,7 @@ export class AccountCreation extends React.Component {
             )
         }
     }
-
-
+}
 
 /*
 const formStyle = {
@@ -315,6 +314,6 @@ export class AccountCreation extends React.Component {
             )
         }
     }
-}
-*/
-} export default AccountCreation
+}*/
+
+export default AccountCreation;

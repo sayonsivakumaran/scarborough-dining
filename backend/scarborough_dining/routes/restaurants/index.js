@@ -2,12 +2,20 @@ const express = require('express');
 const router = express.Router();
 let Restaurant = require('../../models/restaurant');
 
+/**
+ * Server-side get request to retrieve all restaurant data
+ * @return tall of the restaurant data
+ */
 router.route('/').get((req, res) => {
     Restaurant.find()
         .then(restaurant => res.json(restaurant))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * Server-side post request to upload a specific restaurant's data.
+ * Requires restaurant information.
+ */
 router.route('/add').post((req, res) => {
     const { 
         ownerID,
@@ -46,18 +54,31 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * Server-side get request to retrieve a specific restaurant's data.
+ * Requires a database id of the restaurant
+ * @return the restaurant associated with the id
+ */
 router.route('/:id').get((req, res) => {
     Restaurant.findById(req.params.id)
         .then(restaurant => res.json(restaurant))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * Server-side delete request to remove a specific restaurant's data.
+ * Requires a database id of the restaurant
+ */
 router.route('/:id').delete((req, res) => {
     Restaurant.findByIdAndDelete(req.params.id)
         .then(() => res.json('Restaurant has been removed.'))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * Server-side post request to update a specific restaurant's data.
+ * Requires a database id of the restaurant and new information
+ */
 router.route('/update/:id').post((req, res) => {
     Restaurant.findById(req.params.id)
         .then(restaurant => {

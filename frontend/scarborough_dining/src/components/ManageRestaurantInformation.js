@@ -170,7 +170,7 @@ export class ManageRestaurantInformation extends Component {
         });
     }
 
-    _retreiveMenuImageURLs = async menuItems => {
+    _retrieveMenuImageURLs = async menuItems => {
         let responses = menuItems.map(menuItem => {
             const formData = new FormData();
             formData.append('file', menuItem.image);
@@ -186,7 +186,7 @@ export class ManageRestaurantInformation extends Component {
         });
     }
 
-    _retreiveLogoImageURL = async logo => {
+    _retrieveLogoImageURL = async logo => {
         const formData = new FormData();
         formData.append('file', logo);
         return axios.post('http://localhost:5000/media_upload', formData, {     // TODO: change to relative URL when that is set up properly
@@ -211,7 +211,7 @@ export class ManageRestaurantInformation extends Component {
         let {menuItems, logo} = this.state;
         // TODO: add the logo image URL to the account once the login feature is
         let [logoImageURL, menuImageURLs] = await Promise.all(
-            [this._retreiveLogoImageURL(logo), this._retreiveMenuImageURLs(menuItems)]
+            [this._retrieveLogoImageURL(logo), this._retrieveMenuImageURLs(menuItems)]
         );
         
         let menuItemReqs = menuItems.map((menuItem, i) => {

@@ -3,12 +3,20 @@ const cloudinary = require('cloudinary').v2;
 const fs = require('fs');
 const router = express.Router();
 
+/**
+ * Configuration for Cloudinary storage service
+ */
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+/**
+ * Server-side post request to upload image data to database.
+ * Requires an image passed in the request.
+ * @return the data associated with the uploaded image in the database
+ */
 router.route('/').post((req, res) => {
     if (req.files == null) {
         res.json({ "result" : {} });

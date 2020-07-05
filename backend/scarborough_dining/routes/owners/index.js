@@ -30,8 +30,8 @@ router.route('/add').post((req, res) => {
     newOwner.password = Password.generateHashedPassword(password);
     
     newOwner.save()
-        .then(() => res.json('Owner has been added.'))
-        .catch(err => res.status(400).json('Error: ' + err));
+    .then(owner => res.json(owner))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:id').get((req, res) => {

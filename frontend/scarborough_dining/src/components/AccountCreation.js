@@ -38,6 +38,9 @@ export class AccountCreation extends React.Component {
             restaurantPhone: '',
             restaurantAddress: '',
             restaurantCuisine: '',
+            restaurantCity: '',
+            restaurantPostalCode: '',
+            restaurantProvince: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -56,7 +59,7 @@ export class AccountCreation extends React.Component {
     }
 
     //Handle when the "submit" button on the form is pressed
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
         let info = '';
         if (this.props.userType === "user") {
@@ -74,10 +77,39 @@ export class AccountCreation extends React.Component {
                 password: this.state.password,
                 restaurantID: Math.floor((Math.random()*1000)+1)  //random placeholder value for now as the field is required
             }
-
-            //sending a post request to the owners backend route with the information from the form
-            axios.post('/owners/add', info) 
-            .then(console.log("success"));      
+            const res = await axios.post('/owners/add', info)
+            .catch((error) => {
+                console.log(error);
+                alert("This email address is already in use");
+            });
+            
+            if(res !== undefined) {
+                
+                let restaurantInfo = 
+                {
+                    //fields for the restaurant information in the database 
+                    ownerID: res.data._id,
+                    ratings: [],
+                    name: this.state.restaurantName,
+                    logoURL: " ",
+                    imageURLs: " ",
+                    phoneNumber: this.state.restaurantPhone,
+                    address: this.state.restaurantAddress,
+                    city: this.state.restaurantCity,
+                    province: this.state.restaurantProvince,
+                    postalCode: this.state.restaurantPostalCode,
+                    cuisineTypes: [this.state.restaurantCuisine],
+                    description: " ",
+                    menuItemIDs: []
+                }
+                console.log(restaurantInfo);
+                axios.post('/restaurants/add', restaurantInfo)
+                .then(console.log("Added the restaurant"))           
+                .catch((error) => {
+                    console.log(error);
+                    alert("Error with registration: " + error);
+                });
+            }
         }
 
     }
@@ -171,6 +203,30 @@ export class AccountCreation extends React.Component {
                     name="restaurantAddress"
                     type="text"
                     placeholder="Restaurant Address"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="restaurantCity"
+                    type="text"
+                    placeholder="City"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="restaurantPostalCode"
+                    type="text"
+                    placeholder="Postal Code"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="restaurantProvince"
+                    type="text"
+                    placeholder="Province"
                     required={true}
                     style={inputStyle}
                     onChange={this.handleChange}

@@ -147,7 +147,7 @@ export class ManageRestaurantInformation extends Component {
 
     onMenuCuisineChange = (e, i) => {
         let {menuItems} = this.state;
-        menuItems[i].cuisineTypes = e.map(v => v.value);
+        menuItems[i].cuisineTypes = e ? e.map(v => v.value) : [];
         this.setState({
             menuItems: menuItems
         });

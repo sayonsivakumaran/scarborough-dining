@@ -74,6 +74,7 @@ export class AccountCreation extends React.Component {
                 middleName: middleName,
                 lastName: name[name.length-1],
                 email: this.state.email,
+                phoneNumber: this.state.phoneNumber,
                 password: this.state.password,
                 restaurantID: Math.floor((Math.random()*1000)+1)  //random placeholder value for now as the field is required
             }
@@ -102,7 +103,6 @@ export class AccountCreation extends React.Component {
                     description: " ",
                     menuItemIDs: []
                 }
-                console.log(restaurantInfo);
                 axios.post('/restaurants/add', restaurantInfo)
                 .then(console.log("Added the restaurant"))           
                 .catch((error) => {

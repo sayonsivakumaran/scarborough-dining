@@ -24,6 +24,7 @@ export class Header extends Component {
                 <Link to="/" className="linkStyle">Home</Link> | 
                 <Link to="/account-creation/user" className="linkStyle">Sign-Up for an Account</Link> |    
                 <Link to="/account-creation/restaurant" className="linkStyle">Register Restaurant</Link>
+                <Link to="/manage-restaurant-information" style={linkStyle}>Manage Restaurant Information</Link>
             </header>
         )
     }

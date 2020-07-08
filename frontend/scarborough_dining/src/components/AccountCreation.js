@@ -31,8 +31,13 @@ export class AccountCreation extends React.Component {
             fullName: '',
             email: '',
             phoneNumber: '',
+            address: '',
+            city: '',
+            postalCode: '',
+            province: '',
             password: '',
             passwordMatch: 'hidden',
+
             //Restaurant Information
             restaurantName: '',
             restaurantPhone: '',
@@ -63,6 +68,31 @@ export class AccountCreation extends React.Component {
         event.preventDefault();
         let info = '';
         if (this.props.userType === "user") {
+            const name = this.state.fullName.split(" ");
+            let middleName = name.length === 3 ? name[1] : "";
+            info = 
+            {
+                firstName: name[0],
+                middleName: middleName,
+                lastName: name[name.length-1],
+                email: this.state.email,
+                phoneNumber: this.state.phoneNumber,
+                password: this.state.password,
+                address: this.state.address,
+                city: this.state.city,
+                postalCode: this.state.postalCode,
+                province: this.state.province,
+                favouriteRestaurantIDs: ["-1"],
+                ratings: [],
+            }
+
+            axios.post('/customers/add', info)
+            .then(console.log("Success!"))
+            .catch((error) => {
+                console.log(error);
+                alert("This email address is already in use");
+            });
+        
 
         } else { 
             //restaurant owner information from the field
@@ -153,6 +183,38 @@ export class AccountCreation extends React.Component {
                     type="tel"
                     pattern="[0-9]{10}"
                     placeholder="Phone Number"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="address"
+                    type="text"
+                    placeholder="Address"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="city"
+                    type="text"
+                    placeholder="City"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="postalCode"
+                    type="text"
+                    placeholder="Postal Code"
+                    required={true}
+                    style={inputStyle}
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="province"
+                    type="text"
+                    placeholder="Province"
                     required={true}
                     style={inputStyle}
                     onChange={this.handleChange}

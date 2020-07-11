@@ -20,7 +20,8 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const { 
         email,
-        password, 
+        password,
+        phoneNumber, 
         firstName, 
         middleName,
         lastName,
@@ -30,6 +31,7 @@ router.route('/add').post((req, res) => {
     const newOwner = new Owner({
         email, 
         password, 
+        phoneNumber,
         firstName, 
         middleName, 
         lastName, 
@@ -38,8 +40,8 @@ router.route('/add').post((req, res) => {
     newOwner.password = Password.generateHashedPassword(password);
     
     newOwner.save()
-        .then(() => res.json('Owner has been added.'))
-        .catch(err => res.status(400).json('Error: ' + err));
+    .then(owner => res.json(owner))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 /**
@@ -71,6 +73,7 @@ router.route('/update/:id').post((req, res) => {
     Owner.findById(req.params.id)
         .then(owner => {
             owner.email = req.body.email;
+            owner.phoneNumber = req.body.phoneNumber;
             owner.password = Password.generateHashedPassword(req.body.password);
             owner.firstName = req.body.firstName;
             owner.middleName = req.body.middleName;

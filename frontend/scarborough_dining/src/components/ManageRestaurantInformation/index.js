@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FileUpload from './FileUpload';
+import FileUpload from '../FileUpload';
 import Select from 'react-select';
-import MENU_CATEGORIES from '../enums/menu_categories';
+import MENU_CATEGORIES from '../../enums/menu_categories';
 import axios from 'axios';
 
 const options = Object.keys(MENU_CATEGORIES).map(k => {

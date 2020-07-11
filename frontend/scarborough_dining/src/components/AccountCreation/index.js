@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './style/AccountCreation.css';
+import '../style/AccountCreation.css';
 
 export class AccountCreation extends React.Component {
 

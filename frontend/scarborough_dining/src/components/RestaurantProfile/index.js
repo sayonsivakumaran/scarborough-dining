@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import data from '../mock/restaurant.json';
-import './style/Restaurants.css'
+import data from '../../mock/restaurant.json';
+import '../style/Restaurants.css'
 import { Link, Switch, Route } from 'react-router-dom';
 
 const linkStyle = {

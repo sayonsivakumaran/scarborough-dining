@@ -1,0 +1,37 @@
+
+
+.title {
+    font-size: 20px;
+    text-align: center;
+}
+
+.restaurant{
+    margin: 16px;
+    padding: 16px;
+    border-style: solid;
+    border-color: #f3f3f3;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.logo {
+    max-width: 400px;
+
+}
+
+.restaurant-info{
+    background-color: #f3f3f3;
+    padding: 10px;
+}
+
+.restaurant-header{
+    background: cadetblue;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}

@@ -1,24 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
-const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '10% 30%'
-}
-
-const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '10px 0'
-}
-
-const inputStyle = {
-    padding: '1em',
-    fontSize: '20px',
-    margin: '10px 0px'
-}
+import './style/AccountCreation.css';
 
 export class AccountCreation extends React.Component {
 
@@ -130,14 +112,14 @@ export class AccountCreation extends React.Component {
 
     UserForm = () => {
         return (
-            <div style={containerStyle}>
-                <h2 style={{fontSize: '2em'}}>Account Information</h2>
+            <div className="containerStyle">
+                <h2 className="title">Account Information</h2>
                 <input 
                     name="fullName"
                     type="text"
                     placeholder="Full Name"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -145,7 +127,7 @@ export class AccountCreation extends React.Component {
                     type="email"
                     placeholder="Email"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -154,7 +136,7 @@ export class AccountCreation extends React.Component {
                     pattern="[0-9]{10}"
                     placeholder="Phone Number"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -162,7 +144,7 @@ export class AccountCreation extends React.Component {
                     type="password"
                     placeholder="Password"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -170,7 +152,7 @@ export class AccountCreation extends React.Component {
                     type="password"
                     placeholder="Confirm Password"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.passwordValidate}
                 />
                 <p style={{color: 'red', visibility: `${this.state.passwordMatch}`}}>Passwords Do Not Match</p>
@@ -180,14 +162,14 @@ export class AccountCreation extends React.Component {
 
     RestaurantForm = () => {
         return (
-            <div style={containerStyle}>
-                <h2 style={{fontSize: '2em'}}>Restaurant Information</h2>
+            <div className="containerStyle">
+                <h2 className="title">Restaurant Information</h2>
                 <input 
                     name="restaurantName"
                     type="text"
                     placeholder="Restaurant Name"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -196,7 +178,7 @@ export class AccountCreation extends React.Component {
                     pattern="[0-9]{10}"
                     placeholder="Restaurant Phone"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -204,7 +186,7 @@ export class AccountCreation extends React.Component {
                     type="text"
                     placeholder="Restaurant Address"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -236,7 +218,7 @@ export class AccountCreation extends React.Component {
                     type="text"
                     placeholder="Restaurant Cuisine"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
             </div>
@@ -246,34 +228,36 @@ export class AccountCreation extends React.Component {
     render() {
         if (this.props.userType === "user") {
             return (
-                <form style={formStyle} onSubmit={this.handleSubmit}>
+                <form className="formStyle" onSubmit={this.handleSubmit}>
                     <this.UserForm />
-                    <div style={containerStyle}>
+                    <div className="containerStyle">
                         <input
                             name="submit"
                             type="submit"
                             value="Create Account"
-                            style={inputStyle}
+                            className="inputStyle"
                         />
                     </div>
                 </form>
             )
         } else {
             return (
-                <form style={formStyle} onSubmit={this.handleSubmit}>
-                    <this.UserForm />
-                    <this.RestaurantForm />
-                    <div style={containerStyle}>
+                <form className="formStyle" onSubmit={this.handleSubmit}>
+                    <div className="formContainer">
+                        <this.UserForm />
+                        <this.RestaurantForm />
+                    </div>
+
+                    <div className="containerStyle">
                         <input
                             name="submit"
                             type="submit"
                             value="Register Restaurant"
-                            style={inputStyle}
+                            className="inputStyle"
                         />
                     </div>
                 </form>
             )
         }
     }
-    
 } export default AccountCreation

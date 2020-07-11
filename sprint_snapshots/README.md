@@ -32,6 +32,9 @@
 - July 9
     - [taskboard](sprint3/thursday_july_9_snapshot/taskboard_snapshot.png)
     - [burndown](sprint3/thursday_july_9_snapshot/burndown_chart_snapshot.jpg)
+- July 11
+    - [taskboard](sprint3/saturday_july_11_snapshot/taskboard_snapshot.png)
+    - [burndown](sprint3/saturday_july_11_snapshot/burndown_chart_snapshot.jpg)
 
 
 

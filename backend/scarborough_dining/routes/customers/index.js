@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Password = require('../../utilities/password');
+
+// Customer Model
 let Customer = require('../../models/customer');
+
+// Password Utility
+const Password = require('../../utilities/password');
+const { json } = require('express');
+const { validatePassword } = require('../../utilities/password');
 
 /**
  * Server-side get request to retrieve customer data from database.
@@ -50,6 +56,39 @@ router.route('/add').post((req, res) => {
     newCustomer.save()
         .then(() => res.json('Customer has been added.'))
         .catch(err => res.status(400).json('Error: ' + err));
+});
+
+/**
+ * @route           POST /customers/login
+ * @description     Check database for customer with specific email, and checks
+ *                  that password is correct
+ * @returns         Returns data of the customer with specific email
+ */
+router.post('/login', (req, res) => {
+
+    email = req.body.email;
+    password =  req.body.password;
+
+    Customer.findOne({ email })
+        .then(customer => {
+
+            // Check that email exists
+            if (!customer) {
+                return res.status(404).json({ emailNotFound: "Email not found"});
+            }
+
+            // Check that password matches
+            if (!Password.validatePassword(password, customer.password)) {
+                res.status(400).json( { passwordMatch: false } );
+                return res;
+            } else {
+                payload = {
+                    customer
+                }
+                console.log(payload)
+                res.json(payload);
+            }
+        })
 });
 
 /**

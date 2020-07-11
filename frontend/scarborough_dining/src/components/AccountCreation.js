@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
 import './style/AccountCreation.css';
 
 export class AccountCreation extends React.Component {
@@ -194,7 +194,7 @@ export class AccountCreation extends React.Component {
                     type="text"
                     placeholder="City"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -202,7 +202,7 @@ export class AccountCreation extends React.Component {
                     type="text"
                     placeholder="Postal Code"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
@@ -210,7 +210,7 @@ export class AccountCreation extends React.Component {
                     type="text"
                     placeholder="Province"
                     required={true}
-                    style={inputStyle}
+                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 

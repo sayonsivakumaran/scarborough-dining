@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Header from './components/Header';
 import AccountCreation from './components/AccountCreation';
+import ManageRestaurantInformation from './components/ManageRestaurantInformation';
 //import Restaurant from './components/Restaurant';
 import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
@@ -32,6 +33,7 @@ export class App extends Component {
                 () => <AccountCreation userType={"restaurant"} />
               } />
               <Route path="/restaurants/:id" component={RestaurantProfile} />
+              <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import axios from 'axios';
 import './style/AccountCreation.css';
 
 export class AccountCreation extends React.Component {
@@ -12,13 +13,21 @@ export class AccountCreation extends React.Component {
             fullName: '',
             email: '',
             phoneNumber: '',
+            address: '',	
+            city: '',	
+            postalCode: '',	
+            province: '',	
+            password: '',
             password: '',
             passwordMatch: 'hidden',
             //Restaurant Information
             restaurantName: '',
-            restaruantPhone: '',
+            restaurantPhone: '',
             restaurantAddress: '',
             restaurantCuisine: '',
+            restaurantCity: '',
+            restaurantPostalCode: '',
+            restaurantProvince: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -37,8 +46,82 @@ export class AccountCreation extends React.Component {
     }
 
     //Handle when the "submit" button on the form is pressed
-    handleSubmit(event) {
-        
+    async handleSubmit(event) {
+        event.preventDefault();
+        let info = '';
+        if (this.props.userType === "user") {
+            const name = this.state.fullName.split(" ");	
+            let middleName = name.length === 3 ? name[1] : "";	
+            info = 	
+            {	
+                firstName: name[0],	
+                middleName: middleName,	
+                lastName: name[name.length-1],	
+                email: this.state.email,	
+                phoneNumber: this.state.phoneNumber,	
+                password: this.state.password,	
+                address: this.state.address,	
+                city: this.state.city,	
+                postalCode: this.state.postalCode,	
+                province: this.state.province,	
+                favouriteRestaurantIDs: ["-1"],	
+                ratings: [],	
+            }	
+            axios.post('/customers/add', info)	
+            .then(console.log("Success!"))	
+            .catch((error) => {	
+                console.log(error);	
+                alert("This email address is already in use");	
+            });
+
+        } else { 
+            //restaurant owner information from the field
+            const name = this.state.fullName.split(" ");
+            let middleName = name.length === 3 ? name[1] : "";
+            info = 
+            {
+                firstName: name[0],
+                middleName: middleName,
+                lastName: name[name.length-1],
+                email: this.state.email,
+                phoneNumber: this.state.phoneNumber,
+                password: this.state.password,
+                restaurantID: Math.floor((Math.random()*1000)+1)  //random placeholder value for now as the field is required
+            }
+            const res = await axios.post('/owners/add', info)
+            .catch((error) => {
+                console.log(error);
+                alert("This email address is already in use");
+            });
+            
+            if(res !== undefined) {
+                
+                let restaurantInfo = 
+                {
+                    //fields for the restaurant information in the database 
+                    ownerID: res.data._id,
+                    ratings: [],
+                    name: this.state.restaurantName,
+                    logoURL: " ",
+                    imageURLs: " ",
+                    phoneNumber: this.state.restaurantPhone,
+                    address: this.state.restaurantAddress,
+                    city: this.state.restaurantCity,
+                    province: this.state.restaurantProvince,
+                    postalCode: this.state.restaurantPostalCode,
+                    cuisineTypes: [this.state.restaurantCuisine],
+                    description: " ",
+                    menuItemIDs: []
+                }
+                axios.post('/restaurants/add', restaurantInfo)
+                .then(console.log("Added the restaurant"))           
+                .catch((error) => {
+                    console.log(error);
+                    alert("Error with registration: " + error);
+                });
+            }
+        }
+
     }
 
     passwordValidate(event) {
@@ -58,7 +141,7 @@ export class AccountCreation extends React.Component {
     UserForm = () => {
         return (
             <div className="containerStyle">
-                <h2 className="title">Account Information</h2>
+                <h2 className="title mb-4 font-weight-bold">Account Information</h2>
                 <input 
                     name="fullName"
                     type="text"
@@ -84,6 +167,38 @@ export class AccountCreation extends React.Component {
                     className="inputStyle"
                     onChange={this.handleChange}
                 />
+                <input 	
+                    name="address"	
+                    type="text"	
+                    placeholder="Address"	
+                    required={true}	
+                    className="inputStyle"	
+                    onChange={this.handleChange}	
+                />	
+                <input 	
+                    name="city"	
+                    type="text"	
+                    placeholder="City"	
+                    required={true}	
+                    className="inputStyle"	
+                    onChange={this.handleChange}	
+                />	
+                <input 	
+                    name="postalCode"	
+                    type="text"	
+                    placeholder="Postal Code"	
+                    required={true}	
+                    className="inputStyle"	
+                    onChange={this.handleChange}	
+                />	
+                <input 	
+                    name="province"	
+                    type="text"	
+                    placeholder="Province"	
+                    required={true}	
+                    className="inputStyle"	
+                    onChange={this.handleChange}	
+                />
                 <input 
                     name="password"
                     type="password"
@@ -108,7 +223,7 @@ export class AccountCreation extends React.Component {
     RestaurantForm = () => {
         return (
             <div className="containerStyle">
-                <h2 className="title">Restaurant Information</h2>
+                <h2 className="title mb-4 font-weight-bold">Restaurant Information</h2>
                 <input 
                     name="restaurantName"
                     type="text"
@@ -130,6 +245,30 @@ export class AccountCreation extends React.Component {
                     name="restaurantAddress"
                     type="text"
                     placeholder="Restaurant Address"
+                    required={true}
+                    className="inputStyle"
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="restaurantCity"
+                    type="text"
+                    placeholder="City"
+                    required={true}
+                    className="inputStyle"
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="restaurantPostalCode"
+                    type="text"
+                    placeholder="Postal Code"
+                    required={true}
+                    className="inputStyle"
+                    onChange={this.handleChange}
+                />
+                <input 
+                    name="restaurantProvince"
+                    type="text"
+                    placeholder="Province"
                     required={true}
                     className="inputStyle"
                     onChange={this.handleChange}
@@ -181,5 +320,4 @@ export class AccountCreation extends React.Component {
             )
         }
     }
-
 } export default AccountCreation

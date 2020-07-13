@@ -19,8 +19,22 @@
     - [taskboard](sprint2/thursday_july_2_snapshot/taskboard_snapshot.png)
     - [burndown](sprint2/thursday_july_2_snapshot/burndown_chart_snapshot.jpg)
 - July 4
+    - [taskboard](sprint2/saturday_july_4_snapshot/taskboard_snapshot.png)
+    - [burndown](sprint2/saturday_july_4_snapshot/burndown_chart_snapshot.jpg)
+- July 6 (End of Sprint snapshot)
+    - [taskboard](sprint2/monday_july_6_snapshot/taskboard_snapshot.png)
+    - [burndown](sprint2/monday_july_6_snapshot/burndown_chart_snapshot.jpg)
+
+### Sprint 3 Snapshots
+- July 7
+    - [taskboard](sprint3/tuesday_july_7_snapshot/taskboard_snapshot.png)
+    - [burndown](sprint3/tuesday_july_7_snapshot/burndown_chart_snapshot.jpg)
+- July 9
+    - [taskboard](sprint3/thursday_july_9_snapshot/taskboard_snapshot.png)
+    - [burndown](sprint3/thursday_july_9_snapshot/burndown_chart_snapshot.jpg)
     - [taskboard](sprint2/sunday_july_4_snapshot/taskboard_snapshot.png)
     - [burndown](sprint2/sunday_july_4_snapshot/burndown_chart_snapshot.jpg)
+
 
 
 

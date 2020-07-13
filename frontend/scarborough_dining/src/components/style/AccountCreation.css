@@ -1,11 +1,12 @@
-.formContainer {
-    display: inline-flex;
+.formStyle {
+    padding: 26px 0px;
 }
+
 .containerStyle {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px 26px 26px 0px;
+    padding: 0px 26px 0px 26px;
 }
 
 .containerStyle .title {

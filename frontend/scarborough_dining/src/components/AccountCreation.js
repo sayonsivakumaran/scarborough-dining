@@ -141,7 +141,7 @@ export class AccountCreation extends React.Component {
     UserForm = () => {
         return (
             <div className="containerStyle">
-                <h2 className="title">Account Information</h2>
+                <h2 className="title mb-4 font-weight-bold">Account Information</h2>
                 <input 
                     name="fullName"
                     type="text"
@@ -223,7 +223,7 @@ export class AccountCreation extends React.Component {
     RestaurantForm = () => {
         return (
             <div className="containerStyle">
-                <h2 className="title">Restaurant Information</h2>
+                <h2 className="title mb-4 font-weight-bold">Restaurant Information</h2>
                 <input 
                     name="restaurantName"
                     type="text"

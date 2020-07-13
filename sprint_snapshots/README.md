@@ -40,5 +40,3 @@
     [taskboard part 2](sprint3/sunday_july_12_snapshot/taskboard_snapshot2.png)
     - [burndown](sprint3/sunday_july_12_snapshot/burndown_chart_snapshot.jpg)
 
-
-

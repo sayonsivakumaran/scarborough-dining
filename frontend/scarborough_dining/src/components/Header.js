@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
+import './style/Header.css';
 
 const headerStyle = {
     background: '#000',
@@ -18,11 +19,11 @@ export class Header extends Component {
 
     render() {
         return (
-            <header style={headerStyle}>
-                <h1 style={{fontSize: '3em'}}>Scarborough Dining</h1>
-                <Link to="/" style={linkStyle}>Home</Link> | 
-                <Link to="/account-creation/user" style={linkStyle}>Sign-Up for an Account</Link> |    
-                <Link to="/account-creation/restaurant" style={linkStyle}>Register Restaurant</Link>
+            <header className="headerStyle">
+                <h1 className="title">Scarborough Dining</h1>
+                <Link to="/" className="linkStyle">Home</Link> | 
+                <Link to="/account-creation/user" className="linkStyle">Sign-Up for an Account</Link> |    
+                <Link to="/account-creation/restaurant" className="linkStyle">Register Restaurant</Link>
             </header>
         )
     }

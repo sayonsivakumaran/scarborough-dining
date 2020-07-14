@@ -14,17 +14,43 @@ describe('<ManageRestaurantInformation />', () => {
     });
 
     describe('_retreiveLogoImageURL', () => {
-        it('should receive image URL when the image upload request is succesful', async () => {
+        it('should receive image URL when the logo image upload request is succesful', async () => {
             const mockResponse = {data: {result: {secure_url: 'URL'}}};
             axios.post.mockImplementationOnce(() => Promise.resolve().then(data => { return mockResponse}));
             const url = await instance._retrieveLogoImageURL('');
             expect(url).toEqual('URL');
         });
 
-        it('should receive the appropriate error when the image upload promise is rejected', async () => {
+        it('should receive the appropriate error when the logo image upload promise is rejected', async () => {
             axios.post.mockImplementationOnce(() => Promise.reject('Error: 400'));
             const url = await instance._retrieveLogoImageURL('');
             expect(url).toEqual('Error: 400');
         });
     });
+
+    describe('_retrieveMenuImageURLs', () => {
+        it('should receive an array of image URLs when the menu item images upload request is succesful', async () => {
+            const mockRequest = [
+                {image: 'img1'},
+                {image: 'img2'}
+            ];
+            axios.post.mockImplementationOnce(() => Promise.resolve({data: {result: {secure_url: 'URL1'}}}));
+            axios.post.mockImplementationOnce(() => Promise.resolve({data: {result: {secure_url: 'URL2'}}}));
+            const mockResponse = ['URL1', 'URL2'];
+            const urls = await instance._retrieveMenuImageURLs(mockRequest);
+            expect(urls).toEqual(mockResponse);
+        });
+
+        it('should receive an error if any of the image post request promises reject', async () => {
+            const mockRequest = [
+                {image: 'img1'},
+                {image: 'img2'}
+            ];
+            axios.post.mockImplementationOnce(() => Promise.resolve({data: {result: {secure_url: 'URL1'}}}));
+            axios.post.mockImplementationOnce(() => Promise.reject('Error: 400'));
+            const response = await instance._retrieveMenuImageURLs(mockRequest);
+            expect(response).toEqual('Error: 400');
+        });
+    });
+
 });

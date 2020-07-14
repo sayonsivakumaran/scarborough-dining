@@ -53,4 +53,27 @@ describe('<ManageRestaurantInformation />', () => {
         });
     });
 
+    describe('_postMenuItemData', () => {
+        it('should receive an array of messages if all menu items have been posted successfully', async () => {
+            const mockRequest = [
+                {item: 'item1'},
+                {item: 'item2'}
+            ];
+            axios.post.mockImplementation(() => Promise.resolve('Success'));
+            const mockResponse = ['Success', 'Success'];
+            const response = await instance._postMenuItemData(mockRequest);
+            expect(response).toEqual(mockResponse);
+        });
+
+        it('should receive an error if any of the item post request promises reject', async () => {
+            const mockRequest = [
+                {item: 'item1'},
+                {item: 'item2'}
+            ];
+            axios.post.mockImplementationOnce(() => Promise.resolve('Success'));
+            axios.post.mockImplementationOnce(() => Promise.reject('Error: 400'));
+            const response = await instance._postMenuItemData(mockRequest);
+            expect(response).toEqual('Error: 400');
+        });
+    });
 });

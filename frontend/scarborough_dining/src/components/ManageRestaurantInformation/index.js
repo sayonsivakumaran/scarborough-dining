@@ -195,7 +195,7 @@ export class ManageRestaurantInformation extends Component {
             } 
         }).then(
             response => response.data.result.secure_url || ''
-        );
+        ).catch(e => e);
     }
 
     _postMenuItemData = async menuItems => {

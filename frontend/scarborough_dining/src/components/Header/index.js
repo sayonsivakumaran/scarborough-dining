@@ -2,29 +2,16 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import './styles.css';
 
-const headerStyle = {
-    background: '#000',
-    color: '#fff',
-    textAlign: 'center',
-    padding: '10px'
-}
-
-const linkStyle = {
-    color: '#fff',
-    padding: '1em 1em',
-    textDecoration:'none'
-}
-
 export class Header extends Component {
 
     render() {
         return (
             <header className="headerStyle">
                 <h1 className="title">Scarborough Dining</h1>
-                <Link to="/" className="linkStyle">Home</Link> | 
-                <Link to="/account-creation/user" className="linkStyle">Sign-Up for an Account</Link> |    
-                <Link to="/account-creation/restaurant" className="linkStyle">Register Restaurant</Link>
-                <Link to="/manage-restaurant-information" style={linkStyle}>Manage Restaurant Information</Link>
+                <Link to="/" className="linkStyle non-last-linkStyle">Home</Link>
+                <Link to="/account-creation/user" className="linkStyle non-last-linkStyle">Sign-Up for an Account</Link>  
+                <Link to="/account-creation/restaurant" className="linkStyle non-last-linkStyle">Register Restaurant</Link>
+                <Link to="/manage-restaurant-information" className="linkStyle">Manage Restaurant Information</Link>
             </header>
         )
     }

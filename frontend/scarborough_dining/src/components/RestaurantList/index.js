@@ -7,7 +7,7 @@ export default class RestaurantList extends Component {
         return (
             <React.Fragment>
                 <div className="restaurants">
-                    <h1>Restaurants</h1>
+                <h2 className="title mb-4 font-weight-bold">Restaurants</h2>
                     <div className="row">
                         {
                             data.map(restaurant => {

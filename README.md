@@ -1,5 +1,8 @@
 # CodeShippers
 
+### Deployment
+- For local development do not start or install at the root directory. The package.json & package-lock.json is specifically for deployment on heroku
+
 ### Deliverables
 
 - [Deliverable #1](deliverables/CSCC01_Team03_Deliverable01.pdf): Provides an introduction to the CodeShippers, discussing each member's background and the team expectations agreement.
@@ -16,4 +19,4 @@
 
 ### Latest Release
 
-- [Scarborough Dining](https://scarborough-dining-v1.herokuapp.com/)
+- [Scarborough Dining](https://scarborough-dining-v2.herokuapp.com/)

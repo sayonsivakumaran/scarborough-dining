@@ -13,11 +13,11 @@ export default class FileUpload extends Component {
 
     onFileInputChange = e => {
         const file = e.target.files[0];
-        if (Validation.isImageFile(file)) {
-            const filename = file ? file.name : 'Choose File';
-            this.setState({
-                filename: filename
-            });
+        const filename = file ? file.name : 'Choose File';
+        this.setState({
+            filename: filename
+        });
+        if (Validation.isImageFile(file) || Validation.isVideoFile(file)) {
             this.props.onFileUpload(e);
         }
     }
@@ -26,7 +26,7 @@ export default class FileUpload extends Component {
         this.setState({
             filename: 'Choose File'
         });
-        this.props.onImageDelete(e);
+        this.props.onFileDelete(e);
     }
 
     render() {
@@ -38,7 +38,7 @@ export default class FileUpload extends Component {
                         {this.state.filename}
                     </label>
                 </div>
-                <input type='submit' onClick={this.onFileInputDelete} value='Delete Image' className='bg-danger btn btn-primary mt-1'/>
+                <input type='submit' onClick={this.onFileInputDelete} value='Delete File' className='bg-danger btn btn-primary mt-1'/>
             </Fragment>
         );
     }

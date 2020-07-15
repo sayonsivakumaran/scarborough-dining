@@ -17,7 +17,7 @@ class RestaurantProfile extends Component {
     render() {
         let id, name, picture, address, description, phone = "";
 
-        let res = data.find(restaurant => restaurant.id == this.props.match.params.id);;
+        let res = data.find(restaurant => restaurant.id == this.props.match.params.id);
 
         if (res) {
             name = res.name;

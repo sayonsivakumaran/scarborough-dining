@@ -239,7 +239,7 @@ export class ManageRestaurantInformation extends Component {
         let {menuItems, logo, video} = this.state;
         // TODO: add the logo image URL to the account once the login feature is
         // TODO: add the video URL to the account once login feature implemented
-        let [logoImageURL, videoURL, menuImageURLs] = await Promise.all(
+        let [logoImageURL, introVideoURL, menuImageURLs] = await Promise.all(
             [this._retrieveLogoImageURL(logo), this._retrieveIntroVideoURL(video), this._retrieveMenuImageURLs(menuItems)]
         );
         

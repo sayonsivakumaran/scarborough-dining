@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import axios from 'axios';
-import * as Validation from '../utilities/validation';
+import * as Validation from '../../utilities/validation';
 
 export default class FileUpload extends Component {
 

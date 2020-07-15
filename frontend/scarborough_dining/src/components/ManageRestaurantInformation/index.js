@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FileUpload from './FileUpload';
+import FileUpload from '../FileUpload';
 import Select from 'react-select';
-import MENU_CATEGORIES from '../enums/menu_categories';
+import MENU_CATEGORIES from '../../enums/menu_categories';
 import axios from 'axios';
 
 const options = Object.keys(MENU_CATEGORIES).map(k => {
@@ -11,7 +11,7 @@ const options = Object.keys(MENU_CATEGORIES).map(k => {
 const formStyle = {
     display: 'flex',
     flexDirection: 'column',
-    padding: '10% 30%'
+    padding: '1% 30%'
 }
 
 const inputStyle = {
@@ -190,28 +190,29 @@ export class ManageRestaurantInformation extends Component {
         let responses = menuItems.map(menuItem => {
             const formData = new FormData();
             formData.append('file', menuItem.image);
-            return axios.post('http://localhost:5000/media_upload/image', formData, {    // TODO: change to relative URL when that is set up properly
+            return axios.post('/media_upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 } 
             });
         });
 
-        return Promise.all(responses).then(responseArray => {
-            return responseArray.map(response => response.data.result.secure_url || '');
-        });
+        return Promise.all(responses)
+            .then(responseArray => {
+                return responseArray.map(response => response.data.result.secure_url || '');
+            }).catch(e => e);
     }
 
     _retrieveLogoImageURL = async logo => {
         const formData = new FormData();
         formData.append('file', logo);
-        return axios.post('http://localhost:5000/media_upload/image', formData, {     // TODO: change to relative URL when that is set up properly
+        return axios.post('/media_upload', formData, {     // TODO: change to relative URL when that is set up properly
             headers: {
                 'Content-Type': 'multipart/form-data'
             } 
         }).then(
             response => response.data.result.secure_url || ''
-        );
+        ).catch(e => e);
     }
 
     _retrieveIntroVideoURL = async video => {
@@ -223,15 +224,17 @@ export class ManageRestaurantInformation extends Component {
             } 
         }).then(
             response => response.data.result.secure_url || ''
-        );
+        ).catch(e => e);
     }
 
     _postMenuItemData = async menuItems => {
-        let responses = menuItems.map(menuItem => axios.post('http://localhost:5000/menu_items/add', menuItem));
+        let responses = menuItems.map(menuItem => axios.post('/menu_items/add', menuItem));
 
-        return Promise.all(responses).then(responseArray => {
-            return responseArray.map(response => response);
-        });
+        return Promise.all(responses)
+            .then(responseArray => {
+                return responseArray.map(response => response);
+            })
+            .catch(e => e);
     }
 
     onSubmit = async e => {

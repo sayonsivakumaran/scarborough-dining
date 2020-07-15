@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import data from '../mock/restaurant.json';
-import './style/Restaurants.css'
+import data from '../../mock/restaurant.json';
+import './styles.css'
 import { Link, Switch, Route } from 'react-router-dom';
 
 const linkStyle = {
@@ -17,7 +17,7 @@ class RestaurantProfile extends Component {
     render() {
         let id, name, picture, address, description, phone = "";
 
-        let res = data.find(restaurant => restaurant.id == this.props.match.params.id);;
+        let res = data.find(restaurant => restaurant.id == this.props.match.params.id);
 
         if (res) {
             name = res.name;

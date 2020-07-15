@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import FileUpload from './FileUpload';
+import FileUpload from '../FileUpload';
 import Select from 'react-select';
-import MENU_CATEGORIES from '../enums/menu_categories';
+import MENU_CATEGORIES from '../../enums/menu_categories';
 import axios from 'axios';
 
 const options = Object.keys(MENU_CATEGORIES).map(k => {
@@ -181,9 +181,10 @@ export class ManageRestaurantInformation extends Component {
             });
         });
 
-        return Promise.all(responses).then(responseArray => {
-            return responseArray.map(response => response.data.result.secure_url || '');
-        });
+        return Promise.all(responses)
+            .then(responseArray => {
+                return responseArray.map(response => response.data.result.secure_url || '');
+            }).catch(e => e);
     }
 
     _retrieveLogoImageURL = async logo => {
@@ -195,15 +196,17 @@ export class ManageRestaurantInformation extends Component {
             } 
         }).then(
             response => response.data.result.secure_url || ''
-        );
+        ).catch(e => e);
     }
 
     _postMenuItemData = async menuItems => {
         let responses = menuItems.map(menuItem => axios.post('/menu_items/add', menuItem));
 
-        return Promise.all(responses).then(responseArray => {
-            return responseArray.map(response => response);
-        });
+        return Promise.all(responses)
+            .then(responseArray => {
+                return responseArray.map(response => response);
+            })
+            .catch(e => e);
     }
 
     onSubmit = async e => {

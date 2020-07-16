@@ -206,7 +206,7 @@ export class ManageRestaurantInformation extends Component {
     _retrieveLogoImageURL = async logo => {
         const formData = new FormData();
         formData.append('file', logo);
-        return axios.post('/media_upload', formData, {     // TODO: change to relative URL when that is set up properly
+        return axios.post('/media_upload/image', formData, {     // TODO: change to relative URL when that is set up properly
             headers: {
                 'Content-Type': 'multipart/form-data'
             } 
@@ -218,7 +218,7 @@ export class ManageRestaurantInformation extends Component {
     _retrieveIntroVideoURL = async video => {
         const formData = new FormData();
         formData.append('file', video);
-        return axios.post('http://localhost:5000/media_upload/video', formData, {     // TODO: change to relative URL when that is set up properly
+        return axios.post('/media_upload/video', formData, {     // TODO: change to relative URL when that is set up properly
             headers: {
                 'Content-Type': 'multipart/form-data'
             } 

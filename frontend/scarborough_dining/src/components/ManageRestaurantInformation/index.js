@@ -38,7 +38,7 @@ function MenuItemForm(props) {
             <h2 className='mt-4 font-weight-bold' style={{fontSize: '1.5em'}}>Item #{props.number}</h2>
             <input onChange={props.onNameChange} className='mt-4' style={inputStyle} name="name" type="text" placeholder="Name" required={true} />
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Image</h2>
-            <FileUpload acceptedFiles={'image/*'} onFileUpload={props.onImageChange} onImageDelete={props.onImageDelete}/>
+            <FileUpload acceptedFiles={'image/*'} onFileUpload={props.onImageChange} onFileDelete={props.onImageDelete}/>
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Price</h2>
             <input onChange={props.onPriceChange} className='mt-4' style={inputStyle} name="price" type="number" step="0.01" placeholder="Price" required={true} />
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Description</h2>
@@ -70,6 +70,7 @@ export class ManageRestaurantInformation extends Component {
             totalItems: 0,
             logo: undefined,
             description: '',
+            video: undefined,
             menuItems: []
         }
     }
@@ -112,7 +113,7 @@ export class ManageRestaurantInformation extends Component {
         e.preventDefault();
         this.setState({
             logo: undefined
-        })
+        });
     }
 
     onRestaurantDescriptionChange = e => {
@@ -120,6 +121,21 @@ export class ManageRestaurantInformation extends Component {
             description: e.target.value
         });
     }
+
+    onIntroVideoChange = e => {
+        e.preventDefault();
+        this.setState({
+            video: e.target.files[0] || undefined
+        });
+    }
+
+    onIntroVideoDelete = e => {
+        e.preventDefault();
+        this.setState({
+            video: undefined
+        });
+    }
+
 
     onMenuNameChange = (e, i) => {
         let {menuItems} = this.state;
@@ -190,7 +206,19 @@ export class ManageRestaurantInformation extends Component {
     _retrieveLogoImageURL = async logo => {
         const formData = new FormData();
         formData.append('file', logo);
-        return axios.post('/media_upload', formData, {
+        return axios.post('/media_upload/image', formData, {     // TODO: change to relative URL when that is set up properly
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            } 
+        }).then(
+            response => response.data.result.secure_url || ''
+        ).catch(e => e);
+    }
+
+    _retrieveIntroVideoURL = async video => {
+        const formData = new FormData();
+        formData.append('file', video);
+        return axios.post('/media_upload/video', formData, {     // TODO: change to relative URL when that is set up properly
             headers: {
                 'Content-Type': 'multipart/form-data'
             } 
@@ -211,10 +239,11 @@ export class ManageRestaurantInformation extends Component {
 
     onSubmit = async e => {
         e.preventDefault();
-        let {menuItems, logo} = this.state;
+        let {menuItems, logo, video} = this.state;
         // TODO: add the logo image URL to the account once the login feature is
-        let [logoImageURL, menuImageURLs] = await Promise.all(
-            [this._retrieveLogoImageURL(logo), this._retrieveMenuImageURLs(menuItems)]
+        // TODO: add the video URL to the account once login feature implemented
+        let [logoImageURL, introVideoURL, menuImageURLs] = await Promise.all(
+            [this._retrieveLogoImageURL(logo), this._retrieveIntroVideoURL(video), this._retrieveMenuImageURLs(menuItems)]
         );
         
         let menuItemReqs = menuItems.map((menuItem, i) => {
@@ -239,9 +268,12 @@ export class ManageRestaurantInformation extends Component {
                     <div className='mb-4' style={containerStyle} name="accountInformation">
                         <h2 className='mb-4 font-weight-bold' style={{fontSize: '2em'}}>Account Information</h2>
                         <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Logo</h2>
-                        <FileUpload acceptedFiles={'image/*'} onFileUpload={this.onLogoInputChange} onImageDelete={this.onLogoInputDelete}/>
+                        <FileUpload acceptedFiles={'image/*'} onFileUpload={this.onLogoInputChange} onFileDelete={this.onLogoInputDelete}/>
                         <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
-                        <textarea onChange={this.onRestaurantDescriptionChange} style={descriptionStyle} name="itemDescription"/>    
+                        <textarea onChange={this.onRestaurantDescriptionChange} style={descriptionStyle} name="itemDescription"/>
+
+                        <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Introductory Video</h2>
+                        <FileUpload acceptedFiles={'video/*'} onFileUpload={this.onIntroVideoChange} onFileDelete={this.onIntroVideoDelete}/>
                     </div>
                     {
                         // TODO: find a way to update the state array

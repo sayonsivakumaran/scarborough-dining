@@ -67,21 +67,14 @@ router.route('/add').post((req, res) => {
 router.post('/login', (req, res) => {
 
     email = req.body.email;
-    password =  req.body.password;
 
     Customer.findOne({ email })
         .then(customer => {
-
             // Check that email exists
             if (!customer) {
                 return res.status(404).json({ emailNotFound: "Email not found"});
             }
-
-            // Check that password matches
-            if (!Password.validatePassword(password, customer.password)) {
-                res.status(400).json( { passwordMatch: false } );
-                return res;
-            } else {
+            else {
                 payload = {
                     customer
                 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
+import './style/GoogleBtn.css'
 
 // Google Client ID
 const CLIENT_ID = '656946100283-d2di4a9k3r7tmln8uvanstuovoh6qmsu.apps.googleusercontent.com'
@@ -52,26 +53,32 @@ export class GoogleBtn extends Component {
     }
     
     handleLoginFailure (response) {
-        alert('Failed to log in')
+        //alert('Failed to log in')
     }
     
     handleLogoutFailure (response) {
-        alert('Failed to log out')
+        //alert('Failed to log out')
     }
 
     render() {
         return (
-            <div>
+            <div className="google-btn">
                 { this.state.isLogined ?
                 <GoogleLogout
                     clientId={ CLIENT_ID }
-                    buttonText='Logout of Scarborough Dining'
+                    render={renderProps => (
+                        <p id="logout-p" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log Out</p>
+                    )}
+                    buttonText='Log-Out'
                     onLogoutSuccess={ this.logout }
                     onFailure={ this.handleLogoutFailure }
                 >
                 </GoogleLogout>: <GoogleLogin
                     clientId={ CLIENT_ID }
-                    buttonText='Sign-in with Google Account'
+                    render={renderProps => (
+                        <p id="login-p" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log In</p>
+                    )}
+                    buttonText='Log-In'
                     onSuccess={ this.login }
                     onFailure={ this.handleLoginFailure }
                     cookiePolicy={ 'single_host_origin' }

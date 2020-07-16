@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
+import { Navbar, Nav, NavDropdown, Modal} from 'react-bootstrap';
+import LogIn from './LogIn';
 import {Link} from 'react-router-dom';
 import './style/Header.css';
 
+
 export class Header extends Component {
+
+    openLoginModal = () => {
+        this.refs.LogIn.open();
+    }
 
     render() {
         return (
@@ -18,5 +25,6 @@ export class Header extends Component {
     }
 }
 
-export default Header
+
+export default Header;
 

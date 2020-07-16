@@ -1,3 +1,76 @@
+import React, { Component } from 'react'
+import GoogleBtn from './GoogleBtn';
+import axios from 'axios';
+import './style/LogIn.css';
+
+
+export class LogIn extends Component {
+
+    state = {
+        id: '',
+        accessToken: '',
+        isLogined: false    
+    }
+
+    sendAccountData = () => {
+        this.props.checkLogin(this.state);
+    }
+
+    setLoggedIn = (data) => {
+        this.setState({
+            id: data.id,
+            accessToken: data.accessToken,
+            isLogined: true
+        });
+        this.sendAccountData();
+    }
+
+    setLoggedOut = (data) => {
+        this.setState({
+            id: '',
+            accessToken: '',
+            isLogined: false
+        });
+        this.sendAccountData();
+    }
+
+    render() {
+        if (!this.state.isLogined) {
+            return (
+                <div className="session">
+                    <form className="log-in">
+                        <h3>Welcome Back!</h3>
+                        <p>We're glad to see you again! <br/><br/>
+                        Please sign-in using one of the sign-in options below</p>
+                        <h4>Sign-In Options</h4>
+                        <GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/>
+                    </form>
+                    <div className="right">
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div className="session">
+                    <form className="log-in">
+                        <h3>See You Soon!</h3>
+                        <p>Thanks for visiting! <br/><br/>
+                        Please log out using the sign in option you used before</p>
+                        <h4>Sign-In Options</h4>
+                        <GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/>
+                    </form>
+                    <div className="right">
+                    </div>
+                </div>
+            )
+        }
+    }
+}
+
+export default LogIn
+
+
+/*
 import React, { Component } from 'react';
 import axios from 'axios';
 import './style/AccountCreation.css';
@@ -149,3 +222,5 @@ export class LogIn extends React.Component {
     }
 
 } export default LogIn;
+
+*/

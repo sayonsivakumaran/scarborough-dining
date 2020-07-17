@@ -16,7 +16,6 @@
 }
 
 .restaurant-profile .restaurant-info {
-    /* display: flex; */
     background-color: #ffffff;
     padding: 10px;
 }
@@ -24,13 +23,6 @@
 .restaurant-info .text-container {
     font-family: 'Didact Gothic', sans-serif;
 }
-.picture-container {
-    /* margin-right: 20%; */
-    /* padding-left: 400px; */
-    /* padding: 0px 0px 40px 400px; */
-    /* float: left; */
-}
-
 
 .restaurant-header{
     background: cadetblue;

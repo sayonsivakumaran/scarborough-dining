@@ -20,6 +20,10 @@ const restaurantSchema = new Schema({
         type: String,
         required: true
     },
+    introVideoURL: {
+        type: String,
+        required: true
+    },
     imageURLs: {
         type: [String],
         required: true

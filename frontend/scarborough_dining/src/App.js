@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Switch, Route } from 'react-router-dom';
 
-import Header from './components/Header';
+import Header from './components/Header/index';
 import AccountCreation from './components/AccountCreation';
 import ManageRestaurantInformation from './components/ManageRestaurantInformation';
 //import Restaurant from './components/Restaurant';

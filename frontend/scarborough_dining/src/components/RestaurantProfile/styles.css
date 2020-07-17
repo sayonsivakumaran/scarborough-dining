@@ -1,0 +1,46 @@
+
+
+.restaurant-profile {
+    text-align: left;
+    padding: 40px;
+    font-family: 'Didact Gothic', sans-serif;
+}
+
+.title {
+    font-size: 20px;
+    text-align: center;
+}
+
+.profile-logo {
+    max-width: 400px;
+}
+
+.restaurant-profile .restaurant-info {
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+.restaurant-info .text-container {
+    font-family: 'Didact Gothic', sans-serif;
+}
+
+.restaurant-header{
+    background: cadetblue;
+    color: white;
+    padding: 10px;
+}
+
+.menu {
+    height: 600px;
+    padding: 16px 0px;
+}
+
+.info {
+    height: 600px;
+    padding: 16px 0px;
+}
+
+.announcements {
+    height: 600px;
+    padding: 16px 0px;
+}

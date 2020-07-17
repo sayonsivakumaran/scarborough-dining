@@ -1,11 +1,12 @@
 [
     {
         "id": 1,
-        "name" : "DapperQuokas beaver shop",
-        "picture" : "mock/sushi-shop.png",
-        "address" : "Niagra falls",
-        "description" : "the yummiest of beavers",
-        "phone" : "123-456-7890"
+        "name" : "Tim Hortons",
+        "picture" : "mock/tim_hortons.png",
+        "address" : "171 Sandhurst Circle",
+        "description" : "Always Fresh",
+        "phone" : "123-456-7890",
+        "rating": 4
     },
     {
         "id": 2,
@@ -13,39 +14,44 @@
         "picture" : "mock/sushi-shop.png",
         "address" : "Tokyo, Japan",
         "description" : "the yummiest of fish",
-        "phone" : "123-456-7890"
+        "phone" : "123-456-7890",
+        "rating": 2
     },
     {
         "id": 3,
-        "name" : "DapperQuokas badger shop",
-        "picture" : "mock/sushi-shop.png",
-        "address" : "Mount Everest",
-        "description" : "the yummiest of badgers",
-        "phone" : "123-456-7890"
+        "name" : "McDonalods",
+        "picture" : "mock/McDonald's_logo.svg",
+        "address" : "Kentucky",
+        "description" : "I'm lovin it",
+        "phone" : "123-456-7890",
+        "rating": 5
     },
     {
         "id": 4,
-        "name" : "DapperQuokas beaver shop",
-        "picture" : "mock/sushi-shop.png",
+        "name" : "Justin's flower garden shop",
+        "picture" : "mock/justinsgarden.jpg",
         "address" : "Niagra falls",
         "description" : "the yummiest of beavers",
-        "phone" : "123-456-7890"
+        "phone" : "123-456-7890",
+        "rating": 5
     },
     {
-        "id": 5,
-        "name" : "DapperQuokas beaver shop",
-        "picture" : "mock/sushi-shop.png",
-        "address" : "Niagra falls",
-        "description" : "the yummiest of beavers",
-        "phone" : "123-456-7890"
+        "id": 1,
+        "name" : "Tim Hortons",
+        "picture" : "mock/tim_hortons.png",
+        "address" : "171 Sandhurst Circle",
+        "description" : "Always Fresh",
+        "phone" : "123-456-7890",
+        "rating": 4
     },
     {
         "id": 6,
-        "name" : "DapperQuokas beaver shop",
-        "picture" : "mock/sushi-shop.png",
-        "address" : "Niagra falls",
-        "description" : "the yummiest of beavers",
-        "phone" : "123-456-7890"
+        "name" : "Chipotle Mexican Grill",
+        "picture" : "mock/Chipotle_Mexican_Grill_logo.svg",
+        "address" : "Scarborough Town Centre",
+        "description" : "Burrito Bowls only",
+        "phone" : "123-456-7890",
+        "rating": 5
     },
     {
         "id": 7,
@@ -53,14 +59,16 @@
         "picture" : "mock/sushi-shop.png",
         "address" : "Niagra falls",
         "description" : "the yummiest of beavers",
-        "phone" : "123-456-7890"
+        "phone" : "123-456-7890",
+        "rating": 5
     },
     {
         "id": 8,
-        "name" : "DapperQuokas beaver shop",
-        "picture" : "mock/sushi-shop.png",
-        "address" : "Niagra falls",
-        "description" : "the yummiest of beavers",
-        "phone" : "123-456-7890"
-    } 
+        "name" : "McDonalods",
+        "picture" : "mock/McDonald's_logo.svg",
+        "address" : "Kentucky",
+        "description" : "I'm lovin it",
+        "phone" : "123-456-7890",
+        "rating": 4
+    }
 ]

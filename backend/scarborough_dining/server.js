@@ -12,6 +12,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(fileupload({ useTempFiles: true }));
 app.use(express.json());
+require('dotenv').config();
 
 /**
  * Connect server to MongoDB using environment variables.

@@ -30,27 +30,40 @@ class RestaurantProfile extends Component {
 
         return (
             <React.Fragment>
-                <div className="restaurant-info">
-                    <h1>{name}</h1>
-                    <h2>{description}</h2>
-                    <h3>{address} | {phone}</h3>
+                <div className="restaurant-profile">
+                    <div className="restaurant-info row">
+                        <div className="text-container col-md-4">
+                            <h1 className="mb-4 font-weight-bold">{name}</h1>
+                            <p>{description}</p>
+                            <p>{address} | {phone}</p>
+                        </div>
+                        <div className="picture-container col-md-4 col-md-offset-4">
+                            <img className="profile-logo" src={picture} />
+                        </div>
+                    </div>
+                    <header className="restaurant-header">
+                        <Link to={`/restaurants/${id}`} style={linkStyle}>Menu</Link> | 
+                        <Link to={`/restaurants/${id}/info`} style={linkStyle}>Info</Link> |
+                        <Link to={`/restaurants/${id}/announcements`} style={linkStyle}> Announcements </Link>
+                    </header>
+                    <Switch>
+                        <Route exact path={`/restaurants/${id}`}>
+                            <div className="menu">
+                                <h1>Menu</h1>
+                            </div>
+                        </Route>
+                        <Route path={`/restaurants/${id}/info`}>
+                            <div className="info">
+                                <h1>Info</h1>
+                            </div>
+                        </Route>
+                        <Route path={`/restaurants/${id}/announcements`}>
+                            <div className="announcements">
+                                <h1>Accouncements</h1>
+                            </div>
+                        </Route>
+                    </Switch>
                 </div>
-                <header className="restaurant-header">
-                    <Link to={`/restaurants/${id}`} style={linkStyle}>Menu</Link> | 
-                    <Link to={`/restaurants/${id}/info`} style={linkStyle}>Info</Link>
-                </header>
-                <Switch>
-                    <Route exact path={`/restaurants/${id}`}>
-                        <div>
-                            <h1>Menu</h1>
-                        </div>
-                    </Route>
-                    <Route path={`/restaurants/${id}/info`}>
-                        <div>
-                            <h1>Info</h1>
-                        </div>
-                    </Route>
-                </Switch>
             </React.Fragment>
         );
     }

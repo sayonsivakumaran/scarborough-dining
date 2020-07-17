@@ -1,25 +1,53 @@
-.headerStyle {
-    background: #f3f3f3;
+.header {
+    padding-left: 60px;
+    float: left;
+    opacity: 1;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.links {
+    float: right;
+    justify-content: center;
+}
+
+.navbar{
+    background-color: #ffffff;
+    margin: 8px;
+}
+
+.navbar .link {
     color: #000000;
     text-align: center;
-    padding: 26px 26px 40px 26px;
-    border-bottom: solid;
-}
-
-.headerStyle .title {
-    font-size: 3em;
-    padding-bottom: 16px;
-}
-
-.linkStyle {
-    color: #000000;
+    padding: 26px;
     text-decoration: none;
-    font-size: 20px;
-    padding: 0px 16px 0px 16px;
+    font-family: 'Didact Gothic', sans-serif;
+    font-weight: bolder;
+    font-size: 18px;
 }
 
-.non-last-linkStyle{
-    border-right: #000000;
-    border-right: solid; 
-    border-width: 0.1ch;
+.navbar .link:hover {
+    background-color: #f3f3f3;
 }
+.header_img{
+    display: block;
+    margin: 0 auto;
+}
+
+.header .title {
+    font-weight: bold;
+    font-size: 3.5vw;
+}
+
+
+.jumbotron {
+    color: #000000;
+    background-image: url("header_bg1.jpg");
+    height: 600px;
+    opacity: 0.8;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    font-family: 'Didact Gothic', sans-serif;
+  }

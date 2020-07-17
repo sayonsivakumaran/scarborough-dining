@@ -6,12 +6,15 @@ export class Header extends Component {
 
     render() {
         return (
-            <header className="headerStyle">
-                <h1 className="title">Scarborough Dining</h1>
-                <Link to="/" className="linkStyle non-last-linkStyle">Home</Link>
-                <Link to="/account-creation/user" className="linkStyle non-last-linkStyle">Sign-Up for an Account</Link>  
-                <Link to="/account-creation/restaurant" className="linkStyle non-last-linkStyle">Register Restaurant</Link>
-                <Link to="/manage-restaurant-information" className="linkStyle">Manage Restaurant Information</Link>
+            <header>
+            <div class="navbar">
+                <div class="links">
+                    <Link class="link" to="/" class="link">Home</Link>
+                    <Link class="link" to="/account-creation/user">Sign-Up for an Account</Link>  
+                    <Link class="link" to="/account-creation/restaurant">Register Restaurant</Link>
+                    <Link class="link" to="/manage-restaurant-information">Manage Restaurant Information</Link>
+                </div>
+            </div>
             </header>
         )
     }

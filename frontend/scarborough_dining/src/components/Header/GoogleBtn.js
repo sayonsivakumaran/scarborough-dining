@@ -3,7 +3,7 @@ import axios from 'axios';
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 
 // Google Client ID
-const CLIENT_ID = '656946100283-d2di4a9k3r7tmln8uvanstuovoh6qmsu.apps.googleusercontent.com'
+const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
 
 /**
  * Class: GoogleBtn

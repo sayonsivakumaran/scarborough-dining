@@ -28,6 +28,7 @@ export class GoogleBtn extends Component {
     }
 
     login (response) {
+        console.log(response);
         axios.post('/customers/login', {
             email: response.profileObj.email
         }).then(res => {
@@ -51,10 +52,12 @@ export class GoogleBtn extends Component {
         this.props.logout(this.state)
     }
     
+    // TODO: Must add customer error message displayed to user when login fails
     handleLoginFailure (response) {
         //alert('Failed to log in')
     }
     
+    // TODO: Must add customer error message displayed to user when logout fails
     handleLogoutFailure (response) {
         //alert('Failed to log out')
     }

@@ -19,7 +19,7 @@ export class Header extends Component {
         this.setState({
             id: data.id,
             accessToken: data.accessToken,
-            isLogined: true
+            isLoggedIn: true
         });
         this.sendAccountData();
     }
@@ -28,7 +28,7 @@ export class Header extends Component {
         this.setState({
             id: '',
             accessToken: '',
-            isLogined: false
+            isLoggedIn: false
         });
         this.sendAccountData();
     }
@@ -42,7 +42,7 @@ export class Header extends Component {
                     <Link class="link" to="/account-creation/user">Sign-Up for an Account</Link>  
                     <Link class="link" to="/account-creation/restaurant">Register Restaurant</Link>
                     <Link class="link" to="/manage-restaurant-information">Manage Restaurant Information</Link>
-                    <Link className="linkStyle"><GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/></Link>
+                    <Link class="link"><GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/></Link>
                 </div>
             </div>
             </header>

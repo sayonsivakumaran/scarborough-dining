@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { Switch, Route } from 'react-router-dom';
 
-import Header from './components/Header';
+import Header from './components/Header/index';
 import AccountCreation from './components/AccountCreation';
 import ManageRestaurantInformation from './components/ManageRestaurantInformation';
 //import Restaurant from './components/Restaurant';
@@ -10,10 +10,25 @@ import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
 import Unknown from './components/Unknown';
 
+
 import './App.css';
 
-
 export class App extends Component {
+
+
+  state = {
+    id: '',
+    accessToken: '',
+    isLoggedIn: false
+  }
+
+  checkLogin = (data) => {
+    this.setState({
+      id: data.id,
+      accessToken: data.accessToken,
+      isLoggedIn: !this.state.isLoggedIn
+    })
+  }
 
   render() {
     return (
@@ -21,8 +36,9 @@ export class App extends Component {
         <head>
           <title>Scarborough Dining | CodeShippers</title>
         </head>
-        <Header />
         <body>
+          
+          <Header checkLogin={this.checkLogin.bind(this)}/>
           <React.Fragment>
             <Switch>
               <Route exact path="/" component={RestaurantList} />

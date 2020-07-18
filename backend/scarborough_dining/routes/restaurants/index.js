@@ -22,6 +22,7 @@ router.route('/add').post((req, res) => {
         ratings, 
         name,
         logoURL,
+        introVideoURL,
         imageURLs,
         phoneNumber, 
         address,
@@ -30,7 +31,7 @@ router.route('/add').post((req, res) => {
         postalCode,
         cuisineTypes,
         description,
-        menuItemIDs
+        menuItems
     } = req.body;
 
     const newRestaurant = new Restaurant({ 
@@ -38,6 +39,7 @@ router.route('/add').post((req, res) => {
         ratings, 
         name,
         logoURL,
+        introVideoURL,
         imageURLs,
         phoneNumber, 
         address,
@@ -46,9 +48,10 @@ router.route('/add').post((req, res) => {
         postalCode,
         cuisineTypes,
         description,
-        menuItemIDs
+        menuItems
     });
     
+    console.log(newRestaurant);
     newRestaurant.save()
         .then(() => res.json('Restaurant has been added.'))
         .catch(err => res.status(400).json('Error: ' + err));

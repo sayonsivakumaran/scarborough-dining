@@ -51,7 +51,6 @@ router.route('/add').post((req, res) => {
         menuItems
     });
     
-    console.log(newRestaurant);
     newRestaurant.save()
         .then(() => res.json('Restaurant has been added.'))
         .catch(err => res.status(400).json('Error: ' + err));

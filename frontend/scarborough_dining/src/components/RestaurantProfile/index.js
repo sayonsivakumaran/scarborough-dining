@@ -5,12 +5,6 @@ import { Link, Switch, Route } from 'react-router-dom';
 import ReactPlayer from "react-player"
 import axios from 'axios';
 
-const linkStyle = {
-    color: '#fff',
-    padding: '1em 1em',
-    textDecoration:'none'
-}
-
 class RestaurantProfile extends Component {
     constructor(props) {
         super(props);
@@ -25,7 +19,6 @@ class RestaurantProfile extends Component {
         }
         let id = this.props.match.params.id;
 
-        console.log(id);
         this._getRestaurantInfo(id);
     }
 

@@ -45,6 +45,12 @@
     padding: 10px;
 }
 
+.linkStyle {
+    color: #ffffff;
+    padding: 1em 1em;
+    text-decoration: none;
+}
+
 .menu {
     height: 600px;
     padding: 16px 0px;

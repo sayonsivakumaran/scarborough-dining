@@ -57,9 +57,9 @@ class RestaurantProfile extends Component {
 
                     </div>
                     <header className="restaurant-header">
-                        <Link to={`/restaurants/${this.state.id}`} style={linkStyle}>Menu</Link> | 
-                        <Link to={`/restaurants/${this.state.id}/info`} style={linkStyle}>Info</Link> |
-                        <Link to={`/restaurants/${this.state.id}/announcements`} style={linkStyle}> Announcements </Link>
+                        <Link to={`/restaurants/${this.state.id}`} className="linkStyle">Menu</Link> | 
+                        <Link to={`/restaurants/${this.state.id}/info`} className="linkStyle">Info</Link> |
+                        <Link to={`/restaurants/${this.state.id}/announcements`} className="linkStyle"> Announcements </Link>
                     </header>
                     <Switch>
                         <Route exact path={`/restaurants/${this.state.id}`}>

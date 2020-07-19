@@ -1,8 +1,29 @@
 import React, { Component } from 'react';
 import Restaurant from '../Restaurant';
-import data from '../../mock/restaurant.json';
 import '../Restaurant/styles.css'
+import axios from 'axios';
 export default class RestaurantList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            restaurants: [],
+            totalRestaurants: 0
+        }
+
+        this._getRestaurantList();
+    }
+
+    _getRestaurantList() {
+        axios.get('/restaurants').then(response => {
+            console.log(response.data);
+            this.setState({
+                restaurants: response.data,
+                totalRestaurants: response.data.length
+            });
+        })
+    }
+
+
     render() {
         return (
             <React.Fragment>
@@ -12,11 +33,11 @@ export default class RestaurantList extends Component {
                     </div>
                 </div>
                 <div className="restaurants">
-                <h2 className="restaurant-list-title mb-4 font-weight-bold">Restaurants</h2>
+                <h2 className="restaurant-list-title mb-4 font-weight-bold">Scarborough Owned Restaurants</h2>
                     <div className="card-columns">
                         {
-                            data.map(restaurant => {
-                                return <Restaurant key={restaurant.id} restaurant={restaurant} />
+                            this.state.restaurants.map(restaurant => {
+                                return <Restaurant key={restaurant._id} restaurant={restaurant} />
                             })
                         }
                     </div>

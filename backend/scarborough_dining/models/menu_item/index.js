@@ -7,7 +7,7 @@ const menuItemSchema = new Schema({
         required: true
     },
     restaurantID: {
-        type: String,
+        type: Schema.ObjectId,
         required: true
     },
     price: {

@@ -22,6 +22,7 @@ router.route('/add').post((req, res) => {
         ratings, 
         name,
         logoURL,
+        introVideoURL,
         imageURLs,
         phoneNumber, 
         address,
@@ -30,7 +31,7 @@ router.route('/add').post((req, res) => {
         postalCode,
         cuisineTypes,
         description,
-        menuItemIDs
+        menuItems
     } = req.body;
 
     const newRestaurant = new Restaurant({ 
@@ -38,6 +39,7 @@ router.route('/add').post((req, res) => {
         ratings, 
         name,
         logoURL,
+        introVideoURL,
         imageURLs,
         phoneNumber, 
         address,
@@ -46,7 +48,7 @@ router.route('/add').post((req, res) => {
         postalCode,
         cuisineTypes,
         description,
-        menuItemIDs
+        menuItems
     });
     
     newRestaurant.save()

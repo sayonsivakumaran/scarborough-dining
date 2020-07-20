@@ -1,0 +1,11 @@
+.search-container {
+    float: right;
+    /*font-size: 17px;*/
+    border: none;
+    cursor: pointer;
+}
+.inputStyle {
+    /*height: 10px;*/
+    height: 1em;
+    width: 70%;
+}

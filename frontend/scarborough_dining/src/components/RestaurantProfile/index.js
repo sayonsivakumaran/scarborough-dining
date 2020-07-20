@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MenuItemList from '../MenuItemList';
 import data from '../../mock/restaurant.json';
 import './styles.css'
 import { Link, Switch, Route } from 'react-router-dom';
@@ -47,11 +48,7 @@ class RestaurantProfile extends Component {
                         <Link to={`/restaurants/${id}/announcements`} style={linkStyle}> Announcements </Link>
                     </header>
                     <Switch>
-                        <Route exact path={`/restaurants/${id}`}>
-                            <div className="menu">
-                                <h1>Menu</h1>
-                            </div>
-                        </Route>
+                        <Route exact path={`/restaurants/:id`} component={MenuItemList}/>
                         <Route path={`/restaurants/${id}/info`}>
                             <div className="info">
                                 <h1>Info</h1>

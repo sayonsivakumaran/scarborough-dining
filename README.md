@@ -9,6 +9,7 @@
 - [Deliverable #2](deliverables/CSCC01_Team03_Deliverable02.pdf): Provides an overview of the personas and the user stories that will be used towards the duration of the project.
 - [Deliverable #3a](deliverables/CSCC01_Team03_Deliverable03.pdf): Provides an overview of the production environment, product backlog, first release and sprint plan for the duration of the sprint.
 - [Deliverable #3b](deliverables/CSCC01_Team03_Deliverable3b.pdf): Provides an overview of the contents in deliverable 3 as well as a high level descrition of our systems, as well as a reflection and retrospection of the sprint
+- [Deliverable #4](deliverables/CSCC01_Team03_Deliverable4.pdf): Provides an overview of the contents in deliverable 4 such as a verification and validation of our system with a new high level archtiecture, as well as the reflection and retrospection of our sprints
 ### Members
 
 - [Henry Huang](https://github.com/henryhhuang)
@@ -19,4 +20,4 @@
 
 ### Latest Release
 
-- [Scarborough Dining](https://scarborough-dining-v2.herokuapp.com/)
+- [Scarborough Dining](https://scarborough-dining-v3.herokuapp.com/)

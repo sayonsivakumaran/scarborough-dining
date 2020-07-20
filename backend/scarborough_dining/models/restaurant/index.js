@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+let MenuItem = require('../menu_item').schema;
 
 const restaurantSchema = new Schema({
     ownerID: {
@@ -17,6 +18,10 @@ const restaurantSchema = new Schema({
         required: true
     },
     logoURL: {
+        type: String,
+        required: true
+    },
+    introVideoURL: {
         type: String,
         required: true
     },
@@ -60,8 +65,8 @@ const restaurantSchema = new Schema({
         type: String,
         required: true
     },
-    menuItemIDs: {
-        type: [String],
+    menuItems: {
+        type: [MenuItem],
         required: true
     }
 }, {

@@ -6,12 +6,25 @@ const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 5000;
 
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../../frontend/scarborough_dining/build"));
+} else {
+    require('dotenv').config();
+}
+
 /**
  * Middle ware used in server-side
  */
 app.use(cors());
 app.use(fileupload({ useTempFiles: true }));
 app.use(express.json());
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../../frontend/scarborough_dining/build"));
+} else {
+    require('dotenv').config();
+}
 
 /**
  * Connect server to MongoDB using environment variables.
@@ -37,12 +50,6 @@ app.use('/owners', ownersRouter);
 app.use('/restaurants', restaurantsRouter);
 app.use('/menu_items', menuItemsRouter);
 app.use('/media_upload', uploadMediaItemsRouter);
-
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("../../frontend/scarborough_dining/build"));
-} else {
-    require('dotenv').config();
-}
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

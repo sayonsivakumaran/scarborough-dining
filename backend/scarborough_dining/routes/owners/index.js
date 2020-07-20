@@ -44,6 +44,40 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+
+/**
+ * @route           POST /owners/login
+ * @description     Check database for owner with specific email, and checks
+ *                  that password is correct
+ * @returns         Returns data of the owner with specific email
+ */
+router.post('/login', (req, res) => {
+
+    email = req.body.email;
+    password =  req.body.password;
+
+    Owner.findOne({ email })
+        .then(owner => {
+
+            // Check that email exists
+            if (!owner) {
+                return res.status(404).json({ emailNotFound: "Email not found"});
+            }
+
+            // Check that password matches
+            if (!Password.validatePassword(password, owner.password)) {
+                res.status(400).json( { passwordMatch: false } );
+                return res;
+            } else {
+                payload = {
+                    owner
+                }
+                console.log(payload)
+                res.json(payload);
+            }
+        })
+});
+
 /**
  * Server-side get request to retrieve a specific owner's data.
  * Requires a database id of the owner

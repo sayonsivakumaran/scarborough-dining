@@ -6,6 +6,13 @@ const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 5000;
 
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../../frontend/scarborough_dining/build"));
+} else {
+    require('dotenv').config();
+}
+
 /**
  * Middle ware used in server-side
  */

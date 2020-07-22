@@ -105,4 +105,13 @@ router.route('/update/:id').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * Server-side get request to provide the search results requested by the user
+ * Requires a query string
+ */
+router.route('/search_results').get((req, res) => {
+    const queryString = req.body;
+    Restaurant.find(); //specify the query 
+});
+
 module.exports = router;

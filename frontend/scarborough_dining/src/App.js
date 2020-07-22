@@ -48,7 +48,8 @@ export class App extends Component {
               <Route path="/account-creation/restaurant" render={
                 () => <AccountCreation userType={"restaurant"} />
               } />
-              <Route path="/restaurants/:id" component={RestaurantProfile} />
+              <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.isLoggedIn}/>} />
+              <Route path="/restaurants/:id/menu-item/:menuItemId" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
               <Route component={Unknown} />
             </Switch>

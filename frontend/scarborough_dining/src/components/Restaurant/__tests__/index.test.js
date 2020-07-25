@@ -11,11 +11,10 @@ describe('<Restaurant />', () => {
     beforeEach(() => {
         props = {restaurant: {
             name: "testname",
-            imageURLs: ["pic"],
+            logoURL: "pic",
             address: "address",
             description: "desc",
-            _id: "id",
-            ratings: []
+            _id: "id"
         }};
 
         page = shallow(<Restaurant {...props} />);
@@ -25,7 +24,7 @@ describe('<Restaurant />', () => {
 
     });
 
-    describe('init', () => {
+    describe('constructor', () => {
         it('should initialize state variables and call intialize variables', () => {
 
             expect(instance.state.name).toBe("testname");
@@ -33,20 +32,7 @@ describe('<Restaurant />', () => {
             expect(instance.state.address).toBe("address");
             expect(instance.state.description).toBe("desc");
             expect(instance.state.id).toBe("id");
-            expect(instance.state.rating).toEqual([]);
 
-        });
-    });
-
-    describe('getRatings', () => {
-        let ratings = [5,4,3,2];
-
-        it('should average out ratings', () => { 
-            expect(instance._getRatings(ratings).length).toBe(4);
-        })
-
-        it('should return empty message if given no ratings', () => {
-            expect(instance._getRatings([]).length).toBe(1);
         });
     });
 });

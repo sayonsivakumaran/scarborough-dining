@@ -8,7 +8,6 @@ jest.mock('axios');
 
 describe('RestaurantProfile', () => {
 
-
     let page, instance, mockResponse, mockRestaurant, match;
 
     mockRestaurant = {
@@ -36,7 +35,7 @@ describe('RestaurantProfile', () => {
         instance = page.instance();
     });
 
-    describe('init', () => {
+    describe('constructor', () => {
         it('should set state variables correctly and call _getRestaurantList', () => {            
             expect(instance.state.name).toEqual(mockRestaurant.name);
             expect(instance.state.id).toEqual(mockRestaurant._id);
@@ -47,15 +46,7 @@ describe('RestaurantProfile', () => {
         });
 
         it(`renders name of restaurant`, () => {
-            expect(page.find('.restaurant-info h1').text()).toBe(mockRestaurant.name);
-        });
-
-        it(`renders description of restaurant`, () => {
-            expect(page.find('.restaurant-info .description').text()).toBe(mockRestaurant.description);
-        });
-
-        it(`renders address/phone of restaurant`, () => {
-            expect(page.find('.restaurant-info .address-phone').text()).toBe(`${mockRestaurant.address} | ${mockRestaurant.phoneNumber}`);
+            expect(page.find('.restaurant-title').text()).toBe(mockRestaurant.name);
         });
     });
 });

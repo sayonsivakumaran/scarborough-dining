@@ -36,15 +36,31 @@ export class Header extends Component {
     render() {
         return (
             <header>
-            <div class="navbar">
-                <div class="links">
-                    <Link class="link" to="/" class="link">Home</Link>
-                    <Link class="link" to="/account-creation/user">Sign-Up for an Account</Link>  
-                    <Link class="link" to="/account-creation/restaurant">Register Restaurant</Link>
-                    <Link class="link" to="/manage-restaurant-information">Manage Restaurant Information</Link>
-                    <Link class="link"><GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/></Link>
-                </div>
-            </div>
+                <nav class="navbar navbar-expand-lg fixed-top navbar-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <Link class="nav-link link" to="/">Home</Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link class="nav-link link" to="/account-creation/user">Sign-Up for an Account</Link>  
+                        </li>
+                        <li class="nav-item">
+                            <Link class="nav-link link" to="/account-creation/restaurant">Register Restaurant</Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link class="nav-link link" to="/manage-restaurant-information">Manage Restaurant Information</Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link class="nav-link link"><GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/></Link>
+                        </li>
+                        </ul>
+                    </div>
+                </nav>
             </header>
         )
     }

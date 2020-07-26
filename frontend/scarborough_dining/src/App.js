@@ -19,7 +19,8 @@ export class App extends Component {
   state = {
     id: '',
     accessToken: '',
-    isLoggedIn: false
+    isLoggedIn: false,
+    shoppingCart: {}
   }
 
   checkLogin = (data) => {
@@ -28,6 +29,15 @@ export class App extends Component {
       accessToken: data.accessToken,
       isLoggedIn: !this.state.isLoggedIn
     })
+  }
+
+  addToShoppingCart = (menuItems, total) => {
+    menuItems['total'] = menuItems['total'] + total || total;
+    let newItem = {};
+    newItem[menuItems.id] = menuItems;
+    this.setState({
+      shoppingCart: newItem
+    });
   }
 
   render() {
@@ -48,7 +58,7 @@ export class App extends Component {
               <Route path="/account-creation/restaurant" render={
                 () => <AccountCreation userType={"restaurant"} />
               } />
-              <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.isLoggedIn}/>} />
+              <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.isLoggedIn} onUpdateShoppingCart={this.addToShoppingCart}/>} />
               <Route path="/restaurants/:id/menu-item/:menuItemId" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
               <Route component={Unknown} />

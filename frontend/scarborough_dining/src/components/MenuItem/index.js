@@ -49,9 +49,10 @@ export default class MenuItem extends Component {
     }
 
     addToShoppingCart = e => {
-        e.preventDefault();
-        console.log(e.target);
         this.close();
+        if (this.state.totalSelected) {
+            this.props.onUpdateShoppingCart(this.props.menuItem, this.state.totalSelected);
+        }
     }
     
     render() {
@@ -74,7 +75,7 @@ export default class MenuItem extends Component {
                         <p className="title">{this.state.name}</p>
                         <p className="title">${this.state.price}</p>
                         <p className="title">{this.state.description}</p>
-                        <input onChange={this.onQuantityChange} name="totalItems" type="number" step="1" placeholder="Total" required={true} />
+                        <input onChange={this.onQuantityChange} name="totalItems" type="number" min="0" step="1" placeholder="Total" required={true} />
                         {/* <div className="rating">
                             {this._getRatings(this.state.rating)}
                         </div> */}

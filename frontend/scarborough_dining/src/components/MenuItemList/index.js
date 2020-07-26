@@ -61,7 +61,7 @@ export default class MenuItemList extends Component {
                     <div className="card-columns">
                         {
                             menuItems.map(menuItem => {
-                                return <MenuItem loggedIn={this.props.loggedIn} key={menuItem._id} menuItem={menuItem} />
+                                return <MenuItem onUpdateShoppingCart={this.props.onUpdateShoppingCart} loggedIn={this.props.loggedIn} key={menuItem._id} menuItem={menuItem} />
                             })
                         }
                     </div>

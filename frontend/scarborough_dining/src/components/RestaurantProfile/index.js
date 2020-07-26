@@ -9,7 +9,6 @@ import axios from 'axios';
 class RestaurantProfile extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
         this.state = { 
             name: "",
             address: "",
@@ -67,7 +66,7 @@ class RestaurantProfile extends Component {
                         <Route exact path={`/restaurants/${this.state.id}`}>
                             <div className="menu">
                                 <h1>Menu</h1>
-                                <MenuItemList loggedIn={this.props.loggedIn}  menuItems={this.state.menuItems} />
+                                <MenuItemList loggedIn={this.props.loggedIn} onUpdateShoppingCart={this.props.onUpdateShoppingCart} menuItems={this.state.menuItems} />
                             </div>
                         </Route>
                         <Route path={`/restaurants/${this.state.id}/info`}>

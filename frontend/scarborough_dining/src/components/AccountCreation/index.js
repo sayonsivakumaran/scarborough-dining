@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './styles.css';
+import FileUpload from '../FileUpload';
+import { Redirect } from 'react-router'
 
 export class AccountCreation extends React.Component {
 
@@ -9,6 +11,7 @@ export class AccountCreation extends React.Component {
         super(props);
 
         this.state = {
+            redirect: false,
             //Account Information
             fullName: '',
             email: '',
@@ -27,12 +30,62 @@ export class AccountCreation extends React.Component {
             restaurantCuisine: '',
             restaurantCity: '',
             restaurantPostalCode: '',
-            restaurantProvince: ''
+            restaurantProvince: '',
+            restaurantLogo: undefined,
+            restaurantProfileImage: undefined,
+            restaurantDescription: '',
+            restaurantVideoURL: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.passwordValidate = this.passwordValidate.bind(this);
+    }
+
+    /**
+     * Handles change for restaurant logo file
+     * @param {*} e 
+     */
+    handleLogoFileChange = e => {
+        e.preventDefault();
+        console.log(e.target.files[0]);
+        this.setState({
+            restaurantLogo: e.target.files[0] || undefined
+        });
+        console.log(this.state.restaurantLogo);
+    }
+
+    /**
+     * Handles delete for restaurant logo file
+     * @param {Object} event the event to be deleted
+     */
+    handleLogoFileDelete = e => {
+        e.preventDefault();
+        this.setState({
+            restaurantLogo: undefined
+        });
+    }
+
+        /**
+     * Handles change for restaurant profile file
+     * @param {Object} event the event to be deleted
+     */
+    handleProfileFileChange = e => {
+        e.preventDefault();
+        this.setState({
+            restaurantProfileImage: e.target.files[0] || undefined
+        });
+    }
+
+    /**
+     * Handles delete for restaurant profile file
+     * @param {Object} event the event to be deleted
+     */
+    handleProfileFileDelete = e => {
+        e.preventDefault();
+        this.setState({
+            restaurantProfileImage: undefined
+        });
     }
 
     //Handles when fields in the input are changed
@@ -43,6 +96,22 @@ export class AccountCreation extends React.Component {
         this.setState({
             [name]: value 
         })
+    }
+
+    /**
+     * Makes file upload request and returns the cloudinary url
+     * @param {*} image to be uploaded
+     */ 
+    _uploadImageURL = async image => {
+        const formData = new FormData();
+        formData.append('file', image);
+        return axios.post('/media_upload/image', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            } 
+        }).then(
+            response => response.data.result.secure_url || ''
+        ).catch(e => e);
     }
 
     //Handle when the "submit" button on the form is pressed
@@ -74,6 +143,9 @@ export class AccountCreation extends React.Component {
                 alert("This email address is already in use");	
             });
 
+            alert("User has been created!");
+            this.setState({ redirect: true });
+
         } else { 
             //restaurant owner information from the field
             const name = this.state.fullName.split(" ");
@@ -95,6 +167,11 @@ export class AccountCreation extends React.Component {
             });
             
             if(res !== undefined) {
+
+                //Upload files to cloudinary and get the url
+                const restaurantLogoURL = await (this._uploadImageURL(this.state.restaurantLogo));
+                console.log(restaurantLogoURL);
+                const restaurantProfileImageURL = await (this._uploadImageURL(this.state.restaurantProfileImage));
                 
                 let restaurantInfo = 
                 {
@@ -102,8 +179,8 @@ export class AccountCreation extends React.Component {
                     ownerID: res.data._id,
                     ratings: [],
                     name: this.state.restaurantName,
-                    logoURL: " ",
-                    imageURLs: " ",
+                    logoURL: restaurantLogoURL,
+                    imageURLs: restaurantProfileImageURL,
                     phoneNumber: this.state.restaurantPhone,
                     address: this.state.restaurantAddress,
                     city: this.state.restaurantCity,
@@ -111,14 +188,18 @@ export class AccountCreation extends React.Component {
                     postalCode: this.state.restaurantPostalCode,
                     cuisineTypes: [this.state.restaurantCuisine],
                     description: " ",
-                    menuItemIDs: []
+                    menuItemIDs: [],
+                    longDescription: this.state.restaurantDescription,
+                    introVideoURL: this.state.restaurantVideoURL
                 }
                 axios.post('/restaurants/add', restaurantInfo)
-                .then(console.log("Added the restaurant"))           
+                .then(console.log("Added the restaurant"))    
                 .catch((error) => {
                     console.log(error);
                     alert("Error with registration: " + error);
                 });
+                alert("User and Restaurant has been created!");
+                this.setState({ redirect: true });
             }
         }
 
@@ -141,7 +222,7 @@ export class AccountCreation extends React.Component {
     UserForm = () => {
         return (
             <div className="containerStyle">
-                <h2 className="title mb-4 font-weight-bold">Account Information</h2>
+                <h2 className="mb-4 font-weight-bold">Account Information</h2>
                 <input 
                     name="fullName"
                     type="text"
@@ -281,11 +362,26 @@ export class AccountCreation extends React.Component {
                     className="inputStyle"
                     onChange={this.handleChange}
                 />
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Logo</h2>
+                <div className="fileUpload">
+                    <FileUpload name="restaurantLogo" acceptedFiles={'image/*'} onFileUpload={this.handleLogoFileChange} onFileDelete={this.handleLogoFileDelete}/>
+                </div>
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Profile Introduction Image</h2>
+                <div className="fileUpload">
+                    <FileUpload name="restaurantProfileImage" acceptedFiles={'image/*'} onFileUpload={this.handleProfileFileChange} onFileDelete={this.handleProfileFileDelete}/>
+                </div>
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Restaurant Profile Description</h2>
+                <textarea className="inputDescription mt-4" onChange={this.handleChange} name="restaurantDescription" required="true"/>
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Restaurant Introduction Video (Youtube) URL</h2>
+                <textarea className="video mt-4" onChange={this.handleChange} name="restaurantVideoURL" required="true"/>
             </div>
         )
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to='/'/>;
+        }
         if (this.props.userType === "user") {
             return (
                 <form className="formStyle" onSubmit={this.handleSubmit}>

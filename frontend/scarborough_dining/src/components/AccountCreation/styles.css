@@ -18,3 +18,17 @@
     font-size: 20px;
     margin: 10px 0px;
 }
+
+.inputDescription {
+    width: 50%;
+    min-height: 200px;
+}
+
+.video {
+    width: 50%;
+    min-height: 50px;
+}
+
+.fileUpload {
+    width: 50%;
+}

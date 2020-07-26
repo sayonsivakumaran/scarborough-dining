@@ -47,6 +47,7 @@ class RestaurantProfile extends Component {
                             </div>
                             <div className="image-text-container col-md-12">
                                 <img className="profile-logo pull-left mr-4" src="mock/Culinary-Arts-Program-1.png"/>
+                                {/* TODO: Change mock description to description from backend */}
                                 <p className="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At tempor commodo ullamcorper a lacus. In nulla posuere sollicitudin aliquam ultrices sagittis orci. Lobortis feugiat vivamus at augue. Posuere urna nec tincidunt praesent semper. Ipsum dolor sit amet consectetur adipiscing elit pellentesque. Et malesuada fames ac turpis egestas integer eget aliquet. Viverra maecenas accumsan lacus vel facilisis volutpat est. Rhoncus mattis rhoncus urna neque viverra justo nec ultrices dui. Libero id faucibus nisl tincidunt eget nullam non nisi. Tortor consequat id porta nibh venenatis cras sed. Lorem ipsum dolor sit amet consectetur. Venenatis a condimentum vitae sapien pellentesque habitant. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc. At auctor urna nunc id cursus metus aliquam. Tempus urna et pharetra pharetra massa massa. Id velit ut tortor pretium viverra suspendisse potenti. Orci porta non pulvinar neque laoreet suspendisse.
 
                                 Blandit massa enim nec dui nunc mattis enim. Urna molestie at elementum eu facilisis sed odio morbi. Porttitor eget dolor morbi non arcu risus quis. Sit amet cursus sit amet dictum sit amet. Risus nullam eget felis eget nunc lobortis mattis aliquam. Blandit libero volutpat sed cras ornare. Sem fringilla ut morbi tincidunt augue. Massa eget egestas purus viverra accumsan. At erat pellentesque adipiscing commodo elit at imperdiet dui accumsan. Vitae et leo duis ut diam quam nulla. Dolor purus non enim praesent elementum. Porta non pulvinar neque laoreet. Augue eget arcu dictum varius duis. Netus et malesuada fames ac turpis egestas integer eget aliquet. Sed id semper risus in hendrerit. Ultricies lacus sed turpis tincidunt id aliquet risus feugiat. Turpis massa tincidunt dui ut ornare lectus sit amet. Pulvinar etiam non quam lacus suspendisse faucibus interdum.
@@ -57,7 +58,8 @@ class RestaurantProfile extends Component {
 
                                 Tortor posuere ac ut consequat semper viverra nam libero justo. Mi ipsum faucibus vitae aliquet nec ullamco</p>
                             </div>
-                            <div className="video-container col-12"> 
+                            <div className="video-container col-12">
+                                {/* TODO: Change mock video url to video url from backend */} 
                                 <ReactPlayer
                                     url="https://www.youtube.com/watch?v=KN3Py0duFto"
                                 />

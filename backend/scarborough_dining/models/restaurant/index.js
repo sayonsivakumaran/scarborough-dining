@@ -65,6 +65,10 @@ const restaurantSchema = new Schema({
         type: String,
         required: true
     },
+    longDescription: {
+        type: String,
+        required: true
+    },
     menuItems: {
         type: [MenuItem],
         required: true

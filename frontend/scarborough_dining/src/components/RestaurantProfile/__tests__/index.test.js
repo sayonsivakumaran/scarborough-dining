@@ -8,14 +8,13 @@ jest.mock('axios');
 
 describe('RestaurantProfile', () => {
 
-
     let page, instance, mockResponse, mockRestaurant, match;
 
     mockRestaurant = {
         _id: "1",
         name: "restaurant",
         address: "address",
-        description: "desc",
+        longDescription: "desc",
         phoneNumber: "647",
         imageURLs: ["image"]
     }
@@ -36,26 +35,26 @@ describe('RestaurantProfile', () => {
         instance = page.instance();
     });
 
-    describe('init', () => {
+    describe('constructor', () => {
         it('should set state variables correctly and call _getRestaurantList', () => {            
             expect(instance.state.name).toEqual(mockRestaurant.name);
             expect(instance.state.id).toEqual(mockRestaurant._id);
             expect(instance.state.address).toEqual(mockRestaurant.address);
-            expect(instance.state.description).toEqual(mockRestaurant.description);
+            expect(instance.state.description).toEqual(mockRestaurant.longDescription);
             expect(instance.state.phoneNumber).toEqual(mockRestaurant.phoneNumber);
             expect(getRestaurantListSpy).toHaveBeenCalledWith(mockRestaurant._id);
         });
 
         it(`renders name of restaurant`, () => {
-            expect(page.find('.restaurant-info h1').text()).toBe(mockRestaurant.name);
+            expect(page.find('.restaurant-title').text()).toBe(mockRestaurant.name);
         });
 
         it(`renders description of restaurant`, () => {
-            expect(page.find('.restaurant-info .description').text()).toBe(mockRestaurant.description);
+            expect(page.find('.text').text()).toBe(mockRestaurant.longDescription);
         });
 
-        it(`renders address/phone of restaurant`, () => {
-            expect(page.find('.restaurant-info .address-phone').text()).toBe(`${mockRestaurant.address} | ${mockRestaurant.phoneNumber}`);
+        it(`renders restaurant video`, () => {
+            expect(page.find('.videoPlayer').text()).toBeDefined();
         });
     });
 });

@@ -23,17 +23,25 @@ class RestaurantProfile extends Component {
         this._getRestaurantInfo(id);
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     _getRestaurantInfo(id) {
         axios.get('/restaurants/' + id).then(response => {
             this.setState({
                 name: response.data.name,
                 address: response.data.address,
-                picture: response.data.imageURLs[0],
+                picture: response.data.logoURL,
                 description: response.data.description,
                 phoneNumber: response.data.phoneNumber,
                 id: response.data._id,
-                menuItems: response.data.menuItems
+                menuItems: response.data.menuItems,
+                profileImage : response.data.imageURLs[0],
+                videoUrl: response.data.introVideoURL,
+                description: response.data.longDescription
             });
+            console.log(this.state.menuItems);
         })
     }
 
@@ -42,19 +50,20 @@ class RestaurantProfile extends Component {
         return (
             <React.Fragment>
                 <div className="restaurant-profile">
-                    <div className="restaurant-info row">
-                        <div className="picture-container col-12">
-                            <img className="profile-logo" src={this.state.picture} />
-                        </div>
-                        <div className="text-container col-12">
-                            <h1 className="mb-4 font-weight-bold">{this.state.name}</h1>
-                            <p className="description">{this.state.description}</p>
-                            <p className="address-phone">{this.state.address} | {this.state.phoneNumber}</p>
-                        </div>
-                        <div class="video-container col-12"> 
-                                <ReactPlayer 
-                                    url="https://www.youtube.com/watch?v=KN3Py0duFto"
+                    <div className="restaurant-info">
+                        <div className="row">        
+                            <div className="restaurant-title col-md-12">
+                                <h2 className="title">{this.state.name}</h2>
+                            </div>
+                            <div className="image-text-container col-md-12">
+                                <img className="profile-logo pull-left mr-4" src={this.state.profileImage}/>
+                                <p className="text">{this.state.description}</p>
+                            </div>
+                            <div className="video-container col-12">
+                                <ReactPlayer className="videoPlayer"
+                                    url={this.state.videoUrl}
                                 />
+                            </div>
                         </div>
                     </div>
                     <header className="restaurant-header">
@@ -76,7 +85,7 @@ class RestaurantProfile extends Component {
                         </Route>
                         <Route path={`/restaurants/${this.state.id}/announcements`}>
                             <div className="announcements">
-                                <h1>Accouncements</h1>
+                                <h1>Announcements</h1>
                             </div>
                         </Route>
                     </Switch>

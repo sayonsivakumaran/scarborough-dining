@@ -12,23 +12,20 @@
 }
 
 .navbar{
+    padding:0px;
     background-color: #ffffff;
-    margin: 8px;
 }
 
 .navbar .link {
-    color: #000000;
+    color: #000000 !important;
     text-align: center;
-    padding: 26px;
+    padding: 12px;
+    margin: 0px 12px;
     text-decoration: none;
     font-family: 'Didact Gothic', sans-serif;
-    font-weight: bolder;
     font-size: 18px;
 }
 
-.navbar .link:hover {
-    background-color: #f3f3f3;
-}
 .header_img{
     display: block;
     margin: 0 auto;
@@ -43,7 +40,7 @@
 .jumbotron {
     color: #000000;
     background-image: url("header_bg1.jpg");
-    height: 600px;
+    height: 700px;
     opacity: 0.8;
     background-position: center;
     background-repeat: no-repeat;
@@ -62,4 +59,25 @@
 
 #login-p {
     display: inline !important;
+}
+
+.navbar {
+    background-color:#F8F8F8;
+    padding: 0px !important;
+    line-height: 2.5em;
+}
+
+.restaurant-navbar .nav-item .nav-link {
+    padding: 16px;
+    font-family: 'Didact Gothic', sans-serif;
+    font-size: 20px;
+    color: #000000;
+}
+
+.restaurant-navbar .nav-item .text {
+    color: #000000;
+}
+
+.nav-item:hover {
+    background-color: #f3f3f3;
 }

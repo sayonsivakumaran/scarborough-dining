@@ -25,7 +25,7 @@ const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '10px 0'
+    padding: '60px 0'
 }
 
 const descriptionStyle = {
@@ -70,6 +70,7 @@ export class ManageRestaurantInformation extends Component {
             totalItems: 0,
             logo: undefined,
             description: '',
+            profileDescription: '',
             video: undefined,
             menuItems: []
         }
@@ -113,6 +114,12 @@ export class ManageRestaurantInformation extends Component {
         e.preventDefault();
         this.setState({
             logo: undefined
+        });
+    }
+
+    onProfileDescriptionChange = e => {
+        this.setState({
+            profileDescription: e.target.value
         });
     }
 
@@ -271,6 +278,9 @@ export class ManageRestaurantInformation extends Component {
                         <FileUpload acceptedFiles={'image/*'} onFileUpload={this.onLogoInputChange} onFileDelete={this.onLogoInputDelete}/>
                         <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
                         <textarea onChange={this.onRestaurantDescriptionChange} style={descriptionStyle} name="itemDescription"/>
+
+                        <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Restaurant Profile Description</h2>
+                        <textarea onChange={this.onProfileDescriptionChange} style={descriptionStyle} name="itemDescription"/>
 
                         <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Introductory Video</h2>
                         <FileUpload acceptedFiles={'video/*'} onFileUpload={this.onIntroVideoChange} onFileDelete={this.onIntroVideoDelete}/>

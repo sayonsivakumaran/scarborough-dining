@@ -7,9 +7,14 @@ export class SearchField extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            searchString: ''
+            searchString: 'test'
         }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+    //Handles when fields in the input are changed
+    handleChange(event) {
+        this.setState({searchString: event.target.value})
     }
     async handleSubmit(event)
     {
@@ -19,6 +24,7 @@ export class SearchField extends Component{
               queryString: this.state.searchString
             }
           });
+        console.log(this.state.searchString);
         console.log(results);
     }
 
@@ -32,7 +38,7 @@ export class SearchField extends Component{
                     placeholder="Search by location, restaurants, price..."
                     required={true}
                     className="inputStyle"
-                    //onChange={this.handleChange}
+                    onChange={this.handleChange}
                 />
                 <input
                     name="search"

@@ -95,13 +95,29 @@ router.route('/update/:id').post((req, res) => {
             restaurant.address = req.body.address;
             restaurant.city = req.body.city;
             restaurant.province = req.body.province;
+            restaurant.introVideoURL = req.body.introVideoURL;
             restaurant.postalCode = req.body.postalCode;
             restaurant.cuisineTypes = req.body.cuisineTypes;
             restaurant.description = req.body.description;
-            restaurant.menuItemIDs = req.body.menuItemIDs;
+            restaurant.longDescription = req.body.longDescription;
+            restaurant.menuItems = req.body.menuItems;
 
             restaurant.save()
                 .then(() => res.json('Restaurant has been updated.'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/addMenuItems/:restaurantID').post((req, res) => {
+    Restaurant.findById(req.params.restaurantID)
+        .then(restaurant => {
+            let menuItems = restaurant.menuItems || [];
+            menuItems = menuItems.concat(req.body.menuItems);
+            restaurant.menuItems = menuItems;
+
+            restaurant.save()
+                .then(() => res.json('Menu items have been added to restaurant.'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(400).json('Error: ' + err));

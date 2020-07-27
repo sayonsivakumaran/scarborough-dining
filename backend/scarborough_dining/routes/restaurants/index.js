@@ -31,6 +31,7 @@ router.route('/add').post((req, res) => {
         postalCode,
         cuisineTypes,
         description,
+        longDescription,
         menuItems
     } = req.body;
 
@@ -48,6 +49,7 @@ router.route('/add').post((req, res) => {
         postalCode,
         cuisineTypes,
         description,
+        longDescription,
         menuItems
     });
     

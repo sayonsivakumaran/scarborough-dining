@@ -16,9 +16,10 @@ router.route('/').get((req, res) => {
  * Requires a query string
  */
 router.route('/search_results').get((req, res) => {
-    let queryString = req.params.queryString;
-    Restaurant.find({phoneNumber: "647-555-0123"}) //specifiy the query
+    let queryString = req.query.queryString
+    Restaurant.find({phoneNumber: queryString}) //specifiy the query
         .then(restaurant => res.json(restaurant))
+        //.then(() => res.json(req.query.queryString))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 

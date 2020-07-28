@@ -50,5 +50,5 @@ export class SearchField extends Component{
         </div>
         )
     }
-
 }
+export default SearchField

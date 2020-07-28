@@ -2,7 +2,7 @@
 
 .restaurant-profile {
     text-align: left;
-    padding: 100px 240px 60px;
+    padding: 10vh 10vw 5vh 10vw;
     font-family: 'Didact Gothic', sans-serif;
 }
 
@@ -19,18 +19,14 @@
 }
 
 .restaurant-title {
-    padding: 0px 20px 20px;
+    padding: 40px 20px 20px;
 }
 
 .restaurant-title .title {
     font-size: 60px;
-    font-family: 'Didact Gothic', sans-serif;
 }
 
 .restaurant-info .text-container {
-    /* display: inline-block; */
-    /* text-align: left; */
-    font-family: 'Didact Gothic', sans-serif;
     font-size: 18px;
     padding: 16px;
 }
@@ -57,24 +53,15 @@
     padding: 16px 16px 46px;
 }
 
-.restaurant-header{
-    background: cadetblue;
-    color: white;
-    padding: 10px;
+.nav-link {
+    color: #000000;
 }
 
-.linkStyle {
-    color: #ffffff;
-    padding: 1em 1em;
-    text-decoration: none;
+.nav-link:hover {
+    color: #000000;
 }
 
 .menu {
-    height: 600px;
-    padding: 16px 0px;
-}
-
-.info {
     height: 600px;
     padding: 16px 0px;
 }

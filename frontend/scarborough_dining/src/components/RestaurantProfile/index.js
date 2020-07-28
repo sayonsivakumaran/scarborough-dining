@@ -14,7 +14,8 @@ class RestaurantProfile extends Component {
             description: "",
             phoneNumber: "",
             id: null,
-            menuItems: []
+            menuItems: [],
+            activeTab: "info"
         }
         let id = this.props.match.params.id;
 
@@ -41,44 +42,57 @@ class RestaurantProfile extends Component {
         })
     }
 
+    /**
+     * Sets activeTab to the event
+     */
+    _setTab = (e) => {
+        this.setState({
+            activeTab: e.target.name
+        })
+    }
 
     render() {
         return (
             <React.Fragment>
                 <div className="restaurant-profile">
-                    <div className="restaurant-info">
-                        <div className="row">        
-                            <div className="restaurant-title col-md-12">
-                                <h2 className="title">{this.state.name}</h2>
-                            </div>
-                            <div className="image-text-container col-md-12">
-                                <img className="profile-logo pull-left mr-4" src={this.state.profileImage}/>
-                                <p className="text">{this.state.description}</p>
-                            </div>
-                            <div className="video-container col-12">
-                                <ReactPlayer className="videoPlayer"
-                                    url={this.state.videoUrl}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <header className="restaurant-header">
-                        <Link to={`/restaurants/${this.state.id}`} className="linkStyle">Menu</Link> | 
-                        <Link to={`/restaurants/${this.state.id}/info`} className="linkStyle">Info</Link> |
-                        <Link to={`/restaurants/${this.state.id}/announcements`} className="linkStyle"> Announcements </Link>
-                    </header>
+                    <ul class="nav nav-pills nav-fill">
+                        <li class="nav-item">
+                            <Link name="info" className={this.state.activeTab == "info" ? "nav-link active" : "nav-link"} onClick={this._setTab} to={`/restaurants/${this.state.id}`}>Info</Link>  
+                        </li>
+                        <li class="nav-item">
+                            <Link name ="menu" className={this.state.activeTab == "menu" ? "nav-link active" : "nav-link"} onClick={this._setTab} to={`/restaurants/${this.state.id}/menu`}>Menu</Link>  
+                        </li>
+                        <li class="nav-item">
+                            <Link name="announcements" className={this.state.activeTab == "announcements" ? "nav-link active" : "nav-link"} onClick={this._setTab} to={`/restaurants/${this.state.id}/announcements`}>Announcements</Link>  
+                        </li>
+                    </ul>
                     <Switch>
                         <Route exact path={`/restaurants/${this.state.id}`}>
+                            <div className="restaurant-info">
+                                <div className="row">
+                                    <div className="restaurant-title col-md-12">
+                                        <h2 className="title">{this.state.name}</h2>
+                                    </div>
+                                    <div className="image-text-container col-md-12">
+                                        <img className="profile-logo pull-left mr-4" src={this.state.profileImage}/>
+                                        <p className="text">{this.state.description}</p>
+                                    </div>
+                                    <div className="video-container col-12">
+                                        <ReactPlayer className="videoPlayer"
+                                            url={this.state.videoUrl}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </Route>
+                        <Route path={`/restaurants/${this.state.id}/menu`}>
+                            {/* TODO: This should be a new component */}
                             <div className="menu">
                                 <h1>Menu</h1>
                             </div>
                         </Route>
-                        <Route path={`/restaurants/${this.state.id}/info`}>
-                            <div className="info">
-                                <h1>Info</h1>
-                            </div>
-                        </Route>
                         <Route path={`/restaurants/${this.state.id}/announcements`}>
+                            {/* TODO: This should be a new component */}
                             <div className="announcements">
                                 <h1>Announcements</h1>
                             </div>

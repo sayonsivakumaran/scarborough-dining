@@ -41,7 +41,6 @@ class RestaurantProfile extends Component {
                 videoUrl: response.data.introVideoURL,
                 description: response.data.longDescription
             });
-            console.log(this.state.menuItems);
         })
     }
 

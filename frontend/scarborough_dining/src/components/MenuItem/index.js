@@ -8,6 +8,8 @@ export default class MenuItem extends Component {
     constructor(props) {
         super(props);
 
+        this.menuItem = this.props.menuItem;
+
         if (this.props.menuItem) {
             this.state = {
                 name: this.props.menuItem.name,
@@ -51,7 +53,7 @@ export default class MenuItem extends Component {
     addToShoppingCart = e => {
         this.close();
         if (this.state.totalSelected) {
-            this.props.onUpdateShoppingCart(this.props.menuItem, this.state.totalSelected);
+            this.props.onUpdateShoppingCart(this.menuItem, this.state.totalSelected);
         }
     }
     
@@ -59,7 +61,7 @@ export default class MenuItem extends Component {
         return (
             <Link className="text-link" onClick={this.open}>
                 <div className="card">
-                    <img className="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Glazed-Donut.jpg/1200px-Glazed-Donut.jpg" />
+                    <img className="card-img-top" src={this.state.imageURL}/>
                     <div class="card-body"> 
                         <p className="title">{this.state.name}</p>
                         <p className="description">${this.state.price}</p>
@@ -70,7 +72,7 @@ export default class MenuItem extends Component {
                     </div>
                 </div>
                 <Dialog onDismiss={this.close} isOpen={this.state.showDialog}>
-                    <img className="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Glazed-Donut.jpg/1200px-Glazed-Donut.jpg" />
+                    <img className="card-img-top" src={this.state.imageURL}/>
                     <div class="card-body menu-item-modal"> 
                         <p className="title">{this.state.name}</p>
                         <p className="title">${this.state.price}</p>

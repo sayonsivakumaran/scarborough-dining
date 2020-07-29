@@ -8,7 +8,7 @@ const menuItems = [{
     price: 3.99,
     imageURL: "f",
     description: "This food is yummpy",
-    id: "2",
+    _id: "2",
     restaurantId: "1"
 },
 {
@@ -16,7 +16,7 @@ const menuItems = [{
     price: 3.99,
     imageURL: "f",
     description: "This food is yummpy",
-    id: "2",
+    _id: "3",
     restaurantId: "1"
 },
 {
@@ -24,7 +24,7 @@ const menuItems = [{
     price: 3.99,
     imageURL: "f",
     description: "This food is yummpy",
-    id: "2",
+    _id: "4",
     restaurantId: "1"
 },
 {
@@ -32,7 +32,7 @@ const menuItems = [{
     price: 3.99,
     imageURL: "f",
     description: "This food is yummpy",
-    id: "2",
+    _id: "5",
     restaurantId: "1"
 },
 {
@@ -40,7 +40,7 @@ const menuItems = [{
     price: 3.99,
     imageURL: "f",
     description: "This food is yummpy",
-    id: "2",
+    _id: "6",
     restaurantId: "1"
 }];
 

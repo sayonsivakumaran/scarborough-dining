@@ -33,10 +33,10 @@ export class App extends Component {
 
   addToShoppingCart = (menuItems, total) => {
     menuItems['total'] = menuItems['total'] + total || total;
-    let newItem = {};
-    newItem[menuItems.id] = menuItems;
+    let {shoppingCart} = this.state;
+    shoppingCart[menuItems._id] = menuItems;
     this.setState({
-      shoppingCart: newItem
+      shoppingCart: shoppingCart
     });
   }
 

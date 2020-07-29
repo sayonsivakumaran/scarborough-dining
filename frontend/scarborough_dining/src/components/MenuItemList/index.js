@@ -57,10 +57,9 @@ export default class MenuItemList extends Component {
         return (
             <React.Fragment>
                 <div className="menu-item">
-                    {/* <h2 className="menu-item-list-title mb-4 font-weight-bold">Restaurants</h2> */}
                     <div className="card-columns">
                         {
-                            menuItems.map(menuItem => {
+                            this.state.menuItems.map(menuItem => {
                                 return <MenuItem onUpdateShoppingCart={this.props.onUpdateShoppingCart} loggedIn={this.props.loggedIn} key={menuItem._id} menuItem={menuItem} />
                             })
                         }

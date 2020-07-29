@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import './styles.css';
 import axios from 'axios';
+import SearchResults from './searchResults';
 
 export class SearchField extends Component{
 
     constructor(props) {
         super(props)
         this.state = {
-            searchString: 'test'
+            searchString: '',
+            results: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -19,13 +21,14 @@ export class SearchField extends Component{
     async handleSubmit(event)
     {
         event.preventDefault();
-        let results = await axios.get('/restaurants/search_results', {
+        let restaurants = await axios.get('/restaurants/search_results', {
             params: {
               queryString: this.state.searchString
             }
           });
         console.log(this.state.searchString);
-        console.log(results);
+        this.setState({results: restaurants})
+        console.log(this.state.results);
     }
 
     render() {
@@ -37,14 +40,12 @@ export class SearchField extends Component{
                     type="text"
                     placeholder="Search by location, restaurants, price..."
                     required={true}
-                    className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input
                     name="search"
                     type="submit"
                     value="Search"
-                    //className="inputStyle"
                 />
             </form>
         </div>

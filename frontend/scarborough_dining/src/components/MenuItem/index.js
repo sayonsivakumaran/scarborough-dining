@@ -62,25 +62,19 @@ export default class MenuItem extends Component {
             <Link className="text-link" onClick={this.open}>
                 <div className="card">
                     <img className="card-img-top" src={this.state.imageURL}/>
-                    <div class="card-body"> 
+                    <div className="card-body"> 
                         <p className="title">{this.state.name}</p>
                         <p className="description">${this.state.price}</p>
                         <p className="description">{this.state.description}</p>
-                        {/* <div className="rating">
-                            {this._getRatings(this.state.rating)}
-                        </div> */}
                     </div>
                 </div>
                 <Dialog onDismiss={this.close} isOpen={this.state.showDialog}>
                     <img className="card-img-top" src={this.state.imageURL}/>
-                    <div class="card-body menu-item-modal"> 
+                    <div className="card-body menu-item-modal"> 
                         <p className="title">{this.state.name}</p>
                         <p className="title">${this.state.price}</p>
                         <p className="title">{this.state.description}</p>
                         <input onChange={this.onQuantityChange} name="totalItems" type="number" min="0" step="1" placeholder="Total" required={true} />
-                        {/* <div className="rating">
-                            {this._getRatings(this.state.rating)}
-                        </div> */}
                         <input onClick={this.addToShoppingCart} className="add-menu-item-modal-button" name="addMenuItemModalButton" type="submit" value="Add To Shopping Cart"/>
                     </div>
                 </Dialog>

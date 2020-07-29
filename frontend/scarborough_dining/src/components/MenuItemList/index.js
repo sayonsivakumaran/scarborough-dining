@@ -56,7 +56,7 @@ export default class MenuItemList extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="menu-item">
+                <div className="menu-item-list">
                     <div className="card-columns">
                         {
                             this.state.menuItems.map(menuItem => {

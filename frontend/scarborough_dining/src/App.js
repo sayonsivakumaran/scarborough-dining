@@ -32,7 +32,7 @@ export class App extends Component {
   }
 
   addToShoppingCart = (menuItems, total) => {
-    menuItems['total'] = menuItems['total'] + total || total;
+    menuItems.total = total;
     let {shoppingCart} = this.state;
     shoppingCart[menuItems._id] = menuItems;
     this.setState({

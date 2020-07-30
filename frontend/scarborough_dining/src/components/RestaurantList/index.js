@@ -14,7 +14,7 @@ export default class RestaurantList extends Component {
     }
 
     _getRestaurantList() {
-        axios.get('/restaurants').then(response => {
+        axios.get('/restaurants/verified').then(response => {
             this.setState({
                 restaurants: response.data,
                 totalRestaurants: response.data.length

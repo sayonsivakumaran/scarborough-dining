@@ -42,6 +42,12 @@ const customerSchema = new Schema({
         type: String,
         required: true,
         unique: true        // TODO: determine if a restaurant can only have a single owner
+    },
+    verified: {
+        type: Boolean,
+        required: true,
+        unique: true,
+        default: false
     }
 }, {
     timestamps: true

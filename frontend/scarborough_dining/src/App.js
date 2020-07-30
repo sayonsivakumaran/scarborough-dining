@@ -9,7 +9,7 @@ import ManageRestaurantInformation from './components/ManageRestaurantInformatio
 import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
 import Unknown from './components/Unknown';
-
+import RestaurantVerfication from './components/RestaurantVerification';
 
 import './App.css';
 
@@ -50,6 +50,7 @@ export class App extends Component {
               } />
               <Route path="/restaurants/:id" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
+              <Route path='/manage-restaurants' component={RestaurantVerfication} />
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

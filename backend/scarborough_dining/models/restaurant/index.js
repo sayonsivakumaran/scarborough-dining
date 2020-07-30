@@ -72,6 +72,10 @@ const restaurantSchema = new Schema({
     menuItems: {
         type: [MenuItem],
         required: true
+    },
+    verified: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

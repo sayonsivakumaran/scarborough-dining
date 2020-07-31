@@ -40,8 +40,7 @@
 .jumbotron {
     color: #000000;
     background-image: url("header_bg1.jpg");
-    height: 700px;
-    opacity: 0.8;
+    height: 800px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

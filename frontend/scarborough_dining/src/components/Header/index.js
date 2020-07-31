@@ -60,7 +60,7 @@ export class Header extends Component {
                         <li class="nav-item">
                             <Link class="nav-link link"><GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/></Link>
                         </li>
-                        {/* TODO: Allow only specific (internal) role to see this tab. */}
+                        {/* TODO: Allow only specific internal (client) role to see this tab. */}
                         <li class="nav-item">
                             <Link class="nav-link link" to="/manage-restaurants">Manage Requested Restaurants</Link>
                         </li>

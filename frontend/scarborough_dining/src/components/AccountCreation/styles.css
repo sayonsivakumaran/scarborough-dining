@@ -3,6 +3,7 @@
 }
 
 .containerStyle {
+    font-family: 'Didact Gothic', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,6 +23,11 @@
 .inputDescription {
     width: 50%;
     min-height: 200px;
+}
+
+.small-inputDescription {
+    width: 50%;
+    min-height: 50px;
 }
 
 .video {

@@ -3,6 +3,12 @@ import axios from 'axios';
 import './styles.css';
 import FileUpload from '../FileUpload';
 import { Redirect } from 'react-router'
+import MENU_CATEGORIES from '../../enums/menu_categories';
+import Select from 'react-select';
+
+const options = Object.keys(MENU_CATEGORIES).map(k => {
+	return { value : k, label : MENU_CATEGORIES[k] }
+});
 
 export class AccountCreation extends React.Component {
 
@@ -27,14 +33,16 @@ export class AccountCreation extends React.Component {
             restaurantName: '',
             restaurantPhone: '',
             restaurantAddress: '',
-            restaurantCuisine: '',
+            restaurantCuisine: [],
             restaurantCity: '',
             restaurantPostalCode: '',
             restaurantProvince: '',
             restaurantLogo: undefined,
             restaurantProfileImage: undefined,
-            restaurantDescription: '',
-            restaurantVideoURL: ''
+            restaurantDescription : '',
+            restaurantProfileDescription: '',
+            restaurantVideoURL: '',
+            yearEstablished: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -86,6 +94,13 @@ export class AccountCreation extends React.Component {
         this.setState({
             restaurantProfileImage: undefined
         });
+    }
+
+    onCuisineTypesChange = e => {
+        let cuisineTypes = e ? e.map(v => v.value) : [];
+        this.setState({
+            restaurantCuisine : cuisineTypes
+        })
     }
 
     //Handles when fields in the input are changed
@@ -186,10 +201,11 @@ export class AccountCreation extends React.Component {
                     city: this.state.restaurantCity,
                     province: this.state.restaurantProvince,
                     postalCode: this.state.restaurantPostalCode,
-                    cuisineTypes: [this.state.restaurantCuisine],
-                    description: " ",
+                    cuisineTypes: this.state.restaurantCuisine,
                     menuItemIDs: [],
-                    longDescription: this.state.restaurantDescription,
+                    description: this.state.restaurantDescription,
+                    longDescription: this.state.restaurantProfileDescription,
+                    yearEstablished: this.state.yearEstablished,
                     introVideoURL: this.state.restaurantVideoURL
                 }
                 axios.post('/restaurants/add', restaurantInfo)
@@ -354,14 +370,21 @@ export class AccountCreation extends React.Component {
                     className="inputStyle"
                     onChange={this.handleChange}
                 />
-                <input 
-                    name="restaurantCuisine"
-                    type="text"
-                    placeholder="Restaurant Cuisine"
-                    required={true}
-                    className="inputStyle"
-                    onChange={this.handleChange}
-                />
+                <label>Optional Year Established (Displayed as : Since 2000)</label>
+                    <input 
+                        label="Since"
+                        name="yearEstablished"
+                        pattern="[0-9]{4}"
+                        type="text"
+                        placeholder="2000"
+                        required={false}
+                        className="inputStyle"
+                        onChange={this.handleChange}
+                    />
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Restaurant Type</h2>
+                <div className="fileUpload">
+                    <Select onChange={this.onCuisineTypesChange} className='w-100 mt-4' isMulti options={options} />
+                </div>
                 <h2 className='mt-4' style={{fontSize: '1.5em'}}>Logo</h2>
                 <div className="fileUpload">
                     <FileUpload name="restaurantLogo" acceptedFiles={'image/*'} onFileUpload={this.handleLogoFileChange} onFileDelete={this.handleLogoFileDelete}/>
@@ -371,9 +394,11 @@ export class AccountCreation extends React.Component {
                     <FileUpload name="restaurantProfileImage" acceptedFiles={'image/*'} onFileUpload={this.handleProfileFileChange} onFileDelete={this.handleProfileFileDelete}/>
                 </div>
                 <h2 className='mt-4' style={{fontSize: '1.5em'}}>Restaurant Profile Description</h2>
-                <textarea className="inputDescription mt-4" onChange={this.handleChange} name="restaurantDescription" required="true"/>
+                <textarea className="inputDescription mt-4" onChange={this.handleChange} name="restaurantProfileDescription" required={true}/>
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Restaurant Description (Shown in card)</h2>
+                <textarea className="small-inputDescription mt-4" onChange={this.handleChange} name="restaurantDescription" required={true}/>
                 <h2 className='mt-4' style={{fontSize: '1.5em'}}>Restaurant Introduction Video (Youtube) URL</h2>
-                <textarea className="video mt-4" onChange={this.handleChange} name="restaurantVideoURL" required="true"/>
+                <textarea className="video mt-4" onChange={this.handleChange} name="restaurantVideoURL" required={false}/>
             </div>
         )
     }

@@ -51,7 +51,8 @@ router.route('/add').post((req, res) => {
         cuisineTypes,
         description,
         longDescription,
-        menuItems
+        menuItems,
+        yearEstablished
     } = req.body;
 
     const newRestaurant = new Restaurant({ 
@@ -69,7 +70,8 @@ router.route('/add').post((req, res) => {
         cuisineTypes,
         description,
         longDescription,
-        menuItems
+        menuItems,
+        yearEstablished
     });
     
     newRestaurant.save()

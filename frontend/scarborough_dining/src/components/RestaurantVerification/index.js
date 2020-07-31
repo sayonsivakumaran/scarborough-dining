@@ -68,20 +68,20 @@ class RestaurantVerification extends Component {
             }
             let id = restaurants[i]._id;
             restaurantTables.push(
-                <tr key={id}>
-                <th scope="row">{restaurants[i].name}</th>
-                <td>{restaurants[i].address}</td>
-                <td>{restaurants[i].city}</td>
-                <td>{restaurants[i].postalCode}</td>
-                <td>{name}</td>
-                <td>{email}</td>
-                <td>{phoneNumber}</td>
-                <td>
-                <button type="button" onClick={(event) => this._removeRestaurant(event,id)} class="btn btn-danger"><i class="fa fa-trash"></i></button>     
-                </td>
-                <td>
-                <button type="button" onClick={(event) => this._verifyRestaurant(event, id)} class="btn check-btn"><i class="fa fa-check"></i></button>     
-                </td>
+                <tr className="unverified-restaurant-row" key={id}>
+                    <td>{restaurants[i].name}</td>
+                    <td>{restaurants[i].address}</td>
+                    <td>{restaurants[i].city}</td>
+                    <td>{restaurants[i].postalCode}</td>
+                    <td>{name}</td>
+                    <td>{email}</td>
+                    <td>{phoneNumber}</td>
+                    <td>
+                        <button type="button" onClick={(event) => this._removeRestaurant(event,id)} class="btn btn-danger"><i class="fa fa-trash"></i></button>     
+                    </td>
+                    <td>
+                        <button type="button" onClick={(event) => this._verifyRestaurant(event, id)} class="btn check-btn"><i class="fa fa-check"></i></button>     
+                    </td>
                 </tr>
             )
         }
@@ -94,24 +94,28 @@ class RestaurantVerification extends Component {
             <div class="manageRestaurantPage">
                 <h2>Requested Restaurants</h2>
                 <h4 className="total">{this.state.totalRequestedRestaurants} Restaurants</h4>
-                    <table class="table table-responsive table-hover">
-                        <thead class="table-header">
-                            <tr>
-                                <th scope="col">Restaurant Name</th>
-                                <th scope="col">Restaurant Address</th>
-                                <th scope="col">City</th>
-                                <th scope="col">Postal Code</th>
-                                <th scope="col">Owner</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Phone Number</th>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this._getRestaurantElement(this.state.requestedRestaurants)}
-                        </tbody>
-                    </table>
+                {this.state.totalRequestedRestaurants > 0 ? (
+                        <table className="table table-responsive table-hover">
+                            <thead class="table-header">
+                                <tr className="t-header">
+                                    <th scope="col">Restaurant Name</th>
+                                    <th scope="col">Restaurant Address</th>
+                                    <th scope="col">City</th>
+                                    <th scope="col">Postal Code</th>
+                                    <th scope="col">Owner</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Phone Number</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this._getRestaurantElement(this.state.requestedRestaurants)}
+                            </tbody>
+                        </table>
+                ) : (
+                    <div className="empty-message">No requested restaurants</div>
+                )}
             </div>
         )
     }

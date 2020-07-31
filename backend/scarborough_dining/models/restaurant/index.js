@@ -23,7 +23,7 @@ const restaurantSchema = new Schema({
     },
     introVideoURL: {
         type: String,
-        required: true
+        required: false
     },
     imageURLs: {
         type: [String],
@@ -68,6 +68,10 @@ const restaurantSchema = new Schema({
     longDescription: {
         type: String,
         required: true
+    },
+    yearEstablished: {
+        type: String,
+        required: false
     },
     menuItems: {
         type: [MenuItem],

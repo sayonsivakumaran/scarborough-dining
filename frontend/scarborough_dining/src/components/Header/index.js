@@ -56,6 +56,9 @@ export class Header extends Component {
                             <Link class="nav-link link" to="/manage-restaurant-information">Manage Restaurant Information</Link>
                         </li>
                         <li class="nav-item">
+                            <Link class="nav-link link" to="/shopping-cart">Shopping Cart</Link>
+                        </li>
+                        <li class="nav-item">
                             <Link class="nav-link link"><GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/></Link>
                         </li>
                         </ul>

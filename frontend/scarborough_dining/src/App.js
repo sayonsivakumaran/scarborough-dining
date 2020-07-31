@@ -5,7 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Header from './components/Header/index';
 import AccountCreation from './components/AccountCreation';
 import ManageRestaurantInformation from './components/ManageRestaurantInformation';
-//import Restaurant from './components/Restaurant';
+import ShoppingCart from './components/ShoppingCart';
 import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
 import Unknown from './components/Unknown';
@@ -61,6 +61,7 @@ export class App extends Component {
               <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.isLoggedIn} onUpdateShoppingCart={this.addToShoppingCart}/>} />
               <Route path="/restaurants/:id/menu-item/:menuItemId" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
+              <Route path='/shopping-cart' component={ShoppingCart} />
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

@@ -9,6 +9,7 @@ const options = Object.keys(MENU_CATEGORIES).map(k => {
 });
 
 const formStyle = {
+    fontFamily: 'Didact Gothic, sans-serif',
     display: 'flex',
     flexDirection: 'column',
     padding: '1% 30%'

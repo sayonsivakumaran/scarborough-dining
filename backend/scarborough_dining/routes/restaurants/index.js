@@ -13,6 +13,25 @@ router.route('/').get((req, res) => {
 });
 
 /**
+ * Server-side get request to retrieve all unverified restaurant data
+ * @return all unverified restaurant data
+ */
+router.route('/unverified').get((req, res) => {
+    Restaurant.find({verified: {$in: [null, false]}}).then(restaurant => res.json(restaurant))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+/**
+ * Server-side get request to retrieve all verified restaurant data
+ * @return all verified restaurant data
+ */
+router.route('/verified').get((req, res) => {
+    Restaurant.find({verified: {$eq: true}}).then(restaurant => res.json(restaurant))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+
+/**
  * Server-side post request to upload a specific restaurant's data.
  * Requires restaurant information.
  */
@@ -32,7 +51,8 @@ router.route('/add').post((req, res) => {
         cuisineTypes,
         description,
         longDescription,
-        menuItems
+        menuItems,
+        yearEstablished
     } = req.body;
 
     const newRestaurant = new Restaurant({ 
@@ -50,7 +70,8 @@ router.route('/add').post((req, res) => {
         cuisineTypes,
         description,
         longDescription,
-        menuItems
+        menuItems,
+        yearEstablished
     });
     
     newRestaurant.save()
@@ -118,6 +139,17 @@ router.route('/addMenuItems/:restaurantID').post((req, res) => {
 
             restaurant.save()
                 .then(() => res.json('Menu items have been added to restaurant.'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/verify/:id').post((req, res) => {
+    Restaurant.findById(req.params.id)
+        .then(restaurant => {
+            restaurant.verified = true;
+            restaurant.save()
+                .then(() => res.json('Restaurant has been verified.'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(400).json('Error: ' + err));

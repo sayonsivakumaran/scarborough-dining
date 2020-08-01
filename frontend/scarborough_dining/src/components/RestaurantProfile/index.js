@@ -76,15 +76,25 @@ class RestaurantProfile extends Component {
                                     <div className="restaurant-title col-md-12">
                                         <h2 className="title">{this.state.name}</h2>
                                     </div>
+                                    <div className="restaurant-other-info col-md-12">
+                                        <h4 className="address">
+                                            <i class="fa fa fa-map-marker" aria-hidden="true"></i>{this.state.address}
+                                        </h4>
+                                        <h4 className="phone">
+                                            <i class="fa fa-phone" aria-hidden="true"></i>{this.state.phoneNumber}
+                                        </h4>
+                                    </div>
                                     <div className="image-text-container col-md-12">
                                         <img className="profile-logo pull-left mr-4" src={this.state.profileImage}/>
                                         <p className="text">{this.state.description}</p>
                                     </div>
-                                    <div className="video-container col-12">
-                                        <ReactPlayer className="videoPlayer"
-                                            url={this.state.videoUrl}
-                                        />
-                                    </div>
+                                    {this.state.videoUrl &&
+                                        <div className="video-container col-12">
+                                            <ReactPlayer className="videoPlayer"
+                                                url={this.state.videoUrl}
+                                            />
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </Route>

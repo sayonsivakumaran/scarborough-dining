@@ -5,6 +5,9 @@ import axios from 'axios';
 
 jest.mock('axios');
 
+/**
+ * Test suite for the RestaurantProfile component
+ */
 describe('RestaurantProfile', () => {
 
     let page, instance, mockResponse, mockRestaurant, match, event;
@@ -46,11 +49,20 @@ describe('RestaurantProfile', () => {
             expect(page.find('.restaurant-title').text()).toBe(mockRestaurant.name);
         });
 
+        it(`renders address and phone number of restaurant`, () => {
+            expect(page.find('.address').text()).toBe(mockRestaurant.address);
+            expect(page.find('.phone').text()).toBe(mockRestaurant.phoneNumber);
+        });
+
         it(`renders description of restaurant`, () => {
             expect(page.find('.text').text()).toBe(mockRestaurant.longDescription);
         });
 
         it(`renders restaurant video`, () => {
+            instance.setState({
+                videoUrl: "url"
+            });
+            page.update();
             expect(page.find('.videoPlayer').text()).toBeDefined();
         });
 
@@ -72,8 +84,18 @@ describe('RestaurantProfile', () => {
             expect(page.find(".announcements").text()).toBe("Announcements");
         });
 
+        it('should not render video if videoUrl is not defined', () => {
+            instance.setState({
+                videoUrl: undefined
+            })
+            expect(page.find('videoPlayer').exists()).not.toBeTruthy();
+        })
+
     });
 
+    /**
+     * Tests the constructor initliazes state variables and makes call to get data
+     */
     describe('constructor', () => {
         it('should set state variables correctly and call _getRestaurantList', () => {            
             expect(instance.state.name).toEqual(mockRestaurant.name);
@@ -86,6 +108,9 @@ describe('RestaurantProfile', () => {
         });
     });
     
+    /**
+     * Tests _setTab changes to correct active tab
+     */
     describe('_setTab', () => {
         it('should set activeTab on button click', () => {
             event = {

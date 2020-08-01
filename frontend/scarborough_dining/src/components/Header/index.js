@@ -49,9 +49,11 @@ export class Header extends Component {
                         <li class="nav-item">
                             <Link class="nav-link link" to="/account-creation/user">Sign-Up for an Account</Link>  
                         </li>
+                        {/* TODO: Allow only signed in users to see this tab. */}
                         <li class="nav-item">
                             <Link class="nav-link link" to="/account-creation/restaurant">Register Restaurant</Link>
                         </li>
+                        {/* TODO: Allow only signed in owners that are verified to see this tab. */}
                         <li class="nav-item">
                             <Link class="nav-link link" to="/manage-restaurant-information">Manage Restaurant Information</Link>
                         </li>
@@ -60,6 +62,10 @@ export class Header extends Component {
                         </li>
                         <li class="nav-item">
                             <Link class="nav-link link"><GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/></Link>
+                        </li>
+                        {/* TODO: Allow only specific internal (client) role to see this tab. */}
+                        <li class="nav-item">
+                            <Link class="nav-link link" to="/manage-restaurants">Manage Requested Restaurants</Link>
                         </li>
                         </ul>
                     </div>

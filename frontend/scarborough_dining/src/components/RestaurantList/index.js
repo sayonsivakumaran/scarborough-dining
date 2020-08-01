@@ -15,7 +15,7 @@ export default class RestaurantList extends Component {
     }
 
     _getRestaurantList() {
-        axios.get('/restaurants').then(response => {
+        axios.get('/restaurants/verified').then(response => {
             this.setState({
                 restaurants: response.data,
                 totalRestaurants: response.data.length
@@ -35,7 +35,7 @@ export default class RestaurantList extends Component {
                     </div>
                     <div className="restaurants">
                     <h2 className="restaurant-list-title mb-4 font-weight-bold">Scarborough Owned Restaurants</h2>
-                        <div className="card-columns">
+                        <div className="row">
                             {
                                 this.state.restaurants.map(restaurant => {
                                     return <Restaurant key={restaurant._id} restaurant={restaurant} />

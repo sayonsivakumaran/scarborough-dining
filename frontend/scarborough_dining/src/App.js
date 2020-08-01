@@ -9,7 +9,7 @@ import ShoppingCart from './components/ShoppingCart';
 import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
 import Unknown from './components/Unknown';
-
+import RestaurantVerfication from './components/RestaurantVerification';
 
 import './App.css';
 
@@ -62,6 +62,7 @@ export class App extends Component {
               <Route path="/restaurants/:id/menu-item/:menuItemId" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
               <Route path='/shopping-cart' component={ShoppingCart} />
+              <Route path='/manage-restaurants' component={RestaurantVerfication} />
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

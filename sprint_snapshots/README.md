@@ -44,10 +44,10 @@
 ### Sprint 5 Snapshots
 - July 28
     - [taskboard](sprint5/tuesday_july_28_snapshot/taskboard_snapshot.png)
-    - [burndown](sprint5/tuesday_july_28_snapshot/burndown_chart_snapshot.jpg)
+    - [burndown](sprint5/tuesday_july_28_snapshot/burndown_chart_snapshot.png)
 - July 30
     - [taskboard](sprint5/thursday_july_30_snapshot/taskboard_snapshot.png)
-    - [burndown](sprint5/thursday_july_30_snapshot/burndown_chart_snapshot.jpg)
+    - [burndown](sprint5/thursday_july_30_snapshot/burndown_chart_snapshot.png)
 - August 1
     - [taskboard](sprint5/saturday_august_1_snapshot/taskboard_snapshot.png)
-    - [burndown](sprint5/saturday_august_1_snapshot/burndown_chart_snapshot.jpg)
+    - [burndown](sprint5/saturday_august_1_snapshot/burndown_chart_snapshot.png)

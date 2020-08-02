@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './styles.css';
-import axios from 'axios';
 import SearchResults from './searchResults';
+import {Route, Link} from 'react-router-dom';
 
 export class SearchField extends Component{
 
@@ -9,32 +9,18 @@ export class SearchField extends Component{
         super(props)
         this.state = {
             searchString: '',
-            results: ''
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
     //Handles when fields in the input are changed
     handleChange(event) {
         this.setState({searchString: event.target.value})
     }
-    async handleSubmit(event)
-    {
-        event.preventDefault();
-        let restaurants = await axios.get('/restaurants/search_results', {
-            params: {
-              queryString: this.state.searchString
-            }
-          });
-        console.log(this.state.searchString);
-        this.setState({results: restaurants})
-        console.log(this.state.results);
-    }
 
     render() {
         return(
         <div className="search-container">
-            <form onSubmit={this.handleSubmit}> 
+            <form> 
                 <input 
                     name="searchString"
                     type="text"
@@ -42,12 +28,17 @@ export class SearchField extends Component{
                     required={true}
                     onChange={this.handleChange}
                 />
+                <Link to="/search_results">
                 <input
                     name="search"
                     type="submit"
                     value="Search"
-                />
+                    />
+                </Link>
             </form>
+            <Route path="/search_results" render={
+                () => <SearchResults query={this.state.searchString} />
+              } />
         </div>
         )
     }

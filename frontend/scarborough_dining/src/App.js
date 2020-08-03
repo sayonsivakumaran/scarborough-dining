@@ -12,6 +12,7 @@ import Unknown from './components/Unknown';
 
 
 import './App.css';
+import SearchResults from './components/Search/searchResults';
 
 export class App extends Component {
 
@@ -37,7 +38,6 @@ export class App extends Component {
           <title>Scarborough Dining | CodeShippers</title>
         </head>
         <body>
-          
           <Header checkLogin={this.checkLogin.bind(this)}/>
           <React.Fragment>
             <Switch>
@@ -50,6 +50,7 @@ export class App extends Component {
               } />
               <Route path="/restaurants/:id" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
+              <Route path="/search_results"/>
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

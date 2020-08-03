@@ -7,14 +7,16 @@ class ShoppingCart extends Component {
         super(props);
 
         this.state = {
-            requestedRestaurants: [],
-            totalRequestedRestaurants: 0
+            shoppingCart: [],
+            totalItems: 0
         };
-        
     }
 
-    async componentDidMount() {
-        await this._getUnregistedRestaurants();
+    componentDidMount() {
+        this.setState({
+            shoppingCart: this.props.shoppingCart,
+            totalItems: this.props.shoppingCart.length
+        });
     }
 
     _removeRestaurant = async (e, id) => {
@@ -51,41 +53,30 @@ class ShoppingCart extends Component {
 
         this.setState({
             requestedRestaurants: restaurants,
-            totalRequestedRestaurants: restaurants.length
+            totalItems: restaurants.length
         });
     }
     
 
-    _getRestaurantElement(restaurants) {
-        let restaurantTables = [];
-        let name, email, phoneNumber;
+    _getShoppingCartItems(shoppingCart) {
+        let shoppingCartTables = [];
 
-        for (var i = 0; i < restaurants.length; i++) {
-            if (restaurants[i].owner) {
-                name = restaurants[i].owner.firstName;
-                email = restaurants[i].owner.email;
-                phoneNumber = restaurants[i].owner.phoneNumber;
-            }
-            let id = restaurants[i]._id;
-            restaurantTables.push(
+        for (var i = 0; i < shoppingCart.length; i++) {
+            let id = shoppingCart[i]._id;
+            shoppingCartTables.push(
                 <tr className="unverified-restaurant-row" key={id}>
-                    <td>{restaurants[i].name}</td>
-                    <td>{restaurants[i].address}</td>
-                    <td>{restaurants[i].city}</td>
-                    <td>{restaurants[i].postalCode}</td>
-                    <td>{name}</td>
-                    <td>{email}</td>
-                    <td>{phoneNumber}</td>
+                    <td><img className="shopping-cart-image" src={shoppingCart[i].imageURL}/></td>
+                    <td>{shoppingCart[i].name}</td>
+                    <td>{shoppingCart[i].price}</td>
+                    <td>{shoppingCart[i].total}</td>
+                    <td>${(shoppingCart[i].total * shoppingCart[i].price).toFixed(2)}</td>
                     <td>
                         <button type="button" onClick={(event) => this._removeRestaurant(event,id)} class="btn btn-danger"><i class="fa fa-trash"></i></button>     
-                    </td>
-                    <td>
-                        <button type="button" onClick={(event) => this._verifyRestaurant(event, id)} class="btn check-btn"><i class="fa fa-check"></i></button>     
                     </td>
                 </tr>
             )
         }
-        return restaurantTables;
+        return shoppingCartTables;
     }
 
 
@@ -95,28 +86,25 @@ class ShoppingCart extends Component {
                 <h2>Shopping Cart</h2>
 
                 {/* TODO: image, item name, total ordered, individual price, total price */}
-                <h4 className="total">{this.state.totalRequestedRestaurants} Items</h4>
-                {this.state.totalRequestedRestaurants > 0 ? (
+                <h4 className="total">{this.state.totalItems} Items</h4>
+                {this.state.totalItems > 0 ? (
                         <table className="table table-responsive table-hover">
                             <thead class="table-header">
                                 <tr className="t-header">
+                                    <th scope="col">Item Image</th>
                                     <th scope="col">Item Name</th>
-                                    <th scope="col">Restaurant Address</th>
-                                    <th scope="col">City</th>
-                                    <th scope="col">Postal Code</th>
-                                    <th scope="col">Owner</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Phone Number</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">Item Price</th>
+                                    <th scope="col">Total Items</th>
+                                    <th scope="col">Total Cost</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {this._getRestaurantElement(this.state.requestedRestaurants)}
+                                {this._getShoppingCartItems(this.state.shoppingCart)}
                             </tbody>
                         </table>
                 ) : (
-                    <div className="empty-message">No requested restaurants</div>
+                    <div className="empty-message">No items inside shopping cart</div>
                 )}
             </div>
         )

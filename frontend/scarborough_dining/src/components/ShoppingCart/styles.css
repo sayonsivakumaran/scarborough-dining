@@ -14,3 +14,7 @@
 .check-btn {
     background-color: greenyellow !important;
 }
+
+.shopping-cart-image {
+    max-height: 20%;    
+}

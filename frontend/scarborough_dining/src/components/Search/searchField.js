@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './styles.css';
 import SearchResults from './searchResults';
-import {Route, Link} from 'react-router-dom';
+import {Route, Link, Switch} from 'react-router-dom';
+import RestaurantList from '../RestaurantList';
 
 export class SearchField extends Component{
 
@@ -19,6 +20,7 @@ export class SearchField extends Component{
 
     render() {
         return(
+        <>
         <div className="search-container">
             <form> 
                 <input 
@@ -36,10 +38,13 @@ export class SearchField extends Component{
                     />
                 </Link>
             </form>
+        </div>
+        <Switch>
             <Route path="/search_results" render={
                 () => <SearchResults query={this.state.searchString} />
               } />
-        </div>
+        </Switch>
+        </>
         )
     }
 }

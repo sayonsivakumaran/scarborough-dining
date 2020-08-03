@@ -44,8 +44,8 @@ export class Header extends Component {
                     <Link class="link" to="/account-creation/restaurant">Register Restaurant</Link>
                     <Link class="link" to="/manage-restaurant-information">Manage Restaurant Information</Link>
                     <Link class="link"><GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/></Link>
-                    <SearchField></SearchField>
                 </div>
+                <SearchField></SearchField>
             </div>
             </header>
         )

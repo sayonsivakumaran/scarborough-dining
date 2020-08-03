@@ -29,23 +29,18 @@ export class SearchResults extends Component {
     }
     render() {
         return (
-        <React.Fragment>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="header">
-                <h1 class="display-4 title">Scarborough Dining</h1>
-            </div>
-        </div>
-        <div className="restaurants">
-        <h2 className="restaurant-list-title mb-4 font-weight-bold">Scarborough Owned Restaurants</h2>
-            <div className="card-columns">
-                {
-                    this.state.results.map(restaurant => {
-                        return <Restaurant key={restaurant._id} restaurant={restaurant} />
-                    })
-                }
-            </div>
-        </div>
-        </React.Fragment>
+            <React.Fragment>
+                <div className="restaurants">
+                <h2 className="restaurant-list-title mb-4 font-weight-bold">Search Results</h2>
+                    <div className="card-columns">
+                        {
+                            this.state.results.map(restaurant => {
+                                return <Restaurant key={restaurant._id} restaurant={restaurant} />
+                            })
+                        }
+                    </div>
+                </div>
+            </React.Fragment>
         )
     }
 }

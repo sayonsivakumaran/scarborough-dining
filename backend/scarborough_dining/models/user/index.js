@@ -28,19 +28,18 @@ const userSchema = new Schema({
     },
     admin: {
         type: Boolean,
-        required:true
+        required:true,
+        default: false
     },
     ratings: {
         type: Map,
         of: Number,
-        required: true,
         unique: false,
         default: ""
     },
     favourites: {
         type: Map,
         of: String,
-        required: true,
         unique: false,
         default: ""
     }

@@ -1,5 +1,13 @@
 const express = require('express');
 const router = express.Router();
+require('dotenv').config();
+
+let FRONT_END_URL = "";
+if (process.env.NODE_ENV === "production") {
+  FRONT_END_URL = "/"
+} else {
+  FRONT_END_URL = "http://localhost:3000"
+}
 
 /* TODO: The redirect urls are set to localhost domain, 
  * but in production will be set to the url of web app.
@@ -19,8 +27,8 @@ router.get('/login/google', passport.authenticate('google-login', {scope: ['prof
  * @description     The route the google calls after authenticating google credentials.
  *                  This will be called by google regardless of the validaty of credentials.
  */
-router.get('/login/google/callback', passport.authenticate('google-login', {failureRedirect: 'http://localhost:3000/#/login/fail'}), (req,res) => {
-    res.redirect('http://localhost:3000');
+router.get('/login/google/callback', passport.authenticate('google-login', {failureRedirect: `${FRONT_END_URL}#/login/fail`}), (req,res) => {
+    res.redirect(`${FRONT_END_URL}`);
 
 })
 
@@ -35,8 +43,8 @@ router.get('/register/google', passport.authenticate('google-register', {scope: 
  * @description     The route the google calls after authenticating google credentials.
  *                  This will be called by google regardless of the validaty of credentials.
  */
-router.get('/register/google/callback', passport.authenticate('google-register', {failureRedirect: 'http://localhost:3000/#/register/fail'}), (req,res) => {
-    res.redirect('http://localhost:3000/#/dashboard/account');
+router.get('/register/google/callback', passport.authenticate('google-register', {failureRedirect: `${FRONT_END_URL}/#/register/fail`}), (req,res) => {
+    res.redirect(`${FRONT_END_URL}/#/dashboard/account`);
 })
 
 /**
@@ -47,7 +55,7 @@ router.get('/register/google/callback', passport.authenticate('google-register',
 router.get("/logout", (req, res) => {
   req.logout();
   res.clearCookie('connect.sid');
-  res.redirect('http://localhost:3000');
+  res.redirect(`${FRONT_END_URL}`);
 })
 
 /**

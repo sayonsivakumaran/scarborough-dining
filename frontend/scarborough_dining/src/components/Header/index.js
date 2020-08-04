@@ -45,12 +45,9 @@ export class Header extends Component {
                             <Link class="nav-link link" to="/account-creation/restaurant">Register Restaurant</Link>
                         </li>
                         */}
-                        {admin ? (
+                        {(admin) && (
                             <li class="nav-item">
                                 <Link class="nav-link link" to="/manage-restaurants">Manage Requested Restaurants</Link>
-                            </li>
-                        ) : (
-                            <li class="nav-item">
                             </li>
                         )}
                         {restaurantId ? (

@@ -18,13 +18,11 @@ export class LogIn extends Component {
                         <div className="options">
                             <a class="google" href="http://localhost:5000/auth/login/google">Google Login</a>
                         </div>
-                        {this.props.fail ? (
+                        {this.props.fail && (
                             <div className="fail">
                                 <p>This account does not exist.</p>
                                 <p>Please <Link to='/register'>register</Link> for an account.</p>
                             </div>
-                        ) : (
-                           <p></p>
                         )}
                     </div>
                 </div>

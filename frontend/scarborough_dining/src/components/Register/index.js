@@ -17,13 +17,11 @@ export class Register extends Component {
                     <div className="options">
                         <a class="google" href="http://localhost:5000/auth/register/google">Google Sign-Up</a>
                     </div>
-                    {this.props.fail ? (
+                    {this.props.fail && (
                         <div className="fail">
                             <p>This account already exists.</p>
                             <p>Please <Link to='/register'>log-in</Link> to your account.</p>
                         </div>
-                    ) : (
-                        <p></p>
                     )}
                 </div>
             </div>

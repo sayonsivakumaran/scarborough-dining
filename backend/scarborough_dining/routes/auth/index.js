@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+/* TODO: The redirect urls are set to localhost domain, 
+ * but in production will be set to the url of web app.
+ */
+
 //Import passport for access to authentication strategies
 const passport = require('passport');
 
@@ -15,7 +19,7 @@ router.get('/login/google', passport.authenticate('google-login', {scope: ['prof
  * @description     The route the google calls after authenticating google credentials.
  *                  This will be called by google regardless of the validaty of credentials.
  */
-router.get('/login/google/callback', passport.authenticate('google-login', {failureRedirect: 'http://localhost:3000/#/login/'}), (req,res) => {
+router.get('/login/google/callback', passport.authenticate('google-login', {failureRedirect: 'http://localhost:3000/#/login/fail'}), (req,res) => {
     res.redirect('http://localhost:3000');
 
 })
@@ -31,7 +35,7 @@ router.get('/register/google', passport.authenticate('google-register', {scope: 
  * @description     The route the google calls after authenticating google credentials.
  *                  This will be called by google regardless of the validaty of credentials.
  */
-router.get('/register/google/callback', passport.authenticate('google-register', {failureRedirect: 'http://localhost:3000/#/register/'}), (req,res) => {
+router.get('/register/google/callback', passport.authenticate('google-register', {failureRedirect: 'http://localhost:3000/#/register/fail'}), (req,res) => {
     res.redirect('http://localhost:3000/#/dashboard/account');
 })
 

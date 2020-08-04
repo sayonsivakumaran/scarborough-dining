@@ -56,7 +56,13 @@ export class App extends Component {
               <Route path="/restaurants/:id" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
               <Route path='/manage-restaurants' component={RestaurantVerfication} />
+              <Route path='/login/fail' render={
+                () => <LogIn fail={true} />
+              }  />
               <Route path='/login' component={LogIn} />
+              <Route path='/register/fail' render={
+                () => <Register fail={true} />
+              } />
               <Route path='/register' component={Register} />
               <Route path='/dashboard' component={Dashboard} />
               <Route component={Unknown} />

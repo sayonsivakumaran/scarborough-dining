@@ -1,0 +1,48 @@
+.register {
+    background-color: #FFFFFF;
+    width: 400px;
+    height: 475px;
+    margin: 7em auto;
+    border-radius: 1.5em;
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    text-align: center;
+    
+}
+
+h1 {
+    padding-top: 10px;
+}
+
+.text-content {
+    padding-top: 15px;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.register-options {
+    padding-top: 10px;
+}
+
+.options {
+    padding-top: 20px;
+}
+
+.google {
+    cursor: pointer;
+    border-radius: 5em;
+    color: #fff;
+    background: #eb4034;
+    border: 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 13px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+}
+
+.fail {
+    padding-top: 10px;
+    color:red;
+}

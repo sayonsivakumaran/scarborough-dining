@@ -9,6 +9,14 @@ if (process.env.NODE_ENV === "production") {
   FRONT_END_URL = "http://localhost:3000"
 }
 
+const isLoggedIn = (req, res, next) => {
+  if (req.user) {
+      next();
+  } else {
+      res.sendStatus(401);
+  }
+}
+
 /* TODO: The redirect urls are set to localhost domain, 
  * but in production will be set to the url of web app.
  */
@@ -53,6 +61,7 @@ router.get('/register/google/callback', passport.authenticate('google-register',
  *                  Then deletes the session's cookie and redirect back to home page
  */
 router.get("/logout", (req, res) => {
+  req.session.destroy()
   req.logout();
   res.clearCookie('connect.sid');
   res.redirect(`${FRONT_END_URL}`);
@@ -62,7 +71,7 @@ router.get("/logout", (req, res) => {
  * @route           /auth/login/success
  * @description     When user is logged in this route will be used to access user data
  */
-router.get("/login/success", (req, res) => {
+router.get("/login/success", isLoggedIn, (req, res) => {
   if (req.user) {
     res.json({
       success: true,

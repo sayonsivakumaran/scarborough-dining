@@ -78,7 +78,7 @@ export class App extends Component {
               <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.isLoggedIn} onUpdateShoppingCart={this.addToShoppingCart}/>} />
               <Route path="/restaurants/:id/menu-item/:menuItemId" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
-              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} loggedIn={this.state.isLoggedIn} shoppingCart={Object.values(this.state.shoppingCart)}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
+              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} loggedIn={this.state.isLoggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
               <Route path='/manage-restaurants' component={RestaurantVerfication} />
               <Route component={Unknown} />
             </Switch>

@@ -100,7 +100,7 @@ class ShoppingCart extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this._getShoppingCartItems(this.state.shoppingCart)}
+                                {this._getShoppingCartItems(Object.keys(this.state.shoppingCart))}
                             </tbody>
                         </table>
                 ) : (

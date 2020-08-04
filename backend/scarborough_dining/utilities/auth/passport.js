@@ -1,15 +1,21 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mongoose = require('mongoose');
-
-// Import User model
 const User = require('../../models/user');
+require('dotenv').config()
 
+/**
+ * @param           passport - import from passport.js
+ * @description     Function for using defined strategies to authenticate user information
+ */
 module.exports = function(passport) {
 
-        // Login passport
+        const CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+        const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+
+        // LogIn Passport - Retrieves user information and attemps to find in user database
         passport.use("google-login", new GoogleStrategy({
-            clientID: "656946100283-jg3i887mogbi1976j62oesvqoi06550g.apps.googleusercontent.com",
-            clientSecret: "1S7LKMMVHaOUtRegT7niKzhS",
+            clientID: CLIENT_ID,
+            clientSecret: CLIENT_SECRET,
             callbackURL: "http://localhost:5000/auth/login/google/callback"
         },
         async (accessToken, refreshToken, profile, done) => {
@@ -19,13 +25,10 @@ module.exports = function(passport) {
 
             try {
                 let user = await User.findOne({googleId: profile.id})
-                console.log(user);
                 if (user) {
-                    // Valid user
-                    console.log(profile);
                     done(null, user);
                 } else {
-                    //Invalid user
+                    // TODO: Create an error message displayed on front-end
                     done(null, false, { message: "This user does not exist in database"});
                 }
             } catch (err) {
@@ -33,9 +36,10 @@ module.exports = function(passport) {
             }
         }));
 
+        // Register Passport - Retrieves Google Account Information and attempts to create new user
         passport.use("google-register", new GoogleStrategy({
-            clientID: "656946100283-jg3i887mogbi1976j62oesvqoi06550g.apps.googleusercontent.com",
-            clientSecret: "1S7LKMMVHaOUtRegT7niKzhS",
+            clientID: CLIENT_ID,
+            clientSecret: CLIENT_SECRET,
             callbackURL: "http://localhost:5000/auth/register/google/callback"
         },
         async (accessToken, refreshToken, profile, done) => {
@@ -51,11 +55,9 @@ module.exports = function(passport) {
             try {
                 let user = await User.findOne({googleId: profile.id})
                 if (user) {
-                    // Valid user
-                    console.log("Hello")
+                    // TODO: Create an error message displayed on front-end
                     done(null, false, { message: "This user already exists in the database"});
                 } else {
-                    //Invalid user
                     user = await User.create(newUser);
                     done(null, user);
                 }
@@ -64,10 +66,12 @@ module.exports = function(passport) {
             }
         }));
 
+        // Middleware function defined in passport.js to serialize user information
         passport.serializeUser(function(user, done) {
             done(null, user);
         });
         
+        // Middleware function defined in passport.js to deserialize user information
         passport.deserializeUser(function(user, done) {
             done(null, user);
         });

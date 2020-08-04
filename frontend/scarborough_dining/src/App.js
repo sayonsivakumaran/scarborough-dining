@@ -13,7 +13,6 @@ import RestaurantVerfication from './components/RestaurantVerification';
 import LogIn from './components/LogIn'
 import Register from './components/Register'
 import Dashboard from './components/Dashboard'
-import UserInformation from './components/UserInformation'
 
 import './App.css';
 
@@ -60,7 +59,6 @@ export class App extends Component {
               <Route path='/login' component={LogIn} />
               <Route path='/register' component={Register} />
               <Route path='/dashboard' component={Dashboard} />
-              <Route path='/account-creation/user' component={UserInformation} />
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

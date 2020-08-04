@@ -12,7 +12,7 @@ const formStyle = {
     fontFamily: 'Didact Gothic, sans-serif',
     display: 'flex',
     flexDirection: 'column',
-    padding: '1% 30%'
+    padding: '0% 30%'
 }
 
 const inputStyle = {
@@ -26,7 +26,7 @@ const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '60px 0'
+    padding: '40px 0'
 }
 
 const descriptionStyle = {
@@ -77,6 +77,10 @@ export class ManageRestaurantInformation extends Component {
         }
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+    
     addMenuItem = e => {
         e.preventDefault()
         let {totalItems, menuItems} = this.state;

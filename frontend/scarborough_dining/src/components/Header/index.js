@@ -36,7 +36,7 @@ export class Header extends Component {
     render() {
         return (
             <header>
-                <nav class="navbar navbar-expand-lg fixed-top navbar-light">
+                <nav class="navbar navbar-expand-xl fixed-top navbar-light">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                         <span class="navbar-toggler-icon"></span>
                     </button>

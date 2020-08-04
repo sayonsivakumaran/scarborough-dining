@@ -39,21 +39,23 @@ export class App extends Component {
         <body>
           
           <Header checkLogin={this.checkLogin.bind(this)}/>
-          <React.Fragment>
-            <Switch>
-              <Route exact path="/" component={RestaurantList} />
-              <Route path="/account-creation/user" render={
-                () => <AccountCreation userType={"user"} />
-              } />
-              <Route path="/account-creation/restaurant" render={
-                () => <AccountCreation userType={"restaurant"} />
-              } />
-              <Route path="/restaurants/:id" component={RestaurantProfile} />
-              <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
-              <Route path='/manage-restaurants' component={RestaurantVerfication} />
-              <Route component={Unknown} />
-            </Switch>
-          </React.Fragment>
+          <div class="pages">
+            <React.Fragment>
+              <Switch>
+                <Route exact path="/" component={RestaurantList} />
+                <Route path="/account-creation/user" render={
+                  () => <AccountCreation userType={"user"} />
+                } />
+                <Route path="/account-creation/restaurant" render={
+                  () => <AccountCreation userType={"restaurant"} />
+                } />
+                <Route path="/restaurants/:id" component={RestaurantProfile} />
+                <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
+                <Route path='/manage-restaurants' component={RestaurantVerfication} />
+                <Route component={Unknown} />
+              </Switch>
+            </React.Fragment>
+          </div>
         </body>
       </div>
     )

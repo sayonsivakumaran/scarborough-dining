@@ -1,9 +1,25 @@
-.header {
+/* .header {
     padding-left: 60px;
     float: left;
-    opacity: 1;
+    padding-top: 240px;
     text-align: center;
-    font-weight: bolder;
+    background-color: white;
+} */
+
+.header {
+    position: absolute;
+    top: 22%;
+    left: 22%;
+    bottom: auto;
+    right: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    width: 100%;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .links {
@@ -11,19 +27,15 @@
     justify-content: center;
 }
 
-.navbar{
-    padding:0px;
-    background-color: #ffffff;
-}
-
 .navbar .link {
-    color: #000000 !important;
+    color: #000000 !important; 
+    /* color: #ffffff !important; */
     text-align: center;
-    padding: 12px;
     margin: 0px 12px;
     text-decoration: none;
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 18px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .header_img{
@@ -31,21 +43,24 @@
     margin: 0 auto;
 }
 
-.header .title {
-    font-weight: bold;
-    font-size: 3.5vw;
+.header .title {    
+    opacity: 1;
+    font-size: 3.4vw;
+    font-family: 'Rubik', sans-serif;
 }
 
 
 .jumbotron {
     color: #000000;
     background-image: url("header_bg1.jpg");
-    height: 800px;
+    /* height: 800px; */
+    opacity: 0.9;
+    height:calc(400px + 30vw);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;
-    font-family: 'Didact Gothic', sans-serif;
+    font-family: 'Rubik', sans-serif;
   }
 
 .google-btn {
@@ -62,13 +77,11 @@
 
 .navbar {
     background-color:#F8F8F8;
-    padding: 0px !important;
     line-height: 2.5em;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .restaurant-navbar .nav-item .nav-link {
-    padding: 16px;
     font-family: 'Didact Gothic', sans-serif;
     font-size: 20px;
     color: #000000;

@@ -57,3 +57,6 @@
 - August 1
     - [taskboard](sprint5/saturday_august_1_snapshot/taskboard_snapshot.png)
     - [burndown](sprint5/saturday_august_1_snapshot/burndown_chart_snapshot.png)
+- August 3
+    - [taskboard](sprint5/monday_august_3_snapshot/taskboard_snapshot.png)
+    - [burndown](sprint5/monday_august_3_snapshot/burndown_chart_snapshot.png)

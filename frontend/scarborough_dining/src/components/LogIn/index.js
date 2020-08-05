@@ -22,7 +22,7 @@ export class LogIn extends Component {
                             <p>Don't have an account? <Link to='/register'>Register</Link> for an account.</p>
                         </div>
                     <div className="login-options">
-                        <h3>Log In Options</h3>
+                        <h3>Google Login</h3>
                         <div className="options">
                             <a class="google" href={BACK_END_URL+'/auth/login/google'}>Google Login</a>
                         </div>

@@ -12,11 +12,17 @@ module.exports = function(passport) {
         const CLIENT_ID = process.env.GOOGLE_CLIENT_ID
         const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
 
+        if (process.env.NODE_ENV === "production") {
+            BACK_END_URL = "/" 
+        } else { 
+            BACK_END_URL = "http://localhost:5000" 
+        }
+
         // LogIn Passport - Retrieves user information and attemps to find in user database
         passport.use("google-login", new GoogleStrategy({
             clientID: CLIENT_ID,
             clientSecret: CLIENT_SECRET,
-            callbackURL: "http://localhost:5000/auth/login/google/callback"
+            callbackURL: `${BACK_END_URL}/auth/login/google/callback`
         },
         async (accessToken, refreshToken, profile, done) => {
             const existingUser = {
@@ -26,6 +32,7 @@ module.exports = function(passport) {
             try {
                 let user = await User.findOne({googleId: profile.id})
                 if (user) {
+                    console.log(user);
                     done(null, user);
                 } else {
                     // TODO: Create an error message displayed on front-end
@@ -40,7 +47,7 @@ module.exports = function(passport) {
         passport.use("google-register", new GoogleStrategy({
             clientID: CLIENT_ID,
             clientSecret: CLIENT_SECRET,
-            callbackURL: "http://localhost:5000/auth/register/google/callback"
+            callbackURL: `${BACK_END_URL}/auth/register/google/callback`
         },
         async (accessToken, refreshToken, profile, done) => {
             const newUser = {

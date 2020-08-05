@@ -4,6 +4,14 @@ import './style.css'
 
 export class Register extends Component {
     render() {
+
+        let BACK_END_URL = ''
+        if (process.env.NODE_ENV === "production") {
+            BACK_END_URL = "/" 
+        } else { 
+            BACK_END_URL = "http://localhost:5000" 
+        }
+
         return (
             <div className="background">
             <div className="register">
@@ -15,7 +23,7 @@ export class Register extends Component {
                 <div className="register-options">
                     <h3>Sign-Up Options</h3>
                     <div className="options">
-                        <a class="google" href="http://localhost:5000/auth/register/google">Google Sign-Up</a>
+                        <a class="google" href={BACK_END_URL+'/auth/register/google'}>Google Sign-Up</a>
                     </div>
                     {this.props.fail && (
                         <div className="fail">

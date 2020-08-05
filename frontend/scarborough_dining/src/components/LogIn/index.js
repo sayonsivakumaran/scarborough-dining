@@ -5,6 +5,14 @@ import './style.css';
 export class LogIn extends Component {
 
     render() {
+
+        let BACK_END_URL = ''
+        if (process.env.NODE_ENV === "production") {
+            BACK_END_URL = "/" 
+        } else { 
+            BACK_END_URL = "http://localhost:5000" 
+        }
+
         return (
             <div className="background">
                 <div className="Log-In">
@@ -16,7 +24,7 @@ export class LogIn extends Component {
                     <div className="login-options">
                         <h3>Log In Options</h3>
                         <div className="options">
-                            <a class="google" href="http://localhost:5000/auth/login/google">Google Login</a>
+                            <a class="google" href={BACK_END_URL+'/auth/login/google'}>Google Login</a>
                         </div>
                         {this.props.fail && (
                             <div className="fail">

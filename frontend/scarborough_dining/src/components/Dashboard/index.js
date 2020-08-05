@@ -5,26 +5,48 @@ import axios from 'axios'
 export class Dashboard extends Component {
 
     state = {
-        displayName: ""
+        displayName: "",
+        ratings: {},
+        favourites: {}
     }
     
     componentDidMount() {
         axios.get('/auth/login/success')
             .then(results => this.setState({
-                displayName: results.data.user.displayName
+                displayName: results.data.user.displayNamem,
+                firstName: results.data.user.firstName,
+                lastName: results.data.user.lastName,
+                ratings: results.data.user.ratings,
+                favourites: results.data.user.favourites   
             })
         )
     }
 
     render() {
+        const ratingsEmpty = Object.keys(this.state.ratings).length === 0
+        const favouritesEmpty = Object.keys(this.state.favourites).length === 0
         return (
             <div>
-                <p>H</p>
-                <p>H</p>
-                <p>H</p>
-                <p>H</p>
-                <h1>You are Logged In as {this.state.displayName}</h1>
-                <Link to='/account-creation/user'>Change Account Information</Link>
+                <h1>Dashboard</h1>
+                <div className="account-information">
+                    <h2>Account Information</h2>
+                    <p>Name: {this.state.firstName} {this.state.lastName}</p>
+                    <p>Address:</p>
+                    <p>Postal Code:</p>
+                    <Link to='/account-creation/user'>Edit Account</Link>
+                </div>
+                <div className="favourites">
+                    <h2>Favourite Restaurants</h2>
+                    {favouritesEmpty && (
+                        <p>You have not favourated any restaurants yet.</p>
+                    )}
+                </div>
+                <div className="ratings">
+                    <h2>Your Restaurant Ratings</h2>
+                    {ratingsEmpty && (
+                        <p>You have not rated any restaurants yet.</p>
+                    )}
+                </div>
             </div>
         )
     }

@@ -26,7 +26,12 @@ export class Header extends Component {
         const loggedIn = this.state.loggedIn;
         const restaurantId = this.state.restaurantId == undefined
         const admin = this.state.admin
-        console.log(restaurantId)
+        let BACK_END_URL = ''
+        if (process.env.NODE_ENV === "production") {
+            BACK_END_URL = "/" 
+        } else { 
+            BACK_END_URL = "http://localhost:5000" 
+        }
         return (
             <header>
                 <nav class="navbar navbar-expand-lg fixed-top navbar-light">
@@ -60,7 +65,7 @@ export class Header extends Component {
                         )}
                         {loggedIn ? (
                             <li class="nav-item">
-                                <a class="nav-link link" href="http://localhost:5000/auth/logout">Logout</a>
+                                <a class="nav-link link" href={BACK_END_URL+"/auth/logout"}>Logout</a>
                             </li>
                         ) : (
                             <li class="nav-item">

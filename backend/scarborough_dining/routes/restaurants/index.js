@@ -133,7 +133,7 @@ router.route('/update/:id').post((req, res) => {
 router.route('/addMenuItems/:restaurantID').post((req, res) => {
     Restaurant.findById(req.params.restaurantID)
         .then(restaurant => {
-            let menuItems = restaurant.menuItems || [];
+            let menuItems = restaurant.menuItems;
             menuItems = menuItems.concat(req.body.menuItems);
             restaurant.menuItems = menuItems;
 
@@ -150,6 +150,18 @@ router.route('/verify/:id').post((req, res) => {
             restaurant.verified = true;
             restaurant.save()
                 .then(() => res.json('Restaurant has been verified.'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/addOrderRequest/:restaurantID').update((req, res) => {
+    Restaurant.findById(req.params.restaurantID)
+        .then(restaurant => {
+            let orderRequests = request.orderRequests;
+            restaurant.orderRequests = orderRequests.concat(req.body.orderRequests);
+            restaurant.save()
+                .then(() => res.json('Items have been requested'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(400).json('Error: ' + err));

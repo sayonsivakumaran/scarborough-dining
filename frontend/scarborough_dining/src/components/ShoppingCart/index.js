@@ -5,7 +5,6 @@ import axios from 'axios';
 class ShoppingCart extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             shoppingCart: [],
             totalItems: 0
@@ -15,7 +14,7 @@ class ShoppingCart extends Component {
     componentDidMount() {
         this.setState({
             shoppingCart: this.props.shoppingCart,
-            totalItems: this.props.shoppingCart.length
+            totalItems: Object.keys(this.props.shoppingCart).length
         });
     }
 
@@ -100,7 +99,7 @@ class ShoppingCart extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this._getShoppingCartItems(Object.keys(this.state.shoppingCart))}
+                                {this._getShoppingCartItems(Object.values(this.state.shoppingCart))}
                             </tbody>
                         </table>
                 ) : (

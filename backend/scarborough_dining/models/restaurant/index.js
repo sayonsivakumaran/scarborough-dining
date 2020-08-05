@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 let MenuItem = require('../menu_item').schema;
+let OrderRequest = require('../order_request').schema;
+
 
 const restaurantSchema = new Schema({
     ownerID: {
@@ -75,11 +77,15 @@ const restaurantSchema = new Schema({
     },
     menuItems: {
         type: [MenuItem],
-        required: true
+        default: []
     },
     verified: {
         type: Boolean,
         default: false
+    },
+    orderRequests: {
+        type: [[OrderRequest]],
+        default: []
     }
 }, {
     timestamps: true

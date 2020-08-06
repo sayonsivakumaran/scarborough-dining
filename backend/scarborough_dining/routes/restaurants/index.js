@@ -75,7 +75,18 @@ router.route('/add').post((req, res) => {
     });
     
     newRestaurant.save()
-        .then(() => res.json('Restaurant has been added.'))
+        .then(() => res.json())
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+/**
+ * Server-side get request to retrieve a specific restaurant's data.
+ * Requires a database id of the restaurant
+ * @return the restaurant associated with the id
+ */
+router.route('/:id').get((req, res) => {
+    Restaurant.findById(req.params.id)
+        .then(restaurant => res.json(restaurant))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -97,6 +108,17 @@ router.route('/:id').get((req, res) => {
 router.route('/:id').delete((req, res) => {
     Restaurant.findByIdAndDelete(req.params.id)
         .then(() => res.json('Restaurant has been removed.'))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+/**
+ * Server-side get request to retrieve a specific restaurant's data.
+ * Requires a googleId of the restaurant owner
+ * @return the restaurant associated with the id
+ */
+router.route('/owner/:id').get((req, res) => {
+    Restaurant.findOne({ ownerID: req.params.id })
+        .then(restaurant => res.json(restaurant))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 

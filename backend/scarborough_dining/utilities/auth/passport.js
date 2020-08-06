@@ -32,7 +32,6 @@ module.exports = function(passport) {
             try {
                 let user = await User.findOne({googleId: profile.id})
                 if (user) {
-                    console.log(user);
                     done(null, user);
                 } else {
                     // TODO: Create an error message displayed on front-end
@@ -55,7 +54,7 @@ module.exports = function(passport) {
                 displayName: profile.displayName,
                 firstName: profile.name.givenName,
                 lastName: profile.name.familyName,
-                image: profile.photos[0].value
+                image: profile.photos[0].value,
             }
             
             try {

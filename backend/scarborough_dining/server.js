@@ -31,6 +31,9 @@ if (process.env.NODE_ENV === "production") {
 
 // Session middleware
 app.use(session({
+    cookie: {
+        maxAge: 3600000 // Keep user logged in for at most 1 hour if they don't log out
+    },
     secret: 'session',
     resave: false,
     saveUninitialized: false
@@ -59,6 +62,7 @@ const restaurantsRouter = require('./routes/restaurants');
 const menuItemsRouter = require('./routes/menu_items');
 const uploadMediaItemsRouter = require('./routes/media_upload');
 const authenticationRouter = require('./routes/auth');
+const userRouter = require("./routes/users");
 
 app.use('/customers', customersRouter);
 app.use('/owners', ownersRouter);
@@ -66,6 +70,7 @@ app.use('/restaurants', restaurantsRouter);
 app.use('/menu_items', menuItemsRouter);
 app.use('/media_upload', uploadMediaItemsRouter);
 app.use('/auth', authenticationRouter);
+app.use('/user', userRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

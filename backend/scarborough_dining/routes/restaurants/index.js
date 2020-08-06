@@ -155,16 +155,16 @@ router.route('/verify/:id').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-// router.route('/addOrderRequest/:restaurantID').update((req, res) => {
-//     Restaurant.findById(req.params.restaurantID)
-//         .then(restaurant => {
-//             let orderRequests = request.orderRequests;
-//             restaurant.orderRequests = orderRequests.concat(req.body.orderRequests);
-//             restaurant.save()
-//                 .then(() => res.json('Items have been requested'))
-//                 .catch(err => res.status(400).json('Error: ' + err));
-//         })
-//         .catch(err => res.status(400).json('Error: ' + err));
-// });
+router.route('/addOrderRequest/:restaurantID').post((req, res) => {
+    Restaurant.findById(req.params.restaurantID)
+        .then(restaurant => {
+            let orderRequests = request.orderRequests;
+            restaurant.orderRequests = orderRequests.concat(req.body.orderRequests);
+            restaurant.save()
+                .then(() => res.json('Items have been requested'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
 module.exports = router;

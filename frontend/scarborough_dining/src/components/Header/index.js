@@ -23,9 +23,6 @@ export class Header extends Component {
     }
 
     render() {
-        // <li class="nav-item">
-        //                     <Link class="nav-link link" to="/shopping-cart">Shopping Cart</Link>
-        //                 </li>
         const loggedIn = this.state.loggedIn;
         const restaurantId = this.state.restaurantId == undefined
         const admin = this.state.admin
@@ -73,6 +70,14 @@ export class Header extends Component {
                         ) : (
                             <li class="nav-item">
                                 <Link class="nav-link link" to="/login">Log In</Link>
+                            </li>
+                        )}
+                        {loggedIn ? (
+                            <li class="nav-item">
+                                <Link class="nav-link link" to="/shopping-cart">Shopping Cart</Link>
+                            </li>
+                        ) : (
+                            <li class="nav-item">
                             </li>
                         )}
                         {loggedIn ? (

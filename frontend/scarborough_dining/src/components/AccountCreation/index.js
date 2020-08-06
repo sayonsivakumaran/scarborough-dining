@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import './styles.css';
-import FileUpload from '../FileUpload';
-import { Redirect } from 'react-router'
-import MENU_CATEGORIES from '../../enums/menu_categories';
 import Select from 'react-select';
+import { Redirect } from 'react-router'
+import FileUpload from '../FileUpload';
+import MENU_CATEGORIES from '../../enums/menu_categories';
+import './styles.css';
 
 const options = Object.keys(MENU_CATEGORIES).map(k => {
 	return { value : k, label : MENU_CATEGORIES[k] }
@@ -53,9 +53,8 @@ export class AccountCreation extends React.Component {
      */
     async componentDidMount() {
 
-        /* Request for logged in user's googleId to find in database,
-         * if no user is logged in, request will terminate keep the state
-         * set to not logged in.
+        /* Request to see if user is logged in, if user is logged in
+         * get user's googleId 
          */
         await axios.get('/auth/login/success')
           .then(results => this.setState({

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import axios from 'axios'
+import './styles.css';
 
 export class Dashboard extends Component {
 
@@ -49,7 +50,7 @@ export class Dashboard extends Component {
         const favouritesEmpty = Object.keys(this.state.favourites).length === 0
         const restaurantEmpty = this.state.restaurantId === undefined
         return (
-            <div>
+            <div className="container">
                 <h1>Dashboard</h1>
                 <div className="account-information">
                     <h2>Account Information</h2>
@@ -58,20 +59,23 @@ export class Dashboard extends Component {
                     <p>City: {this.state.city}</p>
                     <p>Province: {this.state.province}</p>
                     <p>Postal Code: {this.state.postalCode}</p>
-                    <Link to='/account-information'>Edit Account Information</Link>
+                    <p><Link to='/account-information'>Edit Account Information</Link></p>
                 </div>
+                <hr/>
                 <div className="favourites">
                     <h2>Favourite Restaurants</h2>
                     {favouritesEmpty && (
-                        <p>You have not favourated any restaurants yet.</p>
+                        <p>You have not favourited any restaurants yet.</p>
                     )}
                 </div>
+                <hr/>
                 <div className="ratings">
                     <h2>Your Restaurant Ratings</h2>
                     {ratingsEmpty && (
                         <p>You have not rated any restaurants yet.</p>
                     )}
                 </div>
+                <hr/>
                 <div className="restaurant-information">
                     <h2>Restaurant Information</h2>
                     {restaurantEmpty && (

@@ -49,11 +49,13 @@ router.route('/update/:id').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * @route           /user/add-restaurant/:googleId
+ * @description     POST request to add a restaurantId to user's data
+ */
 router.route('/add-restaurant/:googleId').post((req, res) => {
     User.findOne({ googleId: req.params.googleId })
     .then(user => {
-        console.log(user);
-        console.log(req.body.restaurantId)
         user.restaurantId = req.body.restaurantId;
 
         user.save()

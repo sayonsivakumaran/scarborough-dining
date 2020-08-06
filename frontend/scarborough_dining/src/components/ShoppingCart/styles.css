@@ -16,5 +16,6 @@
 }
 
 .shopping-cart-image {
-    max-height: 20%;    
+    width: 10em;
+    height: 8em;
 }

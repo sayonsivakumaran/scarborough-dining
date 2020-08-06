@@ -6,7 +6,7 @@ class ShoppingCart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            shoppingCart: [],
+            shoppingCart: {},
             totalItems: 0
         };
     }
@@ -17,45 +17,15 @@ class ShoppingCart extends Component {
             totalItems: Object.keys(this.props.shoppingCart).length
         });
     }
-
-    _removeRestaurant = async (e, id) => {
-        await axios.delete('/restaurants/' + id).then(response => {
-            console.log(response);
-        })
-
-        await this._getUnregistedRestaurants();
-    }
-
-    _verifyRestaurant = async (e, id) => {
-        await axios.post('/restaurants/verify/' + id).then(response => {
-            console.log(response);
-        })
-
-        await this._getUnregistedRestaurants();
-    }
-    /**
-     * Gets all unregisterd restaurants and its owner information
-     */
-    async _getUnregistedRestaurants() {
-        let restaurants, owner;
-
-        await axios.get('/restaurants/unverified').then(response => {
-            restaurants = response.data
-        })
-
-        for (var i = 0; i < restaurants.length; i++) {
-            owner = await axios.get('/owners/' + restaurants[i].ownerID);
-            if (owner && owner.data) {
-                restaurants[i].owner = owner.data;
-            }
-        }
+    
+    _removeMenuItems = (e, id) => {
+        let {shoppingCart} = this.state;
+        delete shoppingCart[id];
 
         this.setState({
-            requestedRestaurants: restaurants,
-            totalItems: restaurants.length
+            shoppingCart: shoppingCart
         });
     }
-    
 
     _getShoppingCartItems(shoppingCart) {
         let shoppingCartTables = [];
@@ -66,11 +36,11 @@ class ShoppingCart extends Component {
                 <tr className="unverified-restaurant-row" key={id}>
                     <td><img className="shopping-cart-image" src={shoppingCart[i].imageURL}/></td>
                     <td>{shoppingCart[i].name}</td>
-                    <td>{shoppingCart[i].price}</td>
+                    <td>${shoppingCart[i].price}</td>
                     <td>{shoppingCart[i].total}</td>
                     <td>${(shoppingCart[i].total * shoppingCart[i].price).toFixed(2)}</td>
                     <td>
-                        <button type="button" onClick={(event) => this._removeRestaurant(event,id)} class="btn btn-danger"><i class="fa fa-trash"></i></button>     
+                        <button type="button" onClick={(event) => this._removeMenuItems(event,id)} class="btn btn-danger"><i class="fa fa-trash"></i></button>     
                     </td>
                 </tr>
             )

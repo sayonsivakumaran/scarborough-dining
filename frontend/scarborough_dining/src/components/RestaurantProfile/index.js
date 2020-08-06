@@ -57,13 +57,13 @@ class RestaurantProfile extends Component {
                 <div className="restaurant-profile">
                     <ul class="nav nav-pills nav-fill">
                         <li class="nav-item">
-                            <Link name="info" className={this.state.activeTab == "info" ? "nav-link active" : "nav-link"} onClick={this._setTab} to={`/restaurants/${this.state.id}`}>Info</Link>  
+                            <Link name="info" className={this.state.activeTab === "info" ? "nav-link active" : "nav-link"} onClick={this._setTab} to={`/restaurants/${this.state.id}`}>Info</Link>  
                         </li>
                         <li class="nav-item">
-                            <Link name ="menu" className={this.state.activeTab == "menu" ? "nav-link active" : "nav-link"} onClick={this._setTab} to={`/restaurants/${this.state.id}/menu`}>Menu</Link>  
+                            <Link name ="menu" className={this.state.activeTab === "menu" ? "nav-link active" : "nav-link"} onClick={this._setTab} to={`/restaurants/${this.state.id}/menu`}>Menu</Link>  
                         </li>
                         <li class="nav-item">
-                            <Link name="announcements" className={this.state.activeTab == "announcements" ? "nav-link active" : "nav-link"} onClick={this._setTab} to={`/restaurants/${this.state.id}/announcements`}>Announcements</Link>  
+                            <Link name="announcements" className={this.state.activeTab === "announcements" ? "nav-link active" : "nav-link"} onClick={this._setTab} to={`/restaurants/${this.state.id}/announcements`}>Announcements</Link>  
                         </li>
                     </ul>
                     <Switch>

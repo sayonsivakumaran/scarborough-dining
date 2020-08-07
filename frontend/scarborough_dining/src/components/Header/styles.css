@@ -9,7 +9,7 @@
 .header {
     position: absolute;
     top: 22%;
-    left: 22%;
+    left: 20%;
     bottom: auto;
     right: auto;
     -webkit-transform: translateX(-50%) translateY(-50%);
@@ -27,6 +27,10 @@
     justify-content: center;
 }
 
+.navbar {
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+}
 .navbar .link {
     color: #000000 !important; 
     /* color: #ffffff !important; */
@@ -93,4 +97,11 @@
 
 .nav-item:hover {
     background-color: #f3f3f3;
+}
+
+.img-responsive {
+    height: auto;
+    width: auto;
+    max-height: 56px;
+    max-width: 250px;
 }

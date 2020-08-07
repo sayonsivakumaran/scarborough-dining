@@ -167,7 +167,7 @@ router.route('/addOrderRequest/:restaurantID').post((req, res) => {
     Restaurant.findById(req.params.restaurantID)
         .then(restaurant => {
             let orderRequests = restaurant.orderRequests || [];
-            let incomingRequests = req.body.orderRequests;
+            let incomingRequests = req.body;
             let requestArray = [];
             for (let i = 0; i < incomingRequests.length; i++) {
                 let orderItem = {};
@@ -178,16 +178,17 @@ router.route('/addOrderRequest/:restaurantID').post((req, res) => {
                 orderItem.description = incomingRequests[i].description;
                 orderItem.cuisineTypes = incomingRequests[i].cuisineTypes;
                 orderItem.total = incomingRequests[i].total;
+                orderItem.userID = incomingRequests[i].userId;
 
                 requestArray = requestArray.concat(orderItem);
             }
 
-            restaurant.orderRequests = orderRequests.concat(requestArray);
+            restaurant.orderRequests = orderRequests.concat([requestArray]);
             restaurant.save()
                 .then(() => res.json('Items have been requested'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
-        .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err => res.status(404).json('Error: ' + err));
 });
 
 module.exports = router;

@@ -24,7 +24,8 @@ const userSchema = new Schema({
     },
     restaurantId: {
         type: String,
-        unique: true
+        unique: true,
+        default: undefined
     },
     admin: {
         type: Boolean,
@@ -41,6 +42,34 @@ const userSchema = new Schema({
         type: Map,
         of: String,
         unique: false,
+        default: ""
+    },
+    address: {
+        type: String,
+        required: false,
+        unique: false,
+        trim: true,
+        default: ""
+    },
+    city: {
+        type: String,
+        required: false,
+        unique: false,
+        trim: true,
+        default: ""
+    },
+    province: {
+        type: String,
+        required: false,
+        unique: false,
+        trim: true,
+        default: ""
+    },
+    postalCode: {
+        type: String,
+        required: false,
+        unique: false,
+        trim: true,
         default: ""
     }
 },

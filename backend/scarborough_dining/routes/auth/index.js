@@ -52,7 +52,7 @@ router.get('/register/google', passport.authenticate('google-register', {scope: 
  *                  This will be called by google regardless of the validaty of credentials.
  */
 router.get('/register/google/callback', passport.authenticate('google-register', {failureRedirect: `${FRONT_END_URL}/#/register/fail`}), (req,res) => {
-    res.redirect(`${FRONT_END_URL}/#/dashboard/account`);
+    res.redirect(`${FRONT_END_URL}/#/account-information`);
 })
 
 /**

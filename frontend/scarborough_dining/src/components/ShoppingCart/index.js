@@ -48,6 +48,23 @@ class ShoppingCart extends Component {
         return shoppingCartTables;
     }
 
+    _postShoppingCartData = async shoppingCart => {
+        let restaurantOrderMap = {};
+
+        for (let i = 0; i < shoppingCart.length; i++) {
+            let restaurantID = shoppingCart[i].restaurantID;
+            if (!restaurantOrderMap[restaurantID]) {
+                restaurantOrderMap[restaurantID] = [];
+            }
+
+            restaurantOrderMap[restaurantID] = restaurantOrderMap[restaurantID].concat(shoppingCart[i]);
+        }
+
+        let responses = Object.keys(restaurantOrderMap).map(restaurantID => axios.post(`/restaurants/addOrderRequest/${restaurantID}`));
+        return Promise.all(responses)
+            .then(response => response)
+            .catch(e => e);
+    }
 
     render() {
         return (
@@ -57,6 +74,7 @@ class ShoppingCart extends Component {
                 {/* TODO: image, item name, total ordered, individual price, total price */}
                 <h4 className="total">{this.state.totalItems} Items</h4>
                 {this.state.totalItems > 0 ? (
+                    <React.Fragment>
                         <table className="table table-responsive table-hover">
                             <thead class="table-header">
                                 <tr className="t-header">
@@ -72,6 +90,8 @@ class ShoppingCart extends Component {
                                 {this._getShoppingCartItems(Object.values(this.state.shoppingCart))}
                             </tbody>
                         </table>
+                        <input onClick={() => this._postShoppingCartData(Object.values(this.state.shoppingCart))} className="submit-shopping-cart-modal-button" name="submitShoppingCart" type="submit" value="Submit Order"/>
+                    </React.Fragment>
                 ) : (
                     <div className="empty-message">No items inside shopping cart</div>
                 )}

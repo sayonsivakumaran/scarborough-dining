@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const orderRequestSchema = new Schema({
+const orderSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -34,6 +34,6 @@ const orderRequestSchema = new Schema({
     timestamps: true
 }); 
 // TODO: add account ID
-const OrderRequest = mongoose.model('OrderRequest', orderRequestSchema);
+const Order = mongoose.model('Order', orderSchema);
 
-module.exports = OrderRequest;
+module.exports = Order;

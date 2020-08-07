@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 let MenuItem = require('../menu_item').schema;
-let OrderRequest = require('../order_request').schema;
+let Order = require('../order').schema;
 
 
 const restaurantSchema = new Schema({
@@ -84,7 +84,7 @@ const restaurantSchema = new Schema({
         default: false
     },
     orderRequests: {
-        type: [[OrderRequest]],
+        type: [[Order]],
         default: []
     }
 }, {

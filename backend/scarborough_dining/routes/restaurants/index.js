@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 let Restaurant = require('../../models/restaurant');
+let Order = require('../../models/order');
 
 /**
  * Server-side get request to retrieve all restaurant data
@@ -52,7 +53,9 @@ router.route('/add').post((req, res) => {
         description,
         longDescription,
         menuItems,
-        yearEstablished
+        yearEstablished,
+        verified,
+        orderRequests
     } = req.body;
 
     const newRestaurant = new Restaurant({ 
@@ -70,8 +73,10 @@ router.route('/add').post((req, res) => {
         cuisineTypes,
         description,
         longDescription,
+        yearEstablished,
         menuItems,
-        yearEstablished
+        verified,
+        orderRequests
     });
     
     newRestaurant.save()
@@ -122,6 +127,9 @@ router.route('/update/:id').post((req, res) => {
             restaurant.description = req.body.description;
             restaurant.longDescription = req.body.longDescription;
             restaurant.menuItems = req.body.menuItems;
+            restaurant.verified = req.body.verified;
+            restaurant.orderRequests = req.body.orderRequests;
+            restaurant.yearEstablished = req.body.yearEstablished;
 
             restaurant.save()
                 .then(() => res.json('Restaurant has been updated.'))
@@ -158,8 +166,23 @@ router.route('/verify/:id').post((req, res) => {
 router.route('/addOrderRequest/:restaurantID').post((req, res) => {
     Restaurant.findById(req.params.restaurantID)
         .then(restaurant => {
-            let orderRequests = request.orderRequests;
-            restaurant.orderRequests = orderRequests.concat(req.body.orderRequests);
+            let orderRequests = restaurant.orderRequests || [];
+            let incomingRequests = req.body.orderRequests;
+            let requestArray = [];
+            for (let i = 0; i < incomingRequests.length; i++) {
+                let orderItem = {};
+                orderItem.name = incomingRequests[i].name;
+                orderItem.menuItemID = incomingRequests[i]._id;
+                orderItem.price = incomingRequests[i].price;
+                orderItem.imageURL = incomingRequests[i].imageURL;
+                orderItem.description = incomingRequests[i].description;
+                orderItem.cuisineTypes = incomingRequests[i].cuisineTypes;
+                orderItem.total = incomingRequests[i].total;
+
+                requestArray = requestArray.concat(orderItem);
+            }
+
+            restaurant.orderRequests = orderRequests.concat(requestArray);
             restaurant.save()
                 .then(() => res.json('Items have been requested'))
                 .catch(err => res.status(400).json('Error: ' + err));

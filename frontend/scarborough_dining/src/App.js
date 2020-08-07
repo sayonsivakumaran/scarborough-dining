@@ -28,14 +28,17 @@ export class App extends Component {
 
   componentDidMount() {
     axios.get('/auth/login/success')
-      .then(results => this.setState({
-        loggedIn: results.data.success,
-        displayName: results.data.user.displayName,
-        restaurantId: results.data.user.restaurantId,
-        ratings: results.data.user.ratings,
-        favourites: results.data.user.favourites,
-        admin: results.data.user.admin
-      })
+      .then(results => {
+        this.setState({
+          loggedIn: results.data.success,
+          displayName: results.data.user.displayName,
+          restaurantId: results.data.user.restaurantId,
+          ratings: results.data.user.ratings,
+          favourites: results.data.user.favourites,
+          admin: results.data.user.admin,
+          userId: results.data.user._id
+        });
+      }
     )
   }
 
@@ -86,7 +89,7 @@ export class App extends Component {
               <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.isLoggedIn} onUpdateShoppingCart={this.addToShoppingCart}/>} />
               <Route path="/restaurants/:id/menu-item/:menuItemId" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
-              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} loggedIn={this.state.isLoggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
+              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} userId={this.state.userId} loggedIn={this.state.isLoggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
               <Route path='/manage-restaurants' component={RestaurantVerfication} />
               <Route path='/login/fail' render={
                 () => <LogIn fail={true} />

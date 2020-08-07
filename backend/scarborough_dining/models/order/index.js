@@ -29,11 +29,14 @@ const orderSchema = new Schema({
     total: {
         type: Number,
         required: true
+    },
+    userID: {
+        type: Schema.ObjectId,
+        required: true
     }
 }, {
     timestamps: true
 }); 
-// TODO: add account ID
 const Order = mongoose.model('Order', orderSchema);
 
 module.exports = Order;

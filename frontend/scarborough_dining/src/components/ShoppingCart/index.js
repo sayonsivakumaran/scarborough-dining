@@ -7,14 +7,16 @@ class ShoppingCart extends Component {
         super(props);
         this.state = {
             shoppingCart: {},
-            totalItems: 0
+            totalItems: 0,
+            userId: ''
         };
     }
 
     componentDidMount() {
         this.setState({
             shoppingCart: this.props.shoppingCart,
-            totalItems: Object.keys(this.props.shoppingCart).length
+            totalItems: Object.keys(this.props.shoppingCart).length,
+            userId: this.props.userId
         });
     }
     
@@ -53,11 +55,12 @@ class ShoppingCart extends Component {
 
         for (let i = 0; i < shoppingCart.length; i++) {
             let restaurantID = shoppingCart[i].restaurantID;
+            shoppingCart[i].userId = this.state.userId;
             if (!restaurantOrderMap[restaurantID]) {
                 restaurantOrderMap[restaurantID] = [];
             }
 
-            restaurantOrderMap[restaurantID] = restaurantOrderMap[restaurantID].concat(shoppingCart[i]);
+            restaurantOrderMap[restaurantID] = restaurantOrderMap[restaurantID].concat([shoppingCart[i]]);
         }
 
         let responses = Object.keys(restaurantOrderMap).map(restaurantID => axios.post(`/restaurants/addOrderRequest/${restaurantID}`));

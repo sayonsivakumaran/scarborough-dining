@@ -91,17 +91,6 @@ router.route('/:id').get((req, res) => {
 });
 
 /**
- * Server-side get request to retrieve a specific restaurant's data.
- * Requires a database id of the restaurant
- * @return the restaurant associated with the id
- */
-router.route('/:id').get((req, res) => {
-    Restaurant.findById(req.params.id)
-        .then(restaurant => res.json(restaurant))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
-
-/**
  * Server-side delete request to remove a specific restaurant's data.
  * Requires a database id of the restaurant
  */

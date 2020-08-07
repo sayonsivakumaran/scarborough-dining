@@ -8,6 +8,7 @@ require('./utilities/auth/passport')(passport)
 
 const app = express();
 const port = process.env.PORT || 5000;
+const MAX_SESSION_TIME =  3600000;
 
 
 if (process.env.NODE_ENV === "production") {
@@ -32,7 +33,7 @@ if (process.env.NODE_ENV === "production") {
 // Session middleware
 app.use(session({
     cookie: {
-        maxAge: 3600000 // Keep user logged in for at most 1 hour if they don't log out
+        maxAge: MAX_SESSION_TIME
     },
     secret: 'session',
     resave: false,

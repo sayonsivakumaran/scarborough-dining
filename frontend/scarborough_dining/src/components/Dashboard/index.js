@@ -36,7 +36,7 @@ export class Dashboard extends Component {
             );
         }
 
-        if (!(this.state.restaurantId === undefined)) {
+        if (this.state.restaurantId) {
             await axios.get(`/restaurants/${this.state.restaurantId}`)
             .then(results => this.setState({
                 restaurantName: results.data.name,

@@ -74,12 +74,10 @@ class RestaurantProfile extends Component {
                                         <h2 className="title">{this.state.name}</h2>
                                     </div>
                                     <div className="restaurant-other-info col-md-12">
-                                        <h4 className="address">
+                                        <h5 className="address">
                                             <i class="fa fa fa-map-marker" aria-hidden="true"></i>{this.state.address}
-                                        </h4>
-                                        <h4 className="phone">
                                             <i class="fa fa-phone" aria-hidden="true"></i>{this.state.phoneNumber}
-                                        </h4>
+                                        </h5>
                                     </div>
                                     <div className="image-text-container col-md-12">
                                         <img className="profile-logo pull-left mr-4" src={this.state.profileImage}/>

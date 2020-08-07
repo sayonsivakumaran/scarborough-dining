@@ -2,7 +2,7 @@
 
 .restaurant-profile {
     text-align: left;
-    padding: 10vh 10vw 5vh 10vw;
+    padding: 40px 10vw 5vh 10vw;
     font-family: 'Didact Gothic', sans-serif;
 }
 
@@ -77,4 +77,12 @@
 .announcements {
     height: 600px;
     padding: 16px 0px;
+}
+
+.address {
+    font-size: min(3.4vw, 20px);
+}
+
+.fa-phone {
+    padding-left: 20px;
 }

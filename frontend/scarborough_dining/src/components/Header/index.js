@@ -46,10 +46,14 @@ export class Header extends Component {
         }
         return (
             <header>
-                <nav class="navbar navbar-expand-lg fixed-top navbar-light">
+                <nav class="navbar navbar-expand-xl fixed-top navbar-light">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
+                    <a class="navbar-brand" href="#">
+                        <img src="find_dining_logo_horizontal.png" width="128" height="50" class="img-responsive d-inline-block align-top" alt=""/>
+                    </a>
 
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="navbar-nav">

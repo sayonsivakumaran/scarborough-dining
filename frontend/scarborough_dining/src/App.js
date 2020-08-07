@@ -56,7 +56,7 @@ export class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App pages">
         <head>
           <title>Scarborough Dining | CodeShippers</title>
         </head>

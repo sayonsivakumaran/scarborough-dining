@@ -88,14 +88,15 @@ router.route('/add-to-shopping-cart/:googleId').post((req, res) => {
             
             user.save()
                 .then(() => res.json('Items have been added to shopping cart.'))
-                .catch(err => {
-                    console.log(err);
-                    res.status(400).json('Error: ' + err);
-                });
+                .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-
+router.route('/get-shopping-cart/:googleId').get((req, res) => {
+    User.findOne({ googleId: req.params.googleId })
+        .then(user => res.json(user.shoppingCart))
+        .catch(err => res.status(400).json(err));
+});
 
 module.exports = router;

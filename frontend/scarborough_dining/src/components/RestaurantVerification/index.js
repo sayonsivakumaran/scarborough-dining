@@ -36,18 +36,20 @@ class RestaurantVerification extends Component {
      * Gets all unregisterd restaurants and its owner information
      */
     async _getUnregistedRestaurants() {
-        let restaurants, owner;
+        let restaurants //, owner;
 
         await axios.get('/restaurants/unverified').then(response => {
             restaurants = response.data
         })
 
+        /*
         for (var i = 0; i < restaurants.length; i++) {
             owner = await axios.get('/owners/' + restaurants[i].ownerID);
             if (owner && owner.data) {
                 restaurants[i].owner = owner.data;
             }
         }
+        */
 
         this.setState({
             requestedRestaurants: restaurants,

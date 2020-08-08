@@ -12,7 +12,7 @@ const formStyle = {
     fontFamily: 'Didact Gothic, sans-serif',
     display: 'flex',
     flexDirection: 'column',
-    padding: '1% 30%'
+    padding: '0% 30%'
 }
 
 const inputStyle = {
@@ -26,7 +26,7 @@ const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '60px 0'
+    padding: '40px 0'
 }
 
 const descriptionStyle = {
@@ -73,16 +73,46 @@ export class ManageRestaurantInformation extends Component {
             description: '',
             profileDescription: '',
             video: undefined,
-            menuItems: []
+            menuItems: [],
+            restaurantID: undefined
         }
     }
 
+    async componentDidMount() {
+
+        /* Request to see if user is logged in, if user is logged in
+         * get user's googleId 
+         */
+        await axios.get('/auth/login/success')
+          .then(results => this.setState({
+              loggedIn: true,
+              id: results.data.user.googleId
+          })
+        ).catch(err => this.setState({
+                loggedIn: false
+            })
+        );
+        
+        // If there is a user logged in, then get user data from database
+        if (this.state.loggedIn) {
+            await axios.get(`/user/${this.state.id}`)
+                .then(results => this.setState({
+                    restaurantID: results.data.restaurantId
+                })
+            );
+        }
+    }
+
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+    
     addMenuItem = e => {
         e.preventDefault()
         let {totalItems, menuItems} = this.state;
         menuItems = menuItems.concat({
             name: '',
-            restaurantID: 'RestaurantID1',      // TODO: change when log in works as expected
+            restaurantID: this.state.restaurantID,      // TODO: change when log in works as expected
             price: 0, 
             image: undefined,
             description: '',

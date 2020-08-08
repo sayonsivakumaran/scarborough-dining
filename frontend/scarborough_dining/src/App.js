@@ -20,26 +20,39 @@ import './App.css';
 export class App extends Component {
 
   state = {
-    id: '',
-    accessToken: '',
-    isLoggedIn: false,
-    shoppingCart: {}
+    loggedIn: false,
+    googleId: '',
+    firstName: '',
+    lastName: '',
+    restaurantId: undefined,
+    ratings: undefined,
+    favourites: undefined,
+    admin: false
   }
 
-  componentDidMount() {
-    axios.get('/auth/login/success')
-      .then(results => {
-        this.setState({
-          loggedIn: results.data.success,
-          displayName: results.data.user.displayName,
-          restaurantId: results.data.user.restaurantId,
-          ratings: results.data.user.ratings,
-          favourites: results.data.user.favourites,
-          admin: results.data.user.admin,
-          userId: results.data.user._id
-        });
-      }
-    )
+  // On load of page or component, check to see if user is logged in. Then retrieve user information
+  async componentDidMount() {
+    await axios.get('/auth/login/success')
+      .then(results => this.setState({
+        loggedIn: true,
+        id: results.data.user.googleId
+      }))
+      .catch(err => this.setState({
+            loggedIn: false
+      }));
+
+    if (this.state.loggedIn) {
+      await axios.get(`/user/${this.state.id}`)
+        .then(results => this.setState({
+          firstName: results.data.firstName,
+          lastName: results.data.lastName,
+          address: results.data.address,	
+          city: results.data.city,	
+          postalCode: results.data.postalCode,	
+          province: results.data.province,
+          restaurantId: results.data.restaurantId
+        }));
+    }
   }
 
   addToShoppingCart = (menuItems, total) => {
@@ -70,36 +83,30 @@ export class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App pages">
         <head>
           <title>Scarborough Dining | CodeShippers</title>
         </head>
         <body>
-          
           <Header/>
           <React.Fragment>
             <Switch>
               <Route exact path="/" component={RestaurantList} />
-              <Route path="/account-creation/user" render={
-                () => <AccountCreation userType={"user"} />
-              } />
-              <Route path="/account-creation/restaurant" render={
-                () => <AccountCreation userType={"restaurant"} />
-              } />
+              <Route path="/account-creation/restaurant" render={() => <AccountCreation userType={"restaurant"} id={this.state.googleId}/>}/>
               <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.isLoggedIn} onUpdateShoppingCart={this.addToShoppingCart}/>} />
               <Route path="/restaurants/:id/menu-item/:menuItemId" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
-              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} userId={this.state.userId} loggedIn={this.state.isLoggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
+              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} userId={this.state.googleId} loggedIn={this.state.isLoggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
               <Route path='/manage-restaurants' component={RestaurantVerfication} />
-              <Route path='/login/fail' render={
-                () => <LogIn fail={true} />
-              }  />
+
+              <Route path='/login/fail' render={() => <LogIn fail={true}/>}/>
               <Route path='/login' component={LogIn} />
-              <Route path='/register/fail' render={
-                () => <Register fail={true} />
-              } />
-              <Route path='/register' component={Register} />
+              <Route path='/register/fail' render={() => <Register fail={true}/>}/>
+              <Route path='/register' component={Register}/>
+
               <Route path='/dashboard' component={Dashboard} />
+              <Route path='/account-information' render={() => <AccountCreation userType={"user"}/>}/>
+
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

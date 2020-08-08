@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const orderSchema = new Schema({
+const userOrderSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -30,13 +30,13 @@ const orderSchema = new Schema({
         type: Number,
         required: true
     },
-    userGoogleId: {
-        type: String,
+    restaurantID: {
+        type: Schema.ObjectId,
         required: true
     }
 }, {
     timestamps: true
 }); 
-const Order = mongoose.model('Order', orderSchema);
+const UserOrder = mongoose.model('UserOrder', userOrderSchema);
 
-module.exports = Order;
+module.exports = UserOrder;

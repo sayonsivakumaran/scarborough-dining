@@ -3,13 +3,14 @@ import './styles.css';
 import { Link } from 'react-router-dom';
 import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
+import axios from 'axios';
 
 export default class MenuItem extends Component {
     constructor(props) {
         super(props);
 
         this.menuItem = this.props.menuItem;
-
+        
         if (this.props.menuItem) {
             this.state = {
                 name: this.props.menuItem.name,
@@ -19,20 +20,11 @@ export default class MenuItem extends Component {
                 id: this.props.menuItem._id,
                 restaurantId: this.props.menuItem.restaurantID,
                 showDialog: false,
-                totalSelected: 0
+                totalSelected: 0,
+                userId: this.props.userId
             }
         }
     }
-
-    // ratings = rating => {
-    //     var ratings = [];
-    //     for (var i = 0; i < rating; i++) {
-    //         ratings.push(
-    //             <span class="fa fa-star checked"></span>
-    //         )
-    //     }
-    //     return ratings;
-    // }
 
     open = _ => this.setState({ showDialog: true });
 
@@ -50,10 +42,12 @@ export default class MenuItem extends Component {
         });
     }
 
-    addToShoppingCart = e => {
+    addToShoppingCart = async e => {
         this.close();
         if (this.state.totalSelected) {
-            this.props.onUpdateShoppingCart(this.menuItem, this.state.totalSelected);
+            this.menuItem.total = this.state.totalSelected;
+            await axios.post(`/user/add-to-shopping-cart/${this.state.userId}`, this.menuItem);
+            // this.props.onUpdateShoppingCart(this.menuItem, this.state.totalSelected);
         }
     }
     

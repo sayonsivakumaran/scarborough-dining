@@ -63,7 +63,42 @@ router.route('/add-restaurant/:googleId').post((req, res) => {
             .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));
-})
+});
+
+router.route('/add-to-shopping-cart/:googleId').post((req, res) => {
+    User.findOne({ googleId: req.params.googleId })
+        .then(user => {
+            let shoppingCart = user.shoppingCart || [];
+            let orderItem = {};
+            let existingItem = shoppingCart.find(item => item && item.total === req.body.id);
+            
+            if (existingItem) {
+                orderItem.total = existingItem.total + req.body.total;
+            } else {
+                console.log(req.body);
+                orderItem.name = req.body.name;
+                orderItem.menuItemID = req.body._id;
+                orderItem.price = req.body.price;
+                orderItem.imageURL = req.body.imageURL;
+                orderItem.description = req.body.description;
+                orderItem.cuisineTypes = req.body.cuisineTypes;
+                orderItem.total = req.body.total;
+                orderItem.restaurantID = req.body.restaurantId;
+            }
+            
+
+            console.log('asd'); // TODO fix saving bug
+            user.shoppingCart = shoppingCart.concat(orderItem);
+            
+            user.save()
+                .then(() => res.json('Items have been added to shopping cart.'))
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).json('Error: ' + err);
+                });
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
 
 

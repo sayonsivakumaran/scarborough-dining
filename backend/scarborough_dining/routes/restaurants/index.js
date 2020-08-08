@@ -189,7 +189,7 @@ router.route('/addOrderRequest/:restaurantID').post((req, res) => {
                 orderItem.description = incomingRequests[i].description;
                 orderItem.cuisineTypes = incomingRequests[i].cuisineTypes;
                 orderItem.total = incomingRequests[i].total;
-                orderItem.userID = incomingRequests[i].userId;
+                orderItem.userGoogleId = incomingRequests[i].userGoogleId;
 
                 requestArray = requestArray.concat(orderItem);
             }

@@ -19,15 +19,17 @@ import './App.css';
 
 export class App extends Component {
 
+
   state = {
     loggedIn: false,
-    googleId: '',
+    id: '',
     firstName: '',
     lastName: '',
     restaurantId: undefined,
     ratings: undefined,
     favourites: undefined,
-    admin: false
+    admin: false,
+    shoppingCart: {}
   }
 
   // On load of page or component, check to see if user is logged in. Then retrieve user information
@@ -92,11 +94,11 @@ export class App extends Component {
           <React.Fragment>
             <Switch>
               <Route exact path="/" component={RestaurantList} />
-              <Route path="/account-creation/restaurant" render={() => <AccountCreation userType={"restaurant"} id={this.state.googleId}/>}/>
-              <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.isLoggedIn} onUpdateShoppingCart={this.addToShoppingCart}/>} />
+              <Route path="/account-creation/restaurant" render={() => <AccountCreation userType={"restaurant"} id={this.state.id}/>}/>
+              <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.loggedIn} userId={this.state.id}/>} />
               <Route path="/restaurants/:id/menu-item/:menuItemId" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
-              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} userId={this.state.googleId} loggedIn={this.state.isLoggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
+              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} userGoogleId={this.state.id} loggedIn={this.state.loggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
               <Route path='/manage-restaurants' component={RestaurantVerfication} />
 
               <Route path='/login/fail' render={() => <LogIn fail={true}/>}/>

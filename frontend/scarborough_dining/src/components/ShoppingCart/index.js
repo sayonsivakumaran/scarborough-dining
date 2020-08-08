@@ -8,7 +8,7 @@ class ShoppingCart extends Component {
         this.state = {
             shoppingCart: {},
             totalItems: 0,
-            userId: ''
+            userGoogleId: ''
         };
     }
 
@@ -16,7 +16,7 @@ class ShoppingCart extends Component {
         this.setState({
             shoppingCart: this.props.shoppingCart,
             totalItems: Object.keys(this.props.shoppingCart).length,
-            userId: this.props.userId
+            userGoogleId: this.props.userGoogleId
         });
     }
     
@@ -55,7 +55,7 @@ class ShoppingCart extends Component {
 
         for (let i = 0; i < shoppingCart.length; i++) {
             let restaurantID = shoppingCart[i].restaurantID;
-            shoppingCart[i].userId = this.state.userId;
+            shoppingCart[i].userGoogleId = this.state.userGoogleId;
             if (!restaurantOrderMap[restaurantID]) {
                 restaurantOrderMap[restaurantID] = [];
             }

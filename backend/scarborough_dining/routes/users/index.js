@@ -70,12 +70,11 @@ router.route('/add-to-shopping-cart/:googleId').post((req, res) => {
         .then(user => {
             let shoppingCart = user.shoppingCart || [];
             let orderItem = {};
-            let existingItem = shoppingCart.find(item => item && item.total === req.body.id);
+            let existingItem = shoppingCart.find(item => item && item.menuItemID == req.body._id);
             
             if (existingItem) {
-                orderItem.total = existingItem.total + req.body.total;
+                existingItem.total = existingItem.total + req.body.total;
             } else {
-                console.log(req.body);
                 orderItem.name = req.body.name;
                 orderItem.menuItemID = req.body._id;
                 orderItem.price = req.body.price;
@@ -83,12 +82,9 @@ router.route('/add-to-shopping-cart/:googleId').post((req, res) => {
                 orderItem.description = req.body.description;
                 orderItem.cuisineTypes = req.body.cuisineTypes;
                 orderItem.total = req.body.total;
-                orderItem.restaurantID = req.body.restaurantId;
+                orderItem.restaurantID = req.body.restaurantID;
+                user.shoppingCart = shoppingCart.concat(orderItem);
             }
-            
-
-            console.log('asd'); // TODO fix saving bug
-            user.shoppingCart = shoppingCart.concat(orderItem);
             
             user.save()
                 .then(() => res.json('Items have been added to shopping cart.'))

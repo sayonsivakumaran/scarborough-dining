@@ -152,7 +152,7 @@ router.route('/update/:id').post((req, res) => {
 router.route('/addMenuItems/:restaurantID').post((req, res) => {
     Restaurant.findById(req.params.restaurantID)
         .then(restaurant => {
-            let menuItems = restaurant.menuItems;
+            let menuItems = restaurant.menuItems || [];
             menuItems = menuItems.concat(req.body.menuItems);
             restaurant.menuItems = menuItems;
 

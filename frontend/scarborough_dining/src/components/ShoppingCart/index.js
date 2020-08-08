@@ -12,10 +12,14 @@ class ShoppingCart extends Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await axios.get(`/user/get-shopping-cart/${this.props.userGoogleId}`)
+            .then(res => this.setState({
+                shoppingCart: res.data,
+                totalItems: res.data.length
+            }))
+            .catch(err => err);
         this.setState({
-            shoppingCart: this.props.shoppingCart,
-            totalItems: Object.keys(this.props.shoppingCart).length,
             userGoogleId: this.props.userGoogleId
         });
     }
@@ -31,7 +35,7 @@ class ShoppingCart extends Component {
 
     _getShoppingCartItems(shoppingCart) {
         let shoppingCartTables = [];
-
+        
         for (var i = 0; i < shoppingCart.length; i++) {
             let id = shoppingCart[i]._id;
             shoppingCartTables.push(

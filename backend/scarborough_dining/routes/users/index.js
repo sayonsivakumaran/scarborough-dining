@@ -99,4 +99,30 @@ router.route('/get-shopping-cart/:googleId').get((req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
+router.route('/delete-cart-item/:googleId/:menuItemID').post((req, res) => {
+    User.findOne({ googleId: req.params.googleId })
+        .then(user => {
+            let shoppingCart = user.shoppingCart || [];
+            let updatedCart = shoppingCart.filter(item => item && item.menuItemID != req.params.menuItemID);
+            user.shoppingCart = updatedCart;
+
+            user.save()
+                .then(() => res.json(user.shoppingCart))
+                .catch(err => res.status(400).json(err));
+        })
+        .catch(err => res.status(400).json(err));
+});
+
+router.route('/clear-shopping-cart/:googleId').post((req, res) => {
+    User.findOne({ googleId: req.params.googleId })
+        .then(user => {
+            user.shoppingCart = [];
+
+            user.save()
+                .then(() => res.json('Shopping cart has been cleared.'))
+                .catch(err => res.status(400).json(err));
+        })
+        .catch(err => res.status(400).json(err));
+});
+
 module.exports = router;

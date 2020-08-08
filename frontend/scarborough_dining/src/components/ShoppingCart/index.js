@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './styles.css';
 import axios from 'axios';
+import { Dialog } from "@reach/dialog";
+import "@reach/dialog/styles.css";
     
 class ShoppingCart extends Component {
     constructor(props) {
@@ -8,7 +10,9 @@ class ShoppingCart extends Component {
         this.state = {
             shoppingCart: {},
             totalItems: 0,
-            userGoogleId: ''
+            userGoogleId: '',
+            submissionMessage: '',
+            showDialog: false
         };
     }
 
@@ -24,20 +28,21 @@ class ShoppingCart extends Component {
         });
     }
     
-    _removeMenuItems = (e, id) => {
-        let {shoppingCart} = this.state;
-        delete shoppingCart[id];
-
-        this.setState({
-            shoppingCart: shoppingCart
-        });
+    _removeMenuItems = async (id) => {
+        console.log(id);
+        await axios.post(`/user/delete-cart-item/${this.state.userGoogleId}/${id}`)
+            .then(res => this.setState({
+                shoppingCart: res.data,
+                totalItems: res.data.length
+            }))
+            .catch(err => err);
     }
 
-    _getShoppingCartItems(shoppingCart) {
+    _getShoppingCartItems = shoppingCart => {
         let shoppingCartTables = [];
         
         for (var i = 0; i < shoppingCart.length; i++) {
-            let id = shoppingCart[i]._id;
+            let id = shoppingCart[i].menuItemID;
             shoppingCartTables.push(
                 <tr className="unverified-restaurant-row" key={id}>
                     <td><img className="shopping-cart-image" src={shoppingCart[i].imageURL}/></td>
@@ -46,12 +51,24 @@ class ShoppingCart extends Component {
                     <td>{shoppingCart[i].total}</td>
                     <td>${(shoppingCart[i].total * shoppingCart[i].price).toFixed(2)}</td>
                     <td>
-                        <button type="button" onClick={(event) => this._removeMenuItems(event,id)} class="btn btn-danger"><i class="fa fa-trash"></i></button>     
+                        <button type="button" onClick={async () => await this._removeMenuItems(id)} class="btn btn-danger"><i class="fa fa-trash"></i></button>     
                     </td>
                 </tr>
             )
         }
         return shoppingCartTables;
+    }
+
+    open = _ => {
+        this.setState({
+            showDialog: true
+        });
+    };
+
+    close = _ => {
+        this.setState({
+            showDialog: false
+        });
     }
 
     _postShoppingCartData = async shoppingCart => {
@@ -69,9 +86,22 @@ class ShoppingCart extends Component {
 
 
         let responses = Object.keys(restaurantOrderMap).map(restaurantID => axios.post(`/restaurants/addOrderRequest/${restaurantID}`, restaurantOrderMap[restaurantID]));
-        return Promise.all(responses)
-            .then(response => response)
-            .catch(e => e);
+        axios.post(`/user/clear-shopping-cart/${this.state.userGoogleId}`);
+
+        Promise.all(responses)
+            .then(() => {
+                this.setState({
+                    shoppingCart: [],
+                    totalItems: 0,
+                    submissionMessage: 'Your items have succesfully been submitted!'
+                });
+                this.open();
+            })
+            .catch(() => {
+                this.setState({
+                    submissionMessage: 'Sorry, something went wrong on our end, please try again.'
+                });
+            });
     }
 
     render() {
@@ -103,6 +133,9 @@ class ShoppingCart extends Component {
                 ) : (
                     <div className="empty-message">No items inside shopping cart</div>
                 )}
+                <Dialog onDismiss={this.close} isOpen={this.state.showDialog}>
+                    <p className='title'>{this.state.submissionMessage}</p>
+                </Dialog>
             </div>
         )
     }

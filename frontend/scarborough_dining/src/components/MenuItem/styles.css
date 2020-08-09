@@ -17,7 +17,7 @@
     color: orange;
 }
 
-.card-img-top {
+.card .card-img-top {
     width: 100%;
     height: 20vw;
     object-fit: cover;
@@ -64,4 +64,26 @@
     color: white;
     text-align: center;
     padding: 10px;
+}
+
+.menu-item-modal {
+    font-family: 'Didact Gothic', sans-serif;
+}
+
+.menu-item-modal .menu-item-quantity-input {
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;   
+}
+
+
+.category {
+    background-color: darksalmon;
+    margin: 10px 10px;
+    padding: 0px 10px;
 }

@@ -50,7 +50,7 @@ export class App extends Component {
               } />
               <Route path="/restaurants/:id" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
-              <Route path="/search_results/:query" component={SearchResults}/>
+              <Route path="/search_results/:query?" component={SearchResults}/>
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

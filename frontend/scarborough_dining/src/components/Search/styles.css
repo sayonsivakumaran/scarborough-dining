@@ -1,10 +1,13 @@
 .search-container {
     float: right;
-    border: none;
-    cursor: pointer;
-    margin-left: 5em;
+    /*margin-left: 5em;*/
+    display: flex;
     
 }
-.searchInput {
-    font-size: 10pt;
+.test {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.border {
+    border-radius: 5px;
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MenuItem from '../MenuItem';
-import './styles.css';
 
 export default class MenuItemList extends Component {
     constructor(props) {
@@ -22,7 +21,7 @@ export default class MenuItemList extends Component {
         return (
             <React.Fragment>
                 <div className="menu-item-list">
-                    <div className="card-columns">
+                    <div className="row">
                         {
                             this.state.menuItems.map(menuItem => {
                                 return <MenuItem userId={this.props.userId} loggedIn={this.props.loggedIn} key={menuItem._id} menuItem={menuItem} />

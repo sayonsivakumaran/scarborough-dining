@@ -34,9 +34,8 @@
 }
 
 .menu-item-list {
-    padding: 20px 80px;
+    font-size: 20px;
     text-align: center;
-    font-family: 'Didact Gothic', sans-serif;
 }
 
 .menu-item-list-title {

@@ -52,7 +52,7 @@ export default class MenuItem extends Component {
     
     render() {
         return (
-            <Link className="text-link" onClick={this.open}>
+            <Link className="col-md-4 d-flex align-items-stretch text-link" onClick={this.open}>
                 <div className="card">
                     <img className="card-img-top" src={this.menuItem.imageURL}/>
                     <div className="card-body"> 

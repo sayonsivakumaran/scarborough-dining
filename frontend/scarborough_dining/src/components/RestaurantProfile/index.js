@@ -97,7 +97,7 @@ class RestaurantProfile extends Component {
                         </Route>
                         <Route path={`/restaurants/${this.state.id}/menu`}>
                             <div className="menu">
-                                <h1>Menu</h1>
+                                <h1></h1>
                                 <MenuItemList loggedIn={this.props.loggedIn} userId={this.props.userId} menuItems={this.state.menuItems} 
                                 />
                             </div>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import MenuItemList from '../MenuItemList';
-import data from '../../mock/restaurant.json';
 import './styles.css'
 import { Link, Switch, Route } from 'react-router-dom';
 import ReactPlayer from "react-player"

@@ -29,7 +29,6 @@ class ShoppingCart extends Component {
     }
     
     _removeMenuItems = async (id) => {
-        console.log(id);
         await axios.post(`/user/delete-cart-item/${this.state.userGoogleId}/${id}`)
             .then(res => this.setState({
                 shoppingCart: res.data,
@@ -144,8 +143,6 @@ class ShoppingCart extends Component {
         return (
             <div class="shoppingCartPage">
                 <h2>Shopping Cart</h2>
-
-                {/* TODO: image, item name, total ordered, individual price, total price */}
                 <h3 className="total">{this.state.totalItems} Total Items</h3>
                 {this.state.totalItems > 0 ? (
                     <React.Fragment>

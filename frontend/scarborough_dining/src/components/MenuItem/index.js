@@ -71,14 +71,25 @@ export default class MenuItem extends Component {
                     </div>
                 </div>
                 <Dialog className="menu-item-modal" onDismiss={this.close} isOpen={this.state.showDialog}>
-                    <img className="card-img-top" src={this.menuItem.imageURL}/>
-                    <div className="card-body menu-item-modal"> 
-                        <p className="title"><b>{this.menuItem.name}</b></p>
-                        <p className="title">$ {this.menuItem.price}</p>
-                        <p className="title">{this.menuItem.description}</p>
-                        <input onChange={this.onQuantityChange} class="form-control menu-item-quantity-input" name="totalItems" type="number" min="0" step="1" placeholder="Total" required={true} />
-                        <input onClick={this.addToShoppingCart} className="bg-primary btn btn-primary add-menu-item-modal-button" name="addMenuItemModalButton" type="submit" value="Add To Shopping Cart"/>
-                    </div>
+                    {this.state.userId ? (
+                        <React.Fragment>
+                            <img className="card-img-top" src={this.menuItem.imageURL}/>
+                            <div className="card-body menu-item-modal"> 
+                                <p className="title"><b>{this.menuItem.name}</b></p>
+                                <p className="title">$ {this.menuItem.price}</p>
+                                <p className="title">{this.menuItem.description}</p>
+                                <input onChange={this.onQuantityChange} class="form-control menu-item-quantity-input" name="totalItems" type="number" min="0" step="1" placeholder="Total" required={true} />
+                                <input onClick={this.addToShoppingCart} className="bg-primary btn btn-primary add-menu-item-modal-button" name="addMenuItemModalButton" type="submit" value="Add To Shopping Cart"/>
+                            </div>
+                        </React.Fragment>
+                    ) : (
+                        <React.Fragment>
+                            <p className="title">Please log in to your Scarborough Dining Account</p>
+                            <Link to='../../login'>
+                                <input onClick={this.addToShoppingCart} className="bg-danger btn btn-primary add-menu-item-modal-button" name="addMenuItemModalButton" type="submit" value="Log In"/>
+                            </Link>
+                        </React.Fragment>
+                    )}
                 </Dialog>
             </Link>
         )

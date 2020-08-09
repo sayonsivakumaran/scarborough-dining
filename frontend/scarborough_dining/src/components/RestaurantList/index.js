@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Restaurant from '../Restaurant';
-import data from '../../mock/restaurant.json';
 import '../Restaurant/styles.css'
 import axios from 'axios';
 export default class RestaurantList extends Component {

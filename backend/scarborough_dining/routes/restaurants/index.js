@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 let Restaurant = require('../../models/restaurant');
-let Order = require('../../models/order');
 
 /**
  * Server-side get request to retrieve all restaurant data
@@ -189,7 +188,8 @@ router.route('/addOrderRequest/:restaurantID').post((req, res) => {
                 orderItem.description = incomingRequests[i].description;
                 orderItem.cuisineTypes = incomingRequests[i].cuisineTypes;
                 orderItem.total = incomingRequests[i].total;
-                orderItem.userGoogleId = incomingRequests[i].userGoogleId;
+                orderItem.userGoogleID = incomingRequests[i].userGoogleId;
+                orderItem.restaurantID = incomingRequests[i].restaurantID;
 
                 requestArray = requestArray.concat(orderItem);
             }

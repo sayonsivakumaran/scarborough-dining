@@ -30,8 +30,12 @@ const orderSchema = new Schema({
         type: Number,
         required: true
     },
-    userGoogleId: {
+    userGoogleID: {
         type: String,
+        required: true
+    },
+    restaurantID: {
+        type: Schema.ObjectId,
         required: true
     }
 }, {

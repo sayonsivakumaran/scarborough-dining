@@ -83,6 +83,7 @@ router.route('/add-to-shopping-cart/:googleId').post((req, res) => {
                 orderItem.cuisineTypes = req.body.cuisineTypes;
                 orderItem.total = req.body.total;
                 orderItem.restaurantID = req.body.restaurantID;
+                orderItem.userGoogleID = req.params.googleId;
                 user.shoppingCart = shoppingCart.concat(orderItem);
             }
             

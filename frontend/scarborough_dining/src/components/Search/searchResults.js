@@ -8,9 +8,10 @@ export class SearchResults extends Component {
     {
         super(props)
         this.state = {
-            results: []
+            results: [],
+            notFound: ''
         }
-        //this.getResults = this.getResults.bind(this);
+
         this.getResults();
     }
 
@@ -18,30 +19,47 @@ export class SearchResults extends Component {
     {
         axios.get('/restaurants/search_results', {
             params: {
-                queryString: this.props.query
+                queryString: this.props.match.params.query
               }
           }).then(response => {
             this.setState({
-                results: response.data
+                results: response.data,
+                notFound: "Sorry, no results were found :("
             });
         })
+        console.log(this.state.results)
+        console.log(this.props.match.params.query)
+        
 
     }
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.query !== prevProps.match.params.query) {
+            this.getResults();
+          }
+    }
     render() {
-        return (
-            <React.Fragment>
-                <div className="restaurants">
-                <h2 className="restaurant-list-title mb-4 font-weight-bold">Search Results</h2>
-                    <div className="card-columns">
-                        {
-                            this.state.results.map(restaurant => {
-                                return <Restaurant key={restaurant._id} restaurant={restaurant} />
-                            })
-                        }
+        if(this.state.results.length > 0) {
+            return (
+                <React.Fragment>
+                    <div className="restaurants">
+                    <h2 className="restaurant-list-title mb-4 font-weight-bold">Search Results</h2>
+                        <div className="card-columns">
+                            {
+                                this.state.results.map(restaurant => {
+                                    return <Restaurant key={restaurant._id} restaurant={restaurant} />
+                                })
+                            }
+                        </div>
                     </div>
+                </React.Fragment>
+            )
+        } else {
+            return (
+                <div className="restaurants">
+                    <h2 className="restaurant-list-title mb-4 font-weight-bold">{this.state.notFound}</h2>
                 </div>
-            </React.Fragment>
-        )
+            )
+        }
     }
 }
 

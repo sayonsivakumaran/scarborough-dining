@@ -8,7 +8,7 @@ let Post = require('../../models/post');
  * @description Server-side GET request to retrieve all posts in database
  */
 router.route('/').get((req, res) => {
-    Post.find()
+    Post.find().sort({createdAt: -1})
     .then(user => res.json(user))
     .catch(err => res.status(400).json('Error: ' + err));
 })

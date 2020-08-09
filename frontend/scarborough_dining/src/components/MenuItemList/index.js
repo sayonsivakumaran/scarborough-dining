@@ -20,7 +20,7 @@ export default class MenuItemList extends Component {
     render() {
         return (
             <React.Fragment>
-                <h2>Menu</h2>
+                <h1>Menu</h1>
                 {this.state.menuItems.length > 0 ? (
                     <React.Fragment>
                         <div className="menu-item-list">

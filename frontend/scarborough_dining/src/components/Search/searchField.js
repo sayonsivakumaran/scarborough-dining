@@ -9,7 +9,7 @@ export class SearchField extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            searchString: ' ',
+            searchString: '',
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -21,11 +21,11 @@ export class SearchField extends Component{
     render() {
         return(
         <div className="search-container">
-            <form> 
+            <form className="border"> 
                 <input 
                     name="searchString"
                     type="text"
-                    placeholder="Search by location, restaurants, price..."
+                    placeholder="Search by restaurants, location..."
                     required={true}
                     onChange={this.handleChange}
                 />

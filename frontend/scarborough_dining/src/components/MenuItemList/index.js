@@ -6,9 +6,16 @@ export default class MenuItemList extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            restaurantId: '',
+            menuItems: []
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
             restaurantId: this.props.restaurantId,
             menuItems: this.props.menuItems
-        }
+        });
     }
 
     render() {

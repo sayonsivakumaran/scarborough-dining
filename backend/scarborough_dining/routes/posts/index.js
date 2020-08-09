@@ -14,6 +14,10 @@ router.route('/').get((req, res) => {
 })
 
 
+/**
+ * @route /post/add
+ * @description Server-side POST request to add a post
+ */
 router.route('/add').post((req, res) => {
     const { 
         posterGoogleId,
@@ -40,6 +44,15 @@ router.route('/add').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * @route /post/delete/:id
+ * @description Server-side DELETE request to remove a specific post.
+ */
+router.route('/delete/:id').delete((req, res) => {
+    Post.findByIdAndDelete(req.params.id)
+        .then(() => res.json('Post has been removed.'))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
 
 module.exports = router;

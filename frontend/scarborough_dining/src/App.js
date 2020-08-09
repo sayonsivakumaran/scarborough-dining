@@ -9,10 +9,10 @@ import ManageRestaurantInformation from './components/ManageRestaurantInformatio
 import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
 import Unknown from './components/Unknown';
+import SearchResults from './components/Search/searchResults';
 
 
 import './App.css';
-import SearchResults from './components/Search/searchResults';
 
 export class App extends Component {
 
@@ -50,7 +50,7 @@ export class App extends Component {
               } />
               <Route path="/restaurants/:id" component={RestaurantProfile} />
               <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
-              <Route path="/search_results"/>
+              <Route path="/search_results/:query" component={SearchResults}/>
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

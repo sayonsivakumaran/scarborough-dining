@@ -23,7 +23,8 @@ const userSchema = new Schema({
         type: String
     },
     email: {
-        type: String
+        type: String,
+        required: true
     },
     restaurantId: {
         type: String,

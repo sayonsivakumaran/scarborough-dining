@@ -26,10 +26,7 @@ export class SearchResults extends Component {
                 results: response.data,
                 notFound: "Sorry, no results were found :("
             });
-        })
-        console.log(this.state.results)
-        console.log(this.props.match.params.query)
-        
+        })   
 
     }
     componentDidUpdate(prevProps) {

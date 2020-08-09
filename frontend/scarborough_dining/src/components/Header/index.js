@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import GoogleBtn from '../Header/GoogleBtn';
 import {Link} from 'react-router-dom';
 import './styles.css';
@@ -54,8 +54,15 @@ export class Header extends Component {
                             <Link class="nav-link link" to="/account-creation/restaurant">Register Restaurant</Link>
                         </li>
                         {/* TODO: Allow only signed in owners that are verified to see this tab. */}
-                        <li class="nav-item">
-                            <Link class="nav-link link" to="/manage-restaurant-information">Manage Restaurant Information</Link>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Manage Restaurant Information
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <Link class="dropdown-item" to="/manage-restaurant-information/general">General</Link>
+                                <Link class="dropdown-item" to="/manage-restaurant-information/menu">Menu</Link>
+                                <Link class="dropdown-item" to="/manage-restaurant-information/announcements">Announcements</Link>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <Link class="nav-link link"><GoogleBtn login={this.setLoggedIn.bind(this)} logout={this.setLoggedOut.bind(this)} className="google-btn"/></Link>

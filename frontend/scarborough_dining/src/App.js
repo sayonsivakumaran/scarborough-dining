@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import Header from './components/Header/index';
 import AccountCreation from './components/AccountCreation';
 import ManageRestaurantInformation from './components/ManageRestaurantInformation';
+import ManageAnnouncements from './components/ManageAnnouncements';
 //import Restaurant from './components/Restaurant';
 import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
@@ -49,7 +50,10 @@ export class App extends Component {
                 () => <AccountCreation userType={"restaurant"} />
               } />
               <Route path="/restaurants/:id" component={RestaurantProfile} />
-              <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
+              {/* <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} /> */}
+              <Route exact path='/manage-restaurant-information/general' component={ManageRestaurantInformation} />
+              <Route exact path='/manage-restaurant-information/menu' component={ManageRestaurantInformation} />
+              <Route path='/manage-restaurant-information/announcements' render={() => <ManageAnnouncements isManager={true}/>} />
               <Route path='/manage-restaurants' component={RestaurantVerfication} />
               <Route component={Unknown} />
             </Switch>

@@ -76,8 +76,6 @@ export class App extends Component {
   }
 
   orderAll = _ => {
-    console.log('Items have been ordered!');
-    
     this.setState({
       shoppingCart: {}
     });

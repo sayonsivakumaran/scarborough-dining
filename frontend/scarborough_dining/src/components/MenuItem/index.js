@@ -11,19 +11,19 @@ export default class MenuItem extends Component {
 
         this.menuItem = this.props.menuItem;
         
-        if (this.props.menuItem) {
-            this.state = {
-                name: this.props.menuItem.name,
-                price: this.props.menuItem.price,
-                imageURL: this.props.menuItem.imageURL,
-                description: this.props.menuItem.description,
-                id: this.props.menuItem._id,
-                restaurantId: this.props.menuItem.restaurantID,
-                showDialog: false,
-                totalSelected: 0,
-                userId: this.props.userId
-            }
+        this.state = {
+            showDialog: false,
+            totalSelected: 0,
+            userId: ''
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            showDialog: false,
+            totalSelected: 0,
+            userId: this.props.userId
+        });
     }
 
     open = _ => this.setState({ showDialog: true });
@@ -54,19 +54,19 @@ export default class MenuItem extends Component {
         return (
             <Link className="text-link" onClick={this.open}>
                 <div className="card">
-                    <img className="card-img-top" src={this.state.imageURL}/>
+                    <img className="card-img-top" src={this.menuItem.imageURL}/>
                     <div className="card-body"> 
-                        <p className="title">{this.state.name}</p>
-                        <p className="description">${this.state.price}</p>
-                        <p className="description">{this.state.description}</p>
+                        <p className="title">{this.menuItem.name}</p>
+                        <p className="description">${this.menuItem.price}</p>
+                        <p className="description">{this.menuItem.description}</p>
                     </div>
                 </div>
                 <Dialog onDismiss={this.close} isOpen={this.state.showDialog}>
-                    <img className="card-img-top" src={this.state.imageURL}/>
+                    <img className="card-img-top" src={this.menuItem.imageURL}/>
                     <div className="card-body menu-item-modal"> 
-                        <p className="title">{this.state.name}</p>
-                        <p className="title">${this.state.price}</p>
-                        <p className="title">{this.state.description}</p>
+                        <p className="title">{this.menuItem.name}</p>
+                        <p className="title">${this.menuItem.price}</p>
+                        <p className="title">{this.menuItem.description}</p>
                         <input onChange={this.onQuantityChange} name="totalItems" type="number" min="0" step="1" placeholder="Total" required={true} />
                         <input onClick={this.addToShoppingCart} className="add-menu-item-modal-button" name="addMenuItemModalButton" type="submit" value="Add To Shopping Cart"/>
                     </div>

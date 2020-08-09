@@ -65,6 +65,13 @@ router.route('/add-restaurant/:googleId').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// Shopping Cart Routes
+
+/**
+ * @route               /user/add-to-shopping-cart/:googleId
+ * @description         Requires a valid googleId, updates the shopping cart of the user with specified 
+ *                      googleId's account information
+ */
 router.route('/add-to-shopping-cart/:googleId').post((req, res) => {
     User.findOne({ googleId: req.params.googleId })
         .then(user => {
@@ -94,12 +101,22 @@ router.route('/add-to-shopping-cart/:googleId').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * @route               /user/get-shopping-cart/:googleId
+ * @description         Requires a valid googleId, gets the shopping cart of the user with specified 
+ *                      googleId's account information
+ */
 router.route('/get-shopping-cart/:googleId').get((req, res) => {
     User.findOne({ googleId: req.params.googleId })
         .then(user => res.json(user.shoppingCart))
         .catch(err => res.status(400).json(err));
 });
 
+/**
+ * @route               /user/delete-cart-item/:googleId/:menuItemID
+ * @description         Requires a valid googleId and menuItemID, updates shopping of cart of the user
+ *                      with the specific googleId, by removing the item with the menuItemID
+ */
 router.route('/delete-cart-item/:googleId/:menuItemID').post((req, res) => {
     User.findOne({ googleId: req.params.googleId })
         .then(user => {
@@ -114,6 +131,11 @@ router.route('/delete-cart-item/:googleId/:menuItemID').post((req, res) => {
         .catch(err => res.status(400).json(err));
 });
 
+/**
+ * @route               /user/clear-shopping-cart/:googleId
+ * @description         Requires a valid googleId, updates user with specified 
+ *                      googleId's account information by clearing shopping cart
+ */
 router.route('/clear-shopping-cart/:googleId').post((req, res) => {
     User.findOne({ googleId: req.params.googleId })
         .then(user => {

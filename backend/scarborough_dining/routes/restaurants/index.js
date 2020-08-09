@@ -148,6 +148,11 @@ router.route('/update/:id').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * @route               /restaurants/addMenuItems/:restaurantID
+ * @description         Requires a valid restaurantID, updates restaurant with ID
+ *                      by adding menu items to the list
+ */
 router.route('/addMenuItems/:restaurantID').post((req, res) => {
     Restaurant.findById(req.params.restaurantID)
         .then(restaurant => {
@@ -162,6 +167,11 @@ router.route('/addMenuItems/:restaurantID').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * @route               /restaurants/verify/:id
+ * @description         Requires a valid restaurantID, updates restaurant with associated ID
+ *                      by changing it's status to verified
+ */
 router.route('/verify/:id').post((req, res) => {
     Restaurant.findById(req.params.id)
         .then(restaurant => {
@@ -173,6 +183,11 @@ router.route('/verify/:id').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * @route               /restaurants/addOrderRequest/:restaurantID
+ * @description         Requires a valid restaurant ID, and updates the restaurant's order
+ *                      requests by adding a new request
+ */
 router.route('/addOrderRequest/:restaurantID').post((req, res) => {
     Restaurant.findById(req.params.restaurantID)
         .then(restaurant => {

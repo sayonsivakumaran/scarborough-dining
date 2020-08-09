@@ -86,7 +86,7 @@ export default class MenuItem extends Component {
                         <React.Fragment>
                             <p className="title">Please log in to your Scarborough Dining Account</p>
                             <Link to='../../login'>
-                                <input onClick={this.addToShoppingCart} className="bg-danger btn btn-primary add-menu-item-modal-button" name="addMenuItemModalButton" type="submit" value="Log In"/>
+                                <input className="bg-danger btn btn-primary add-menu-item-modal-button" name="addMenuItemModalButton" type="submit" value="Log In"/>
                             </Link>
                         </React.Fragment>
                     )}

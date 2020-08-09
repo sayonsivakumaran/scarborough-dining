@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './styles.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
     
@@ -143,17 +144,20 @@ class ShoppingCart extends Component {
         return (
             <div class="shoppingCartPage">
                 <h2>Shopping Cart</h2>
-                <h3 className="total">{this.state.totalItems} Total Items</h3>
                 {this.state.totalItems > 0 ? (
                     <React.Fragment>
+                        <h3 className="total">{this.state.totalItems} Total Items</h3>
                         {this._getShoppingCartItems(Object.values(this.state.shoppingCart))}
                         <input onClick={() => this._postShoppingCartData(Object.values(this.state.shoppingCart))} className="submit-shopping-cart-modal-button" name="submitShoppingCart" type="submit" value="Submit Order"/>
                     </React.Fragment>
                 ) : (
                     <div className="empty-message">No items inside shopping cart</div>
                 )}
-                <Dialog onDismiss={this.close} isOpen={this.state.showDialog}>
+                <Dialog className="shopping-cart-modal" onDismiss={this.close} isOpen={this.state.showDialog}>
                     <p className='title'>{this.state.submissionMessage}</p>
+                    <Link to='../'>
+                        <input className="bg-danger btn btn-primary add-menu-item-modal-button" name="addMenuItemModalButton" type="submit" value="Home"/>
+                    </Link>
                 </Dialog>
             </div>
         )

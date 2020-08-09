@@ -10,9 +10,10 @@ import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
 import Unknown from './components/Unknown';
 import RestaurantVerfication from './components/RestaurantVerification';
-import LogIn from './components/LogIn'
-import Register from './components/Register'
-import Dashboard from './components/Dashboard'
+import LogIn from './components/LogIn';
+import Register from './components/Register';
+import Dashboard from './components/Dashboard';
+import CommunityDiscussionBoard from './components/CommunityDiscussionBoard';
 
 import './App.css';
 
@@ -77,7 +78,7 @@ export class App extends Component {
 
               <Route path='/dashboard' component={Dashboard} />
               <Route path='/account-information' render={() => <AccountCreation userType={"user"}/>}/>
-
+              <Route path='/discussion-board' component={CommunityDiscussionBoard}/>
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

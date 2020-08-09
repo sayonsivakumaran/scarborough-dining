@@ -97,6 +97,9 @@ export class Header extends Component {
                                 <Link class="nav-link link" to="/register">Register</Link>
                             </li>
                         )}
+                        <li class="nav-item">
+                            <Link class="nav-link link" to="/discussion-board">Community Board</Link>
+                        </li>
                         </ul>
                     </div>
                 </nav>

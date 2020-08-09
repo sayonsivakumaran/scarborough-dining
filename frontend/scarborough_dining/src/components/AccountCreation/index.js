@@ -81,10 +81,6 @@ export class AccountCreation extends React.Component {
         }
     }
 
-    componentDidMount() {
-        window.scrollTo(0, 0);
-    }
-
     /**
      * Handles change for restaurant logo file
      * @param {*} e 
@@ -385,7 +381,6 @@ export class AccountCreation extends React.Component {
             return <Redirect to='/'/>;
         }
         if (this.props.userType === "user") {
-            window.scrollTo(0, 0);
             return (
                 <form className="formStyle" onSubmit={this.handleSubmit}>
                     <this.UserForm />
@@ -400,7 +395,6 @@ export class AccountCreation extends React.Component {
                 </form>
             )
         } else {
-            window.scrollTo(0, 0);
             return (
                 <form className="formStyle" onSubmit={this.handleSubmit}>
                     <div className="formContainer">

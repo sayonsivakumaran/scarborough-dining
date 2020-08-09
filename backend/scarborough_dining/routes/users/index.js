@@ -66,5 +66,4 @@ router.route('/add-restaurant/:googleId').post((req, res) => {
 })
 
 
-
 module.exports = router;

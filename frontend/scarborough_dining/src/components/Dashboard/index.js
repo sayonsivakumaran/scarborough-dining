@@ -16,7 +16,7 @@ export class Dashboard extends Component {
         await axios.get('/auth/login/success')
           .then(results => this.setState({
             loggedIn: true,
-            id: results.data.user.googleId
+            id: results.data.user.googleId,
           })
         ).catch(err => this.setState({
                 loggedIn: false
@@ -27,6 +27,7 @@ export class Dashboard extends Component {
                 .then(results => this.setState({
                     firstName: results.data.firstName,
                     lastName: results.data.lastName,
+                    email: results.data.email,
                     address: results.data.address,	
                     city: results.data.city,	
                     postalCode: results.data.postalCode,	
@@ -55,6 +56,7 @@ export class Dashboard extends Component {
                 <div className="account-information">
                     <h2>Account Information</h2>
                     <p>Name: {this.state.firstName} {this.state.lastName}</p>
+                    <p>Email: {this.state.email}</p>
                     <p>Address: {this.state.address}</p>
                     <p>City: {this.state.city}</p>
                     <p>Province: {this.state.province}</p>

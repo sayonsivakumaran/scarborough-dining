@@ -22,6 +22,9 @@ const userSchema = new Schema({
     image: {
         type: String
     },
+    email: {
+        type: String
+    },
     restaurantId: {
         type: String,
         unique: true,

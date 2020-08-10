@@ -75,7 +75,8 @@ class ShoppingCart extends Component {
             
         return (
             <React.Fragment>
-                <h4>{restaurantID}</h4>     // TODO: change when working on the restaurant interface
+                <h4>{restaurantID}</h4>     
+                {/* TODO: change when working on the restaurant interface */}
                 <table className="table table-responsive table-hover">
                     <thead class="table-header">
                         <tr className="t-header">

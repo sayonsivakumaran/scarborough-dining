@@ -30,8 +30,7 @@ export class App extends Component {
     restaurantId: undefined,
     ratings: undefined,
     favourites: undefined,
-    admin: false,
-    shoppingCart: {}
+    admin: false
   }
 
   // On load of page or component, check to see if user is logged in. Then retrieve user information
@@ -59,30 +58,6 @@ export class App extends Component {
     }
   }
 
-  addToShoppingCart = (menuItems, total) => {
-    menuItems.total = total;
-    let {shoppingCart} = this.state;
-    shoppingCart[menuItems._id] = menuItems;
-    this.setState({
-      shoppingCart: shoppingCart
-    });
-  }
-
-  deleteItemFromShoppingCart = (menuItemID) => {
-    let {shoppingCart} = this.state;
-
-    delete shoppingCart[menuItemID];
-    this.setState({
-      shoppingCart: shoppingCart
-    });
-  }
-
-  orderAll = _ => {
-    this.setState({
-      shoppingCart: {}
-    });
-  }
-
   render() {
     return (
       <div className="App pages">
@@ -96,7 +71,7 @@ export class App extends Component {
               <Route exact path="/" component={RestaurantList} />
               <Route path="/account-creation/restaurant" render={() => <AccountCreation userType={"restaurant"} id={this.state.id}/>}/>
               <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.loggedIn} userId={this.state.id}/>} />
-              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} userGoogleId={this.state.id} loggedIn={this.state.loggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
+              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} userGoogleId={this.state.id}/>}/>
               <Route exact path='/manage-restaurant-information/general' component={ManageRestaurantInformation} />
               <Route path='/manage-restaurant-information/announcements' render={() => <ManageAnnouncements isManager={true}/>} />
               <Route path='/manage-restaurants' component={RestaurantVerfication} />

@@ -124,6 +124,9 @@ export class ManageRestaurantInformation extends Component {
                         cuisineTypes: results.data.cuisineTypes,
                         menuItems: results.data.menuItems,
                         restaurantVideoURL: results.data.introVideoURL,
+                        verified: results.data.verified,
+                        announcements: results.data.announcements,
+                        orderRequests: results.data.orderRequests,
                         totalItems: results.data.menuItems.length
                     }));
             }
@@ -255,7 +258,7 @@ export class ManageRestaurantInformation extends Component {
 
         return Promise.all(responses)
             .then(responseArray => {
-                return responseArray.map(response => response.data.result.secure_url || '');
+                return responseArray.map(response => response.data.result.secure_url);
             }).catch(e => e);
     }
 
@@ -301,6 +304,8 @@ export class ManageRestaurantInformation extends Component {
             [this._retrieveLogoImageURL(logo), this._retrieveMenuImageURLs(menuItems)]
         );
 
+        console.log(menuImageURLs)
+
         if (!(logoImageURL === "")) {
             this.setState({
                 logo: logoImageURL
@@ -308,7 +313,7 @@ export class ManageRestaurantInformation extends Component {
         }
 
         for (let i = 0; i < menuImageURLs.length; i++) {
-            if (menuImageURLs[i] === "") {
+            if (menuImageURLs[i] === undefined) {
                 menuImageURLs[i] = menuItems[i].imageURL
             }
         }
@@ -324,6 +329,7 @@ export class ManageRestaurantInformation extends Component {
                 cuisineTypes: menuItem.cuisineTypes
             };
         });
+
 
        let restaurantInfo = {
            ownerID: this.state.id,
@@ -341,8 +347,14 @@ export class ManageRestaurantInformation extends Component {
            longDescription: this.state.description,
            yearEstablished: this.state.yearEstablished,
            introVideoURL: this.state.restaurantVideoURL,
+           verified: this.state.verified,
+           orderRequests: this.state.orderRequests,
+           announcements: this.state.announcements,
            menuItems: []
        }
+
+       console.log(restaurantInfo);
+       console.log(menuItemReqs);
 
        await axios.post(`/restaurants/update/${this.state.restaurantID}`, restaurantInfo)
        await axios.post(`/restaurants/addMenuItems/${this.state.restaurantID}`, {menuItems: menuItemReqs});
@@ -372,7 +384,6 @@ export class ManageRestaurantInformation extends Component {
                         <textarea onChange={this.onProfileDescriptionChange} style={descriptionStyle} name="itemDescription" value={this.state.profileDescription}/>
 
                         <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Introductory Video</h2>
-                        <FileUpload acceptedFiles={'video/*'} onFileUpload={this.onIntroVideoChange} onFileDelete={this.onIntroVideoDelete}/>
                         <input className="video mt-4" onChange={this.handleChange} name="restaurantVideoURL" placeholder="Intro Video YouTube URL" value={this.state.restaurantVideoURL} required={false}/>
                     </div>
                     <div style={{display: 'flex',flexDirection: 'column', alignItems: 'center',}}>

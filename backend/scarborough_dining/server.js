@@ -64,6 +64,7 @@ const menuItemsRouter = require('./routes/menu_items');
 const uploadMediaItemsRouter = require('./routes/media_upload');
 const authenticationRouter = require('./routes/auth');
 const userRouter = require("./routes/users");
+const postRouter = require("./routes/posts");
 
 app.use('/customers', customersRouter);
 app.use('/owners', ownersRouter);
@@ -72,6 +73,7 @@ app.use('/menu_items', menuItemsRouter);
 app.use('/media_upload', uploadMediaItemsRouter);
 app.use('/auth', authenticationRouter);
 app.use('/user', userRouter);
+app.use('/posts', postRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

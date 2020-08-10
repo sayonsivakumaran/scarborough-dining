@@ -9,7 +9,7 @@ class ShoppingCart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            shoppingCart: {},
+            shoppingCart: [],
             totalItems: 0,
             userGoogleId: '',
             submissionMessage: '',
@@ -75,6 +75,7 @@ class ShoppingCart extends Component {
             
         return (
             <React.Fragment>
+                <h4>{restaurantID}</h4>     // TODO: change when working on the restaurant interface
                 <table className="table table-responsive table-hover">
                     <thead class="table-header">
                         <tr className="t-header">

@@ -191,7 +191,7 @@ router.route('/verify/:id').post((req, res) => {
  * @description         Requires a valid restaurant ID, and updates the restaurant's order
  *                      requests by adding a new request
  */
-router.route('/addOrderRequest/:restaurantID').post((req, res) => {
+router.route('/addOrderRequest/:restaurantID/:userGoogleID').post((req, res) => {
     Restaurant.findById(req.params.restaurantID)
         .then(restaurant => {
             let orderRequests = restaurant.orderRequests || [];
@@ -206,7 +206,7 @@ router.route('/addOrderRequest/:restaurantID').post((req, res) => {
                 orderItem.description = incomingRequests[i].description;
                 orderItem.cuisineTypes = incomingRequests[i].cuisineTypes;
                 orderItem.total = incomingRequests[i].total;
-                orderItem.userGoogleID = incomingRequests[i].userGoogleId;
+                orderItem.userGoogleID = req.params.userGoogleID;
                 orderItem.restaurantID = incomingRequests[i].restaurantID;
 
                 requestArray = requestArray.concat(orderItem);

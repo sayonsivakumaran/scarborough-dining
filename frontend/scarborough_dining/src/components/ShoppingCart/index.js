@@ -39,7 +39,7 @@ class ShoppingCart extends Component {
     }
 
     _postShoppingCartData = async (shoppingCart, restaurantID) => {
-        await axios.post(`/restaurants/addOrderRequest/${restaurantID}`, shoppingCart)
+        await axios.post(`/restaurants/addOrderRequest/${restaurantID}/${this.state.userGoogleId}`, shoppingCart)
             .then(async () => {
                 let response = await axios.post(`/user/clear-shopping-cart-by-restaurant/${this.state.userGoogleId}/${restaurantID}`);
                 this.setState({
@@ -134,7 +134,6 @@ class ShoppingCart extends Component {
         });
     }
 
-    // TODO: add user id to shopping cart
     render() {
         return (
             <div class="shoppingCartPage">

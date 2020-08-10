@@ -10,6 +10,7 @@ class ShoppingCart extends Component {
         super(props);
         this.state = {
             shoppingCart: [],
+            restaurantNameMap: {},
             totalItems: 0,
             userGoogleId: '',
             submissionMessage: '',
@@ -24,6 +25,10 @@ class ShoppingCart extends Component {
                 totalItems: res.data.length
             }))
             .catch(err => err);
+        await axios.get('/restaurants/getRestaurantNameMap')
+            .then(res => this.setState({
+                restaurantNameMap: res.data
+            }));
         this.setState({
             userGoogleId: this.props.userGoogleId
         });
@@ -39,7 +44,7 @@ class ShoppingCart extends Component {
     }
 
     _postShoppingCartData = async (shoppingCart, restaurantID) => {
-        await axios.post(`/restaurants/addOrderRequest/${restaurantID}`, shoppingCart)
+        await axios.post(`/restaurants/addOrderRequest/${restaurantID}/${this.state.userGoogleId}`, shoppingCart)
             .then(async () => {
                 let response = await axios.post(`/user/clear-shopping-cart-by-restaurant/${this.state.userGoogleId}/${restaurantID}`);
                 this.setState({
@@ -75,7 +80,8 @@ class ShoppingCart extends Component {
             
         return (
             <React.Fragment>
-                <h4>{restaurantID}</h4>     // TODO: change when working on the restaurant interface
+                <h4>{this.state.restaurantNameMap[restaurantID]}</h4>     
+                {/* TODO: change when working on the restaurant interface */}
                 <table className="table table-responsive table-hover">
                     <thead class="table-header">
                         <tr className="t-header">
@@ -114,6 +120,7 @@ class ShoppingCart extends Component {
         }
         
         let shoppingCartTableArray = [];
+
         Object.keys(restaurantOrderMap).forEach(restaurantID => {
             shoppingCartTableArray.push(this._getShoppingCartItemsForRestaurant(restaurantOrderMap[restaurantID], restaurantID));
         });
@@ -139,7 +146,7 @@ class ShoppingCart extends Component {
                 <h2>Shopping Cart</h2>
                 {this.state.totalItems > 0 ? (
                     <React.Fragment>
-                        <h3 className="total">{this.state.totalItems} Total Items</h3>
+                        <h3 className="total">{this.state.totalItems} Total Item{this.state.totalItems != 1 ? 's':''}</h3>
                         {this._getShoppingCartItems(Object.values(this.state.shoppingCart))}
                     </React.Fragment>
                 ) : (

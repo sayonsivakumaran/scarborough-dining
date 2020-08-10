@@ -31,6 +31,23 @@ router.route('/search_results').get((req, res) => {
 });
 
 /**
+ * Server-side get request to retrieve all restaurant data
+ * @return tall of the restaurant data
+ */
+router.route('/getRestaurantNameMap/').get((req, res) => {
+    Restaurant.find()
+        .then(response => {
+            let nameMap = {};
+            response.forEach(restaurant => {
+                console.log(restaurant);
+                nameMap[restaurant._id] = restaurant.name;
+            });
+            res.json(nameMap);
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+/**
  * Server-side get request to retrieve all unverified restaurant data
  * @return all unverified restaurant data
  */
@@ -200,7 +217,9 @@ router.route('/verify/:id').post((req, res) => {
             restaurant.verified = true;
             restaurant.save()
                 .then(() => res.json('Restaurant has been verified.'))
-                .catch(err => res.status(400).json('Error: ' + err));
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).json('Error: ' + err)});
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -211,7 +230,7 @@ router.route('/verify/:id').post((req, res) => {
  * @description         Requires a valid restaurant ID, and updates the restaurant's order
  *                      requests by adding a new request
  */
-router.route('/addOrderRequest/:restaurantID').post((req, res) => {
+router.route('/addOrderRequest/:restaurantID/:userGoogleID').post((req, res) => {
     Restaurant.findById(req.params.restaurantID)
         .then(restaurant => {
             let orderRequests = restaurant.orderRequests || [];
@@ -226,7 +245,7 @@ router.route('/addOrderRequest/:restaurantID').post((req, res) => {
                 orderItem.description = incomingRequests[i].description;
                 orderItem.cuisineTypes = incomingRequests[i].cuisineTypes;
                 orderItem.total = incomingRequests[i].total;
-                orderItem.userGoogleID = incomingRequests[i].userGoogleId;
+                orderItem.userGoogleID = req.params.userGoogleID;
                 orderItem.restaurantID = incomingRequests[i].restaurantID;
 
                 requestArray = requestArray.concat(orderItem);
@@ -240,10 +259,30 @@ router.route('/addOrderRequest/:restaurantID').post((req, res) => {
         .catch(err => res.status(404).json('Error: ' + err));
 });
 
-router.route('/updateRes/:id').post((req, res) => {
+router.route('/getOrderRequests/:restaurantID').get((req, res) => {
+    Restaurant.findById(req.params.restaurantID)
+        .then(restaurant => res.json(restaurant.orderRequests || []))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/deletePendingOrder/:restaurantID/:removeIndex').post((req, res) => {
+    Restaurant.findById(req.params.restaurantID)
+        .then(restaurant => {
+            let orderRequests = restaurant.orderRequests;
+            orderRequests.splice(req.params.removeIndex, 1);
+            restaurant.orderRequests = orderRequests;
+
+            restaurant.save()
+                .then(() => res.json(orderRequests))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/updateAnnouncements/:id').post((req, res) => {
     Restaurant.findById(req.params.id)
         .then(restaurant => {
-            restaurant.announcements = req.body.announcements;
+            restaurant.announcements = req.body.announcements || [];
 
             restaurant.save()
                 .then(() => res.json('Restaurant announcements updated.'))

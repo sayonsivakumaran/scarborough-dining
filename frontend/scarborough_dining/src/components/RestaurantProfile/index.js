@@ -105,8 +105,7 @@ class RestaurantProfile extends Component {
                             </div>
                         </Route>
                         <Route path={`/restaurants/${this.state.id}/announcements`}>
-                            {/* TODO: This should be a new component */}
-                            <ManageAnnouncements isManager={false}/>
+                            <ManageAnnouncements restaurantID={this.state.id} isManager={false}/>
                         </Route>
                     </Switch>
                 </div>

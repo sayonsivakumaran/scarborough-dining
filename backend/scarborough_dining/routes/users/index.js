@@ -16,6 +16,23 @@ router.route('/').get((req, res) => {
 })
 
 /**
+ * @route               /user/getUserNameMap
+ * @description         Server-side GET request to retrieve all user's  names in database
+ */
+router.route('/getUserNameMap').get((req, res) => {
+    User.find()
+    .then(response => {
+        let nameMap = {};
+        response.forEach(user => {
+            console.log(user);
+            nameMap[user.googleId] = user.firstName + " " + user.lastName;
+        });
+        res.json(nameMap);
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+})
+
+/**
  * @route               /user/:googleId
  * @description         Requires a valid googleId, returns the user with specified googleId
  */
@@ -137,8 +154,6 @@ router.route('/delete-cart-item/:googleId/:menuItemID').post((req, res) => {
  *                      googleId's account information by clearing shopping cart based on provided restaurant
  */
 router.route('/clear-shopping-cart-by-restaurant/:googleId/:restaurantID').post((req, res) => {
-
-    console.log(req.params.googleId);
     User.findOne({ googleId: req.params.googleId })
         .then(user => {
             let shoppingCart = user.shoppingCart || [];

@@ -16,6 +16,7 @@ import LogIn from './components/LogIn';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import CommunityDiscussionBoard from './components/CommunityDiscussionBoard';
+import IncomingOrders from './components/IncomingOrders';
 
 import './App.css';
 
@@ -97,6 +98,7 @@ export class App extends Component {
               <Route path="/account-creation/restaurant" render={() => <AccountCreation userType={"restaurant"} id={this.state.id}/>}/>
               <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.loggedIn} userId={this.state.id}/>} />
               <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} userGoogleId={this.state.id} loggedIn={this.state.loggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
+              <Route path='/order-requests' component={(props) => <IncomingOrders {...props} userGoogleId={this.state.id} restaurantId={this.state.restaurantId} loggedIn={this.state.loggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
               <Route exact path='/manage-restaurant-information/general' component={ManageRestaurantInformation} />
               <Route path='/manage-restaurant-information/announcements' render={() => <ManageAnnouncements isManager={true}/>} />
               <Route path='/manage-restaurants' component={RestaurantVerfication} />

@@ -220,6 +220,12 @@ router.route('/addOrderRequest/:restaurantID').post((req, res) => {
         .catch(err => res.status(404).json('Error: ' + err));
 });
 
+router.route('/getOrderRequests/:restaurantID').get((req, res) => {
+    Restaurant.findById(req.params.restaurantID)
+        .then(restaurant => res.json(restaurant.orderRequests || []))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/updateRes/:id').post((req, res) => {
     Restaurant.findById(req.params.id)
         .then(restaurant => {

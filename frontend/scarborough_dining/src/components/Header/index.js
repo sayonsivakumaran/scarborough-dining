@@ -75,15 +75,20 @@ export class Header extends Component {
                             <li class="nav-item">
                             </li>
                         ) : (
-                            <li class="nav-item dropdown">
-                                <a class="nav-link link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Manage Restaurant Information
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <Link class="dropdown-item" to="/manage-restaurant-information/general">General</Link>
-                                    <Link class="dropdown-item" to="/manage-restaurant-information/announcements">Announcements</Link>
-                                </div>
-                            </li>
+                            <React.Fragment>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Manage Restaurant Information
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <Link class="dropdown-item" to="/manage-restaurant-information/general">General</Link>
+                                        <Link class="dropdown-item" to="/manage-restaurant-information/announcements">Announcements</Link>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <Link class="nav-link link" to='/order-requests'>Order Requests</Link>
+                                </li>
+                            </React.Fragment>
                         )}
                         {loggedIn ? (
                             <React.Fragment>

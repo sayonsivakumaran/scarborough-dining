@@ -1,0 +1,89 @@
+.ann-body {
+	background: #FFFFFF;
+	font-family: 'Didact Gothic', sans-serif;
+	font-size: 16px;
+	color: black;
+    text-align: left;
+    max-width: 800px;
+    margin: auto;
+    padding-top: 100px;
+}
+
+.ann-form{
+    margin-top:20px;
+    border-radius: 10px;
+    border: 2px #2c3952 solid;
+    padding:20px 10px 10px 10px;
+    display:flex;
+    flex-direction: column;
+}
+
+.ann-form .form_title{
+    font-size:20px;
+    font-weight:bold;
+    margin:-20px -10px 20px -10px;
+    padding:10px 0px 10px 25px;
+    color:black;
+    background-color: #38b8d1;
+    border-radius: 7px 7px 0px 0px;
+    border-bottom: 2px solid #2c3952;
+}
+
+.ann-form .form_element{
+     margin-bottom: 10px;
+     font-size: 16px;
+     padding:5px 10px 5px 10px;
+     border-radius: 10px;
+     border-width: 1px;
+}
+
+.post-btn{
+    border-radius:10px;
+    text-align:center;
+    font-size: 16px;
+    color: #2c3952;
+    background: #ffffff;
+    border: 1px solid #2c3952;
+    padding: 10px 20px 10px 20px;
+}
+
+.post-btn:hover {
+  background: #2c3952;
+  color: #ffffff;
+}
+
+
+.announcements-header {
+    padding-top: 50px;
+    padding-bottom: 25px;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Didact Gothic', sans-serif;
+}
+
+
+/* Announcements */
+
+
+#posts-section {
+    margin: auto;
+    max-width: 800px;
+    text-align: left;
+}
+
+.post {
+    font-family: 'Didact Gothic', sans-serif;
+    border-top: 1px solid black;
+}
+
+.post-title {
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.post-body {
+    padding-bottom: 20px;
+}

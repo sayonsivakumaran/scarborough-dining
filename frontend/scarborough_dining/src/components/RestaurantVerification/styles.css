@@ -1,0 +1,15 @@
+.manageRestaurantPage {
+    font-family: 'Didact Gothic', sans-serif;
+    padding: 40px 100px;
+}
+
+.manageRestaurantPage .total {
+    padding: 20px 0px;
+}
+.table-header {
+    background-color: #f3f3f3;
+}
+
+.check-btn {
+    background-color: greenyellow !important;
+}

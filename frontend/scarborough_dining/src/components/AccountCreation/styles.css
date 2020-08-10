@@ -1,8 +1,9 @@
 .formStyle {
-    padding: 26px 0px;
+    padding: 40px 0px;
 }
 
 .containerStyle {
+    font-family: 'Didact Gothic', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,4 +18,23 @@
     padding: 1em;
     font-size: 20px;
     margin: 10px 0px;
+}
+
+.inputDescription {
+    width: 50%;
+    min-height: 200px;
+}
+
+.small-inputDescription {
+    width: 50%;
+    min-height: 50px;
+}
+
+.video {
+    width: 50%;
+    min-height: 50px;
+}
+
+.fileUpload {
+    width: 50%;
 }

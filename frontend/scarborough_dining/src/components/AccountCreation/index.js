@@ -1,6 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
+import Select from 'react-select';
+import { Redirect } from 'react-router'
+import FileUpload from '../FileUpload';
+import MENU_CATEGORIES from '../../enums/menu_categories';
 import './styles.css';
+
+const options = Object.keys(MENU_CATEGORIES).map(k => {
+	return { value : k, label : MENU_CATEGORIES[k] }
+});
 
 export class AccountCreation extends React.Component {
 
@@ -9,30 +17,128 @@ export class AccountCreation extends React.Component {
         super(props);
 
         this.state = {
+            redirect: false,
+            loggedIn: false,
+            id: '',
             //Account Information
-            fullName: '',
-            email: '',
-            phoneNumber: '',
+            firstName: '',
+            lastName: '',
             address: '',	
             city: '',	
             postalCode: '',	
             province: '',	
-            password: '',
-            password: '',
-            passwordMatch: 'hidden',
             //Restaurant Information
             restaurantName: '',
             restaurantPhone: '',
             restaurantAddress: '',
-            restaurantCuisine: '',
+            restaurantCuisine: [],
             restaurantCity: '',
             restaurantPostalCode: '',
-            restaurantProvince: ''
+            restaurantProvince: '',
+            restaurantLogo: undefined,
+            restaurantProfileImage: undefined,
+            restaurantDescription : '',
+            restaurantProfileDescription: '',
+            restaurantVideoURL: '',
+            yearEstablished: ''
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.passwordValidate = this.passwordValidate.bind(this);
+    }
+
+    /**
+     * @description     On loading of this component, send a back-end request for currently
+     *                  logged in user's data so that it can be modified
+     */
+    async componentDidMount() {
+
+        window.scrollTo(0, 0);
+
+        /* Request to see if user is logged in, if user is logged in
+         * get user's googleId 
+         */
+        await axios.get('/auth/login/success')
+          .then(results => this.setState({
+                loggedIn: true,
+                id: results.data.user.googleId,
+                firstName: results.data.firstName,
+                lastName: results.data.lastName,
+                address: results.data.address,	
+                city: results.data.city,	
+                postalCode: results.data.postalCode,	
+                province: results.data.province
+          })
+        ).catch(err => this.setState({
+                loggedIn: false
+            })
+        );
+        
+        // If there is a user logged in, then get user data from database
+        if (this.state.loggedIn) {
+            await axios.get(`/user/${this.state.id}`)
+                .then(results => this.setState({
+                    firstName: results.data.firstName,
+                    lastName: results.data.lastName,
+                    address: results.data.address,	
+                    city: results.data.city,	
+                    postalCode: results.data.postalCode,	
+                    province: results.data.province
+                })
+            );
+        }
+    }
+
+    /**
+     * Handles change for restaurant logo file
+     * @param {*} e 
+     */
+    handleLogoFileChange = e => {
+        e.preventDefault();
+        console.log(e.target.files[0]);
+        this.setState({
+            restaurantLogo: e.target.files[0] || undefined
+        });
+    }
+
+    /**
+     * Handles delete for restaurant logo file
+     * @param {Object} event the event to be deleted
+     */
+    handleLogoFileDelete = e => {
+        e.preventDefault();
+        this.setState({
+            restaurantLogo: undefined
+        });
+    }
+
+    /**
+     * Handles change for restaurant profile file
+     * @param {Object} event the event to be deleted
+     */
+    handleProfileFileChange = e => {
+        e.preventDefault();
+        this.setState({
+            restaurantProfileImage: e.target.files[0] || undefined
+        });
+    }
+
+    /**
+     * Handles delete for restaurant profile file
+     * @param {Object} event the event to be deleted
+     */
+    handleProfileFileDelete = e => {
+        e.preventDefault();
+        this.setState({
+            restaurantProfileImage: undefined
+        });
+    }
+
+    onCuisineTypesChange = e => {
+        let cuisineTypes = e ? e.map(v => v.value) : [];
+        this.setState({
+            restaurantCuisine : cuisineTypes
+        })
     }
 
     //Handles when fields in the input are changed
@@ -45,21 +151,31 @@ export class AccountCreation extends React.Component {
         })
     }
 
+    /**
+     * Makes file upload request and returns the cloudinary url
+     * @param {*} image to be uploaded
+     */ 
+    _uploadImageURL = async image => {
+        const formData = new FormData();
+        formData.append('file', image);
+        return axios.post('/media_upload/image', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            } 
+        }).then(
+            response => response.data.result.secure_url || ''
+        ).catch(e => e);
+    }
+
     //Handle when the "submit" button on the form is pressed
     async handleSubmit(event) {
         event.preventDefault();
         let info = '';
-        if (this.props.userType === "user") {
-            const name = this.state.fullName.split(" ");	
-            let middleName = name.length === 3 ? name[1] : "";	
+        if (this.props.userType === "user") {	
             info = 	
             {	
-                firstName: name[0],	
-                middleName: middleName,	
-                lastName: name[name.length-1],	
-                email: this.state.email,	
-                phoneNumber: this.state.phoneNumber,	
-                password: this.state.password,	
+                firstName: this.state.firstName,	
+                lastName: this.state.lastName,		
                 address: this.state.address,	
                 city: this.state.city,	
                 postalCode: this.state.postalCode,	
@@ -67,109 +183,85 @@ export class AccountCreation extends React.Component {
                 favouriteRestaurantIDs: ["-1"],	
                 ratings: [],	
             }	
-            axios.post('/customers/add', info)	
-            .then(console.log("Success!"))	
-            .catch((error) => {	
-                console.log(error);	
-                alert("This email address is already in use");	
-            });
+            axios.post(`/user/update/${this.state.id}`, info)	
+                .then(console.log("Success!"))	
+                .catch((error) => {	
+                    console.log(error);	
+                    alert("This email address is already in use");	
+                });
 
-        } else { 
-            //restaurant owner information from the field
-            const name = this.state.fullName.split(" ");
-            let middleName = name.length === 3 ? name[1] : "";
-            info = 
-            {
-                firstName: name[0],
-                middleName: middleName,
-                lastName: name[name.length-1],
-                email: this.state.email,
-                phoneNumber: this.state.phoneNumber,
-                password: this.state.password,
-                restaurantID: Math.floor((Math.random()*1000)+1)  //random placeholder value for now as the field is required
+            alert("Account Information has been updated");
+            this.setState({ redirect: true });
+
+        } else {
+            const restaurantLogoURL = await (this._uploadImageURL(this.state.restaurantLogo));
+            const restaurantProfileImageURL = await (this._uploadImageURL(this.state.restaurantProfileImage));
+
+            let restaurantInfo = {
+                ownerID: this.state.id,
+                ratings: [],
+                name: this.state.restaurantName,
+                logoURL: restaurantLogoURL,
+                imageURLs: restaurantProfileImageURL,
+                phoneNumber: this.state.restaurantPhone,
+                address: this.state.restaurantAddress,
+                city: this.state.restaurantCity,
+                province: this.state.restaurantProvince,
+                postalCode: this.state.restaurantPostalCode,
+                cuisineTypes: this.state.restaurantCuisine,
+                menuItemIDs: [],
+                description: this.state.restaurantDescription,
+                longDescription: this.state.restaurantProfileDescription,
+                yearEstablished: this.state.yearEstablished,
+                introVideoURL: this.state.restaurantVideoURL
             }
-            const res = await axios.post('/owners/add', info)
+
+            await axios.post('/restaurants/add', restaurantInfo)
+            .then(
+                console.log("Added the restaurant"),
+                alert("User and Restaurant has been created!"))    
             .catch((error) => {
                 console.log(error);
-                alert("This email address is already in use");
+                alert("Error with registration: " + error);
             });
-            
-            if(res !== undefined) {
-                
-                let restaurantInfo = 
-                {
-                    //fields for the restaurant information in the database 
-                    ownerID: res.data._id,
-                    ratings: [],
-                    name: this.state.restaurantName,
-                    logoURL: " ",
-                    imageURLs: " ",
-                    phoneNumber: this.state.restaurantPhone,
-                    address: this.state.restaurantAddress,
-                    city: this.state.restaurantCity,
-                    province: this.state.restaurantProvince,
-                    postalCode: this.state.restaurantPostalCode,
-                    cuisineTypes: [this.state.restaurantCuisine],
-                    description: " ",
-                    menuItemIDs: []
-                }
-                axios.post('/restaurants/add', restaurantInfo)
-                .then(console.log("Added the restaurant"))           
-                .catch((error) => {
-                    console.log(error);
-                    alert("Error with registration: " + error);
-                });
-            }
-        }
-
-    }
-
-    passwordValidate(event) {
-        const confirmPassword = event.target.value;
-        if (this.state.password === confirmPassword) {
-            this.setState({
-                passwordMatch: 'hidden'
+            let ownerdata = ''
+            await axios.get(`restaurants/owner/${this.state.id}`)
+            .then(res => {
+                ownerdata = res.data;
             })
+
+            await axios.post(`/user/add-restaurant/${this.state.id}`, {restaurantId: ownerdata})
         }
-        else {
-            this.setState({
-                passwordMatch: 'visible'
-            })
-        }
+        // When submit has completed, then reload so changes reflect in front-end
+        window.location.reload(false)
     }
 
     UserForm = () => {
         return (
             <div className="containerStyle">
-                <h2 className="title mb-4 font-weight-bold">Account Information</h2>
+                <h2 className="mb-4 font-weight-bold">Account Information</h2>
                 <input 
-                    name="fullName"
+                    name="firstName"
                     type="text"
-                    placeholder="Full Name"
+                    value={this.state.firstName}
+                    placeholder="First Name"
                     required={true}
                     className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    required={true}
-                    className="inputStyle"
-                    onChange={this.handleChange}
-                />
-                <input 
-                    name="phoneNumber"
-                    type="tel"
-                    pattern="[0-9]{10}"
-                    placeholder="Phone Number"
+                    name="lastName"
+                    type="text"
+                    value={this.state.lastName}
+                    placeholder="Last Name"
                     required={true}
                     className="inputStyle"
                     onChange={this.handleChange}
                 />
                 <input 	
                     name="address"	
-                    type="text"	
+                    type="text"
+                    value={this.state.address}
                     placeholder="Address"	
                     required={true}	
                     className="inputStyle"	
@@ -178,6 +270,7 @@ export class AccountCreation extends React.Component {
                 <input 	
                     name="city"	
                     type="text"	
+                    value={this.state.city}
                     placeholder="City"	
                     required={true}	
                     className="inputStyle"	
@@ -186,6 +279,7 @@ export class AccountCreation extends React.Component {
                 <input 	
                     name="postalCode"	
                     type="text"	
+                    value={this.state.postalCode}
                     placeholder="Postal Code"	
                     required={true}	
                     className="inputStyle"	
@@ -194,28 +288,12 @@ export class AccountCreation extends React.Component {
                 <input 	
                     name="province"	
                     type="text"	
+                    value={this.state.province}
                     placeholder="Province"	
                     required={true}	
                     className="inputStyle"	
                     onChange={this.handleChange}	
                 />
-                <input 
-                    name="password"
-                    type="password"
-                    placeholder="Password"
-                    required={true}
-                    className="inputStyle"
-                    onChange={this.handleChange}
-                />
-                <input 
-                    name="passwordConfirm"
-                    type="password"
-                    placeholder="Confirm Password"
-                    required={true}
-                    className="inputStyle"
-                    onChange={this.passwordValidate}
-                />
-                <p style={{color: 'red', visibility: `${this.state.passwordMatch}`}}>Passwords Do Not Match</p>
             </div>
         )
     }
@@ -273,19 +351,43 @@ export class AccountCreation extends React.Component {
                     className="inputStyle"
                     onChange={this.handleChange}
                 />
-                <input 
-                    name="restaurantCuisine"
-                    type="text"
-                    placeholder="Restaurant Cuisine"
-                    required={true}
-                    className="inputStyle"
-                    onChange={this.handleChange}
-                />
+                <label>Optional Year Established (Displayed as : Since 2000)</label>
+                    <input 
+                        label="Since"
+                        name="yearEstablished"
+                        pattern="[0-9]{4}"
+                        type="text"
+                        placeholder="2000"
+                        required={false}
+                        className="inputStyle"
+                        onChange={this.handleChange}
+                    />
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Restaurant Type</h2>
+                <div className="fileUpload">
+                    <Select onChange={this.onCuisineTypesChange} className='w-100 mt-4' isMulti options={options} />
+                </div>
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Logo</h2>
+                <div className="fileUpload">
+                    <FileUpload name="restaurantLogo" acceptedFiles={'image/*'} onFileUpload={this.handleLogoFileChange} onFileDelete={this.handleLogoFileDelete}/>
+                </div>
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Profile Introduction Image</h2>
+                <div className="fileUpload">
+                    <FileUpload name="restaurantProfileImage" acceptedFiles={'image/*'} onFileUpload={this.handleProfileFileChange} onFileDelete={this.handleProfileFileDelete}/>
+                </div>
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Restaurant Profile Description</h2>
+                <textarea className="inputDescription mt-4" onChange={this.handleChange} name="restaurantProfileDescription" required={true}/>
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Restaurant Description (Shown in card)</h2>
+                <textarea className="small-inputDescription mt-4" onChange={this.handleChange} name="restaurantDescription" required={true}/>
+                <h2 className='mt-4' style={{fontSize: '1.5em'}}>Restaurant Introduction Video (Youtube) URL</h2>
+                <textarea className="video mt-4" onChange={this.handleChange} name="restaurantVideoURL" required={false}/>
             </div>
         )
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to='/'/>;
+        }
         if (this.props.userType === "user") {
             return (
                 <form className="formStyle" onSubmit={this.handleSubmit}>
@@ -294,7 +396,7 @@ export class AccountCreation extends React.Component {
                         <input
                             name="submit"
                             type="submit"
-                            value="Create Account"
+                            value="Update Account Information"
                             className="inputStyle"
                         />
                     </div>
@@ -304,7 +406,6 @@ export class AccountCreation extends React.Component {
             return (
                 <form className="formStyle" onSubmit={this.handleSubmit}>
                     <div className="formContainer">
-                        <this.UserForm />
                         <this.RestaurantForm />
                     </div>
 

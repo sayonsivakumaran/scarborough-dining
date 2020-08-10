@@ -9,9 +9,10 @@ const options = Object.keys(MENU_CATEGORIES).map(k => {
 });
 
 const formStyle = {
+    fontFamily: 'Didact Gothic, sans-serif',
     display: 'flex',
     flexDirection: 'column',
-    padding: '1% 30%'
+    padding: '0% 30%'
 }
 
 const inputStyle = {
@@ -25,7 +26,7 @@ const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '10px 0'
+    padding: '40px 0'
 }
 
 const descriptionStyle = {
@@ -70,17 +71,48 @@ export class ManageRestaurantInformation extends Component {
             totalItems: 0,
             logo: undefined,
             description: '',
+            profileDescription: '',
             video: undefined,
-            menuItems: []
+            menuItems: [],
+            restaurantID: undefined
         }
     }
 
+    async componentDidMount() {
+
+        /* Request to see if user is logged in, if user is logged in
+         * get user's googleId 
+         */
+        await axios.get('/auth/login/success')
+          .then(results => this.setState({
+              loggedIn: true,
+              id: results.data.user.googleId
+          })
+        ).catch(err => this.setState({
+                loggedIn: false
+            })
+        );
+        
+        // If there is a user logged in, then get user data from database
+        if (this.state.loggedIn) {
+            await axios.get(`/user/${this.state.id}`)
+                .then(results => this.setState({
+                    restaurantID: results.data.restaurantId
+                })
+            );
+        }
+    }
+
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+    
     addMenuItem = e => {
         e.preventDefault()
         let {totalItems, menuItems} = this.state;
         menuItems = menuItems.concat({
             name: '',
-            restaurantID: 'RestaurantID1',      // TODO: change when log in works as expected
+            restaurantID: this.state.restaurantID,      // TODO: change when log in works as expected
             price: 0, 
             image: undefined,
             description: '',
@@ -113,6 +145,12 @@ export class ManageRestaurantInformation extends Component {
         e.preventDefault();
         this.setState({
             logo: undefined
+        });
+    }
+
+    onProfileDescriptionChange = e => {
+        this.setState({
+            profileDescription: e.target.value
         });
     }
 
@@ -199,14 +237,14 @@ export class ManageRestaurantInformation extends Component {
 
         return Promise.all(responses)
             .then(responseArray => {
-                return responseArray.map(response => response.data.result.secure_url || '');
+                return responseArray.map(response => response.data.result.secure_url);
             }).catch(e => e);
     }
 
     _retrieveLogoImageURL = async logo => {
         const formData = new FormData();
         formData.append('file', logo);
-        return axios.post('/media_upload/image', formData, {     // TODO: change to relative URL when that is set up properly
+        return axios.post('/media_upload/image', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             } 
@@ -218,7 +256,7 @@ export class ManageRestaurantInformation extends Component {
     _retrieveIntroVideoURL = async video => {
         const formData = new FormData();
         formData.append('file', video);
-        return axios.post('/media_upload/video', formData, {     // TODO: change to relative URL when that is set up properly
+        return axios.post('/media_upload/video', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             } 
@@ -272,11 +310,13 @@ export class ManageRestaurantInformation extends Component {
                         <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
                         <textarea onChange={this.onRestaurantDescriptionChange} style={descriptionStyle} name="itemDescription"/>
 
+                        <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Restaurant Profile Description</h2>
+                        <textarea onChange={this.onProfileDescriptionChange} style={descriptionStyle} name="itemDescription"/>
+
                         <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Introductory Video</h2>
                         <FileUpload acceptedFiles={'video/*'} onFileUpload={this.onIntroVideoChange} onFileDelete={this.onIntroVideoDelete}/>
                     </div>
                     {
-                        // TODO: find a way to update the state array
                         [...Array(this.state.totalItems)].map(
                             (k, i) => <MenuItemForm 
                                 onAddCuisineType={e => this.onMenuCuisineChange(e, i)}

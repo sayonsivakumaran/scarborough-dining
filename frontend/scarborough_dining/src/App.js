@@ -52,7 +52,6 @@ export class App extends Component {
               <Route path="/restaurants/:id" component={RestaurantProfile} />
               {/* <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} /> */}
               <Route exact path='/manage-restaurant-information/general' component={ManageRestaurantInformation} />
-              <Route exact path='/manage-restaurant-information/menu' component={ManageRestaurantInformation} />
               <Route path='/manage-restaurant-information/announcements' render={() => <ManageAnnouncements isManager={true}/>} />
               <Route path='/manage-restaurants' component={RestaurantVerfication} />
               <Route component={Unknown} />

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './styles.css';
 
+// UI element for an announcement
 function Announcement(props) {
     return (
         <div id="posts-section">
@@ -39,6 +40,7 @@ export class ManageAnnouncements extends Component {
         this._getAnnouncements(resID);
     }
 
+    // Add a post to the state
     addPost = () => {
         // Make a copy of the state called <newState>
         const newState = Object.assign({}, this.state);
@@ -54,6 +56,7 @@ export class ManageAnnouncements extends Component {
         this.setState(newState);
     }
 
+    // Handle event where post title in form is changed
     onPostTitleChange = (e) => {
         e.preventDefault();
         this.setState({
@@ -61,6 +64,7 @@ export class ManageAnnouncements extends Component {
         })
     }
 
+    // Handle event where post body in form is changed
     onPostBodyChange = (e) => {
         e.preventDefault();
         this.setState({
@@ -68,6 +72,7 @@ export class ManageAnnouncements extends Component {
         })
     }
 
+    // Delete a post from the state and database
     deletePost = (index) => {
         let newState = this.state.posts.reverse().splice(index, 1);
         this.setState(newState);
@@ -84,6 +89,7 @@ export class ManageAnnouncements extends Component {
         this._postAnnouncements(postReqs, resID);
     }
 
+    // API call to post restaurant's announcements to database
     _postAnnouncements = async (posts, resID) => {
         const response = {
             announcements: posts
@@ -93,6 +99,7 @@ export class ManageAnnouncements extends Component {
             .catch(e => e);
     }
 
+    // API call to get restaurant's announcements from database
     _getAnnouncements = (resID) => {
         axios.get('/restaurants/' + resID).then(response => {
             const posts = response.data.announcements;
@@ -111,6 +118,7 @@ export class ManageAnnouncements extends Component {
         })
     }
 
+    // Handle submission of form
     onSubmit = async e => {
         e.preventDefault();
         this.addPost();
@@ -130,6 +138,7 @@ export class ManageAnnouncements extends Component {
         let response = await this._postAnnouncements(postReqs, resID);
     }
 
+    // Render the announcements form and restaurant's announcements to the screen
     render() {
         const isManager = this.props.isManager;
         return (

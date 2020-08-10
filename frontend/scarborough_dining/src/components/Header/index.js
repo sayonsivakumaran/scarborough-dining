@@ -60,7 +60,6 @@ export class Header extends Component {
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <Link class="dropdown-item" to="/manage-restaurant-information/general">General</Link>
-                                <Link class="dropdown-item" to="/manage-restaurant-information/menu">Menu</Link>
                                 <Link class="dropdown-item" to="/manage-restaurant-information/announcements">Announcements</Link>
                             </div>
                         </li>

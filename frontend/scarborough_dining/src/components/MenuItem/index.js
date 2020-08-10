@@ -78,7 +78,9 @@ export default class MenuItem extends Component {
                                 <p className="title"><b>{this.menuItem.name}</b></p>
                                 <p className="title">$ {this.menuItem.price}</p>
                                 <p className="title">{this.menuItem.description}</p>
-                                <input onChange={this.onQuantityChange} class="form-control menu-item-quantity-input" name="totalItems" type="number" min="0" step="1" placeholder="Total" required={true} />
+                                <div className="d-flex justify-content-center">
+                                    <input onChange={this.onQuantityChange} class="form-control menu-item-quantity-input" name="totalItems" type="number" min="0" step="1" placeholder="Total" required={true} />
+                                </div>
                                 <input onClick={this.addToShoppingCart} className="bg-primary btn btn-primary add-menu-item-modal-button" name="addMenuItemModalButton" type="submit" value="Add To Shopping Cart"/>
                             </div>
                         </React.Fragment>

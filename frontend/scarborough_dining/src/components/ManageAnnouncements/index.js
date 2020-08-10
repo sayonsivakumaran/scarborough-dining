@@ -33,11 +33,11 @@ export class ManageAnnouncements extends Component {
         this.state = {
             posts: [],
             newPostTitle: '',
-            newPostBody: ''
+            newPostBody: '',
+            restaurantID: this.props.restaurantID
         }
-        // TODO: change for Google login
-        const resID = '5f1e01c222f7b00d879639b7';
-        this._getAnnouncements(resID);
+        
+        this._getAnnouncements(this.state.restaurantID);
     }
 
     // Add a post to the state
@@ -46,7 +46,7 @@ export class ManageAnnouncements extends Component {
         const newState = Object.assign({}, this.state);
         // Add the newPost and reset newPost's fields
         const newPost = {
-            restaurantID: '5f1e01c222f7b00d879639b7', // TODO: Change for google login
+            restaurantID: this.state.restaurantID,
             postTitle: this.state.newPostTitle,
             postBody: this.state.newPostBody
         }
@@ -84,9 +84,8 @@ export class ManageAnnouncements extends Component {
                 body: post.postBody
             };
         });
-        // TODO: change for Google login
-        const resID = '5f1e01c222f7b00d879639b7';
-        this._postAnnouncements(postReqs, resID);
+        
+        this._postAnnouncements(postReqs, this.state.restaurantID);
     }
 
     // API call to post restaurant's announcements to database
@@ -94,7 +93,7 @@ export class ManageAnnouncements extends Component {
         const response = {
             announcements: posts
         }
-        axios.post('/restaurants/updateRes/' + resID, response)
+        axios.post('/restaurants/updateAnnouncements/' + resID, response)
             .then(res => console.log(res.data))
             .catch(e => e);
     }
@@ -132,10 +131,8 @@ export class ManageAnnouncements extends Component {
                 body: post.postBody
             };
         });
-        const resID = '5f1e01c222f7b00d879639b7';
 
-        // TODO: use the response to get the announcement IDs and associate them with the restaurant owners
-        let response = await this._postAnnouncements(postReqs, resID);
+        await this._postAnnouncements(postReqs, this.state.restaurantID);
     }
 
     // Render the announcements form and restaurant's announcements to the screen

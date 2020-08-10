@@ -261,10 +261,10 @@ router.route('/deletePendingOrder/:restaurantID/:removeIndex').post((req, res) =
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/updateRes/:id').post((req, res) => {
+router.route('/updateAnnouncements/:id').post((req, res) => {
     Restaurant.findById(req.params.id)
         .then(restaurant => {
-            restaurant.announcements = req.body.announcements;
+            restaurant.announcements = req.body.announcements || [];
 
             restaurant.save()
                 .then(() => res.json('Restaurant announcements updated.'))

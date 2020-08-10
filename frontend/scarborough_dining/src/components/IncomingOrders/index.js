@@ -95,22 +95,6 @@ class IncomingOrders extends Component {
     }
 
     _getOrderRequestTables = orderRequests => {
-        // let orderRequestMap = {};
-
-        // for (let i = 0; i < orderRequests.length; i++) {
-        //     let userGoogleID = orderRequests[i].userGoogleID;
-        //     if (!orderRequestMap[userGoogleID]) {
-        //         orderRequestMap[userGoogleID] = [];
-        //     }
-
-        //     orderRequestMap[userGoogleID] = orderRequestMap[userGoogleID].concat([orderRequests[i]]);
-        // }
-        
-        // let orderRequestsTableArray = [];
-        // Object.keys(orderRequestMap).forEach(userGoogleID => {
-        //     orderRequestsTableArray.push(this._getShoppingCartItemsForRestaurant(orderRequestMap[userGoogleID], restaurantID));
-        // });
-
         let orderRequestsTableArray = orderRequests.map((request, i) => this._getOrderRequestTablesByRequest(request, i));
 
         return orderRequestsTableArray;

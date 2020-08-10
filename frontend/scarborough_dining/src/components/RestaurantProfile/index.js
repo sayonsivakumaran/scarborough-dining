@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import MenuItemList from '../MenuItemList';
 import './styles.css'
 import { Link, Switch, Route } from 'react-router-dom';
 import ReactPlayer from "react-player"
 import axios from 'axios';
+import ManageAnnouncements from '../ManageAnnouncements';
 
 class RestaurantProfile extends Component {
     constructor(props) {
@@ -15,6 +17,7 @@ class RestaurantProfile extends Component {
             phoneNumber: "",
             id: null,
             menuItems: [],
+            announcements: [],
             activeTab: "info"
         }
         let id = this.props.match.params.id;
@@ -35,6 +38,7 @@ class RestaurantProfile extends Component {
                 description: response.data.description,
                 phoneNumber: response.data.phoneNumber,
                 id: response.data._id,
+                menuItems: response.data.menuItems,
                 profileImage : response.data.imageURLs[0],
                 videoUrl: response.data.introVideoURL,
                 description: response.data.longDescription
@@ -94,16 +98,15 @@ class RestaurantProfile extends Component {
                             </div>
                         </Route>
                         <Route path={`/restaurants/${this.state.id}/menu`}>
-                            {/* TODO: This should be a new component */}
                             <div className="menu">
-                                <h1>Menu</h1>
+                                <h1></h1>
+                                <MenuItemList loggedIn={this.props.loggedIn} userId={this.props.userId} menuItems={this.state.menuItems} 
+                                />
                             </div>
                         </Route>
                         <Route path={`/restaurants/${this.state.id}/announcements`}>
                             {/* TODO: This should be a new component */}
-                            <div className="announcements">
-                                <h1>Announcements</h1>
-                            </div>
+                            <ManageAnnouncements isManager={false}/>
                         </Route>
                     </Switch>
                 </div>

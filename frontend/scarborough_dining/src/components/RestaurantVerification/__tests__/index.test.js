@@ -19,14 +19,15 @@ describe('<RestaurantVerification  />', () => {
             address: "address",
             city: "city",
             postalCode : "postalCode",
-            ownerID: "id"
+            ownerID: "id",
+            phoneNumber: "testPhone"
         }
     ]
     mockOwner = { data : {
             id: "id",
             firstName: "testName",
+            lastName: "last",
             email: "testEmail",
-            phoneNumber: "testPhone"
         }
     }
 
@@ -39,6 +40,7 @@ describe('<RestaurantVerification  />', () => {
             city: "city",
             postalCode : "postalCode",
             ownerID: "id",
+            phoneNumber: "testPhone",
             owner
         }
     ]
@@ -104,15 +106,14 @@ describe('<RestaurantVerification  />', () => {
             expect(rows.length).toBe(1);
 
             const firstRowColumns = rows.first().find('td').map(column => column.text())
-            expect(firstRowColumns.length).toBe(9);
+            expect(firstRowColumns.length).toBe(8);
 
             expect(firstRowColumns[0]).toBe('restaurant')
             expect(firstRowColumns[1]).toBe('address')
             expect(firstRowColumns[2]).toBe('city')
             expect(firstRowColumns[3]).toBe('postalCode')
-            expect(firstRowColumns[4]).toBe('testName')
-            expect(firstRowColumns[5]).toBe('testEmail')
-            expect(firstRowColumns[6]).toBe('testPhone')
+            expect(firstRowColumns[4]).toBe('testPhone')
+            expect(firstRowColumns[5]).toBe('testName last')
         });
     });
 

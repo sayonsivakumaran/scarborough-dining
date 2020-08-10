@@ -75,28 +75,41 @@ export class Header extends Component {
                             <li class="nav-item">
                             </li>
                         ) : (
-                            <li class="nav-item">
-                            <Link class="nav-link link" to="/manage-restaurant-information">Manage Restaurant Information</Link>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Manage Restaurant Information
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <Link class="dropdown-item" to="/manage-restaurant-information/general">General</Link>
+                                    <Link class="dropdown-item" to="/manage-restaurant-information/announcements">Announcements</Link>
+                                </div>
                             </li>
                         )}
                         {loggedIn ? (
-                            <li class="nav-item">
-                                <a class="nav-link link" href={BACK_END_URL+"/auth/logout"}>Logout</a>
-                            </li>
+                            <React.Fragment>
+                                <li class="nav-item">
+                                    <a class="nav-link link" href={BACK_END_URL+"/auth/logout"}>Log Out</a>
+                                </li>
+                                <li class="nav-item">
+                                    <Link class="nav-link link" to="/shopping-cart">Shopping Cart</Link>
+                                </li>
+                                <li class="nav-item">
+                                    <Link class="nav-link link" to="/dashboard">Account</Link>
+                                </li>
+                            </React.Fragment>
                         ) : (
-                            <li class="nav-item">
-                                <Link class="nav-link link" to="/login">Log In</Link>
-                            </li>
+                            <React.Fragment>
+                                <li class="nav-item">
+                                    <Link class="nav-link link" to="/login">Log In</Link>
+                                </li>
+                                <li class="nav-item">
+                                    <Link class="nav-link link" to="/register">Register</Link>
+                                </li>
+                            </React.Fragment>
                         )}
-                        {loggedIn ? (
-                            <li class="nav-item">
-                                <Link class="nav-link link" to="/dashboard">Account</Link>
-                            </li>
-                        ) : (
-                            <li class="nav-item">
-                                <Link class="nav-link link" to="/register">Register</Link>
-                            </li>
-                        )}
+                        <li class="nav-item">
+                            <Link class="nav-link link" to="/discussion-board">Community Board</Link>
+                        </li>
                         </ul>
                     </div>
                 </nav>

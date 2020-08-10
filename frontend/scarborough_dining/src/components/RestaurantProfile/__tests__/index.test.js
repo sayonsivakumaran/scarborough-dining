@@ -50,8 +50,7 @@ describe('RestaurantProfile', () => {
         });
 
         it(`renders address and phone number of restaurant`, () => {
-            expect(page.find('.address').text()).toBe(mockRestaurant.address);
-            expect(page.find('.phone').text()).toBe(mockRestaurant.phoneNumber);
+            expect(page.find('.address').text()).toBe(mockRestaurant.address + mockRestaurant.phoneNumber);
         });
 
         it(`renders description of restaurant`, () => {

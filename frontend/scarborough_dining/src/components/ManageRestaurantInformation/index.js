@@ -255,7 +255,7 @@ export class ManageRestaurantInformation extends Component {
 
         return Promise.all(responses)
             .then(responseArray => {
-                return responseArray.map(response => response.data.result.secure_url || '');
+                return responseArray.map(response => response.data.result.secure_url);
             }).catch(e => e);
     }
 

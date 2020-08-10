@@ -130,7 +130,10 @@ router.route('/update/:id').post((req, res) => {
             restaurant.postalCode = req.body.postalCode;
             restaurant.cuisineTypes = req.body.cuisineTypes;
             restaurant.description = req.body.description;
-            restaurant.menuItemIDs = req.body.menuItemIDs;
+            restaurant.longDescription = req.body.longDescription;
+            restaurant.yearEstablished = req.body.yearEstablished;
+            restaurant.menuItems = req.body.menuItems;
+            restaurant.introVideoURL = req.body.introVideoURL;
 
             restaurant.save()
                 .then(() => res.json('Restaurant has been updated.'))
@@ -149,4 +152,19 @@ router.route('/verify/:id').post((req, res) => {
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
+
+router.route('/addMenuItems/:restaurantID').post((req, res) => {
+    Restaurant.findById(req.params.restaurantID)
+        .then(restaurant => {
+            let menuItems = restaurant.menuItems || [];
+            menuItems = menuItems.concat(req.body.menuItems);
+            restaurant.menuItems = menuItems;
+            restaurant.save()
+                .then(() => res.json(menuItems))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 module.exports = router;
+

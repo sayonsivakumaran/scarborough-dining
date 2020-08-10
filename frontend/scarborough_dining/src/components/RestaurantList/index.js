@@ -13,6 +13,10 @@ export default class RestaurantList extends Component {
         this._getRestaurantList();
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     _getRestaurantList() {
         axios.get('/restaurants/verified').then(response => {
             this.setState({

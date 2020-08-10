@@ -27,7 +27,6 @@ class RestaurantVerification extends Component {
 
     _verifyRestaurant = async (e, id) => {
         await axios.post('/restaurants/verify/' + id).then(response => {
-            console.log(response);
         })
 
         await this._getUnregistedRestaurants();
@@ -41,14 +40,14 @@ class RestaurantVerification extends Component {
         await axios.get('/restaurants/unverified').then(response => {
             restaurants = response.data
         })
-
+        
         for (var i = 0; i < restaurants.length; i++) {
-            owner = await axios.get('/owners/' + restaurants[i].ownerID);
+            owner = await axios.get('/user/' + restaurants[i].ownerID);
             if (owner && owner.data) {
                 restaurants[i].owner = owner.data;
             }
         }
-
+        
         this.setState({
             requestedRestaurants: restaurants,
             totalRequestedRestaurants: restaurants.length
@@ -62,9 +61,9 @@ class RestaurantVerification extends Component {
 
         for (var i = 0; i < restaurants.length; i++) {
             if (restaurants[i].owner) {
-                name = restaurants[i].owner.firstName;
-                email = restaurants[i].owner.email;
-                phoneNumber = restaurants[i].owner.phoneNumber;
+                name = restaurants[i].owner.firstName + " " + restaurants[i].owner.lastName;
+                // email = restaurants[i].owner.email;
+                // phoneNumber = restaurants[i].owner.phoneNumber;
             }
             let id = restaurants[i]._id;
             restaurantTables.push(
@@ -73,9 +72,8 @@ class RestaurantVerification extends Component {
                     <td>{restaurants[i].address}</td>
                     <td>{restaurants[i].city}</td>
                     <td>{restaurants[i].postalCode}</td>
+                    <td>{restaurants[i].phoneNumber}</td>
                     <td>{name}</td>
-                    <td>{email}</td>
-                    <td>{phoneNumber}</td>
                     <td>
                         <button type="button" onClick={(event) => this._removeRestaurant(event,id)} class="btn btn-danger"><i class="fa fa-trash"></i></button>     
                     </td>
@@ -102,9 +100,8 @@ class RestaurantVerification extends Component {
                                     <th scope="col">Restaurant Address</th>
                                     <th scope="col">City</th>
                                     <th scope="col">Postal Code</th>
+                                    <th scope="col">Resturant Phone Number</th>
                                     <th scope="col">Owner</th>
-                                    <th scope="col">Email</th>
-                                    <th scope="col">Phone Number</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                 </tr>

@@ -21,9 +21,9 @@ export default class Restaurant extends Component {
     
     render() {
         return (
-            <Link className="col-lg-4 d-flex align-items-stretch text-link" to={`/restaurants/${this.state.id}`}>
+            <Link className="col-md-4 d-flex align-items-stretch text-link" to={`/restaurants/${this.state.id}`}>
                 <div className="card mb-4">
-                    <img className="card-img-top" src={this.state.picture} />
+                    <img className="card-img-top" alt={this.state.name + "logo"} src={this.state.picture} />
                     <div class="card-body"> 
                         <h4 className="card-title">{this.state.name}</h4>
                         

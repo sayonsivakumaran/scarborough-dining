@@ -43,7 +43,6 @@ export default class MenuItem extends Component {
     addToShoppingCart = async e => {
         this.close();
         if (this.state.totalSelected) {
-            this.menuItem.total = this.state.totalSelected;
             await axios.post(`/user/add-to-shopping-cart/${this.state.userId}`, this.menuItem);
         }
     }

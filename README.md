@@ -21,4 +21,4 @@
 
 ### Latest Release
 
-- [Scarborough Dining](https://scarborough-dining-v3.herokuapp.com/)
+- [Scarborough Dining](https://scarborough-dining.herokuapp.com/#/)

@@ -6,6 +6,7 @@ import axios from 'axios';
 import Header from './components/Header/index';
 import AccountCreation from './components/AccountCreation';
 import ManageRestaurantInformation from './components/ManageRestaurantInformation';
+import ShoppingCart from './components/ShoppingCart';
 import ManageAnnouncements from './components/ManageAnnouncements';
 import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
@@ -20,15 +21,17 @@ import './App.css';
 
 export class App extends Component {
 
+
   state = {
     loggedIn: false,
-    googleId: '',
+    id: '',
     firstName: '',
     lastName: '',
     restaurantId: undefined,
     ratings: undefined,
     favourites: undefined,
-    admin: false
+    admin: false,
+    shoppingCart: {}
   }
 
   // On load of page or component, check to see if user is logged in. Then retrieve user information
@@ -56,6 +59,30 @@ export class App extends Component {
     }
   }
 
+  addToShoppingCart = (menuItems, total) => {
+    menuItems.total = total;
+    let {shoppingCart} = this.state;
+    shoppingCart[menuItems._id] = menuItems;
+    this.setState({
+      shoppingCart: shoppingCart
+    });
+  }
+
+  deleteItemFromShoppingCart = (menuItemID) => {
+    let {shoppingCart} = this.state;
+
+    delete shoppingCart[menuItemID];
+    this.setState({
+      shoppingCart: shoppingCart
+    });
+  }
+
+  orderAll = _ => {
+    this.setState({
+      shoppingCart: {}
+    });
+  }
+
   render() {
     return (
       <div className="App pages">
@@ -67,8 +94,9 @@ export class App extends Component {
           <React.Fragment>
             <Switch>
               <Route exact path="/" component={RestaurantList} />
-              <Route path="/account-creation/restaurant" render={() => <AccountCreation userType={"restaurant"} id={this.state.googleId}/>}/>
-              <Route path="/restaurants/:id" component={RestaurantProfile} />
+              <Route path="/account-creation/restaurant" render={() => <AccountCreation userType={"restaurant"} id={this.state.id}/>}/>
+              <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.loggedIn} userId={this.state.id}/>} />
+              <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} userGoogleId={this.state.id} loggedIn={this.state.loggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
               <Route exact path='/manage-restaurant-information/general' component={ManageRestaurantInformation} />
               <Route path='/manage-restaurant-information/announcements' render={() => <ManageAnnouncements isManager={true}/>} />
               <Route path='/manage-restaurants' component={RestaurantVerfication} />

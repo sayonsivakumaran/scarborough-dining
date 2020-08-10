@@ -237,14 +237,14 @@ export class ManageRestaurantInformation extends Component {
 
         return Promise.all(responses)
             .then(responseArray => {
-                return responseArray.map(response => response.data.result.secure_url || '');
+                return responseArray.map(response => response.data.result.secure_url);
             }).catch(e => e);
     }
 
     _retrieveLogoImageURL = async logo => {
         const formData = new FormData();
         formData.append('file', logo);
-        return axios.post('/media_upload/image', formData, {     // TODO: change to relative URL when that is set up properly
+        return axios.post('/media_upload/image', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             } 
@@ -256,7 +256,7 @@ export class ManageRestaurantInformation extends Component {
     _retrieveIntroVideoURL = async video => {
         const formData = new FormData();
         formData.append('file', video);
-        return axios.post('/media_upload/video', formData, {     // TODO: change to relative URL when that is set up properly
+        return axios.post('/media_upload/video', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             } 
@@ -317,7 +317,6 @@ export class ManageRestaurantInformation extends Component {
                         <FileUpload acceptedFiles={'video/*'} onFileUpload={this.onIntroVideoChange} onFileDelete={this.onIntroVideoDelete}/>
                     </div>
                     {
-                        // TODO: find a way to update the state array
                         [...Array(this.state.totalItems)].map(
                             (k, i) => <MenuItemForm 
                                 onAddCuisineType={e => this.onMenuCuisineChange(e, i)}

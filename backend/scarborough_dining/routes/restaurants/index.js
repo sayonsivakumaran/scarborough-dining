@@ -53,6 +53,8 @@ router.route('/add').post((req, res) => {
         longDescription,
         yearEstablished,
         menuItems,
+        verified,
+        orderRequests,
         announcements
     } = req.body;
 
@@ -73,7 +75,9 @@ router.route('/add').post((req, res) => {
         longDescription,
         yearEstablished,
         menuItems,
-        announcements
+        verified,
+        announcements,
+        orderRequests
     });
     
     newRestaurant.save()
@@ -129,10 +133,15 @@ router.route('/update/:id').post((req, res) => {
             restaurant.address = req.body.address;
             restaurant.city = req.body.city;
             restaurant.province = req.body.province;
+            restaurant.introVideoURL = req.body.introVideoURL;
             restaurant.postalCode = req.body.postalCode;
             restaurant.cuisineTypes = req.body.cuisineTypes;
             restaurant.description = req.body.description;
-            restaurant.menuItemIDs = req.body.menuItemIDs;
+            restaurant.longDescription = req.body.longDescription;
+            restaurant.menuItems = req.body.menuItems;
+            restaurant.verified = req.body.verified;
+            restaurant.orderRequests = req.body.orderRequests;
+            restaurant.yearEstablished = req.body.yearEstablished;
             restaurant.announcements = req.body.announcements;
 
             restaurant.save()
@@ -142,6 +151,30 @@ router.route('/update/:id').post((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * @route               /restaurants/addMenuItems/:restaurantID
+ * @description         Requires a valid restaurantID, updates restaurant with ID
+ *                      by adding menu items to the list
+ */
+router.route('/addMenuItems/:restaurantID').post((req, res) => {
+    Restaurant.findById(req.params.restaurantID)
+        .then(restaurant => {
+            let menuItems = restaurant.menuItems || [];
+            menuItems = menuItems.concat(req.body.menuItems);
+            restaurant.menuItems = menuItems;
+
+            restaurant.save()
+                .then(() => res.json('Menu items have been added to restaurant.'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+/**
+ * @route               /restaurants/verify/:id
+ * @description         Requires a valid restaurantID, updates restaurant with associated ID
+ *                      by changing it's status to verified
+ */
 router.route('/verify/:id').post((req, res) => {
     Restaurant.findById(req.params.id)
         .then(restaurant => {
@@ -151,6 +184,40 @@ router.route('/verify/:id').post((req, res) => {
                 .catch(err => res.status(400).json('Error: ' + err));
         })
         .catch(err => res.status(400).json('Error: ' + err));
+});
+
+/**
+ * @route               /restaurants/addOrderRequest/:restaurantID
+ * @description         Requires a valid restaurant ID, and updates the restaurant's order
+ *                      requests by adding a new request
+ */
+router.route('/addOrderRequest/:restaurantID').post((req, res) => {
+    Restaurant.findById(req.params.restaurantID)
+        .then(restaurant => {
+            let orderRequests = restaurant.orderRequests || [];
+            let incomingRequests = req.body;
+            let requestArray = [];
+            for (let i = 0; i < incomingRequests.length; i++) {
+                let orderItem = {};
+                orderItem.name = incomingRequests[i].name;
+                orderItem.menuItemID = incomingRequests[i]._id;
+                orderItem.price = incomingRequests[i].price;
+                orderItem.imageURL = incomingRequests[i].imageURL;
+                orderItem.description = incomingRequests[i].description;
+                orderItem.cuisineTypes = incomingRequests[i].cuisineTypes;
+                orderItem.total = incomingRequests[i].total;
+                orderItem.userGoogleID = incomingRequests[i].userGoogleId;
+                orderItem.restaurantID = incomingRequests[i].restaurantID;
+
+                requestArray = requestArray.concat(orderItem);
+            }
+
+            restaurant.orderRequests = orderRequests.concat([requestArray]);
+            restaurant.save()
+                .then(() => res.json('Items have been requested'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(404).json('Error: ' + err));
 });
 
 router.route('/updateRes/:id').post((req, res) => {

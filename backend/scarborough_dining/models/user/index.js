@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+let Order = require('../order').schema;
 
 const userSchema = new Schema({
     googleId: {
@@ -75,6 +76,11 @@ const userSchema = new Schema({
         unique: false,
         trim: true,
         default: ""
+    },
+    shoppingCart: {
+        type: [Order],
+        required: false,
+        default: []
     }
 },
 {

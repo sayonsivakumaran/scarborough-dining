@@ -86,22 +86,26 @@ export class Header extends Component {
                             </li>
                         )}
                         {loggedIn ? (
-                            <li class="nav-item">
-                                <a class="nav-link link" href={BACK_END_URL+"/auth/logout"}>Logout</a>
-                            </li>
+                            <React.Fragment>
+                                <li class="nav-item">
+                                    <a class="nav-link link" href={BACK_END_URL+"/auth/logout"}>Log Out</a>
+                                </li>
+                                <li class="nav-item">
+                                    <Link class="nav-link link" to="/shopping-cart">Shopping Cart</Link>
+                                </li>
+                                <li class="nav-item">
+                                    <Link class="nav-link link" to="/dashboard">Account</Link>
+                                </li>
+                            </React.Fragment>
                         ) : (
-                            <li class="nav-item">
-                                <Link class="nav-link link" to="/login">Log In</Link>
-                            </li>
-                        )}
-                        {loggedIn ? (
-                            <li class="nav-item">
-                                <Link class="nav-link link" to="/dashboard">Account</Link>
-                            </li>
-                        ) : (
-                            <li class="nav-item">
-                                <Link class="nav-link link" to="/register">Register</Link>
-                            </li>
+                            <React.Fragment>
+                                <li class="nav-item">
+                                    <Link class="nav-link link" to="/login">Log In</Link>
+                                </li>
+                                <li class="nav-item">
+                                    <Link class="nav-link link" to="/register">Register</Link>
+                                </li>
+                            </React.Fragment>
                         )}
                         <li class="nav-item">
                             <Link class="nav-link link" to="/discussion-board">Community Board</Link>

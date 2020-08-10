@@ -3,7 +3,6 @@ import FileUpload from '../FileUpload';
 import Select from 'react-select';
 import MENU_CATEGORIES from '../../enums/menu_categories';
 import axios from 'axios';
-import './styles.css'
 
 const options = Object.keys(MENU_CATEGORIES).map(k => {
 	return { value : k, label : MENU_CATEGORIES[k] }
@@ -27,7 +26,7 @@ const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: '40px 0'
+    padding: '40px 0',
 }
 
 const descriptionStyle = {
@@ -37,8 +36,9 @@ const descriptionStyle = {
 function MenuItemForm(props) {
 
     return (
-        <div style={containerStyle} name="menuItemForm">
+        <div className="menu-item-container" style={containerStyle}  name="menuItemForm">
             <h2 className='mt-4 font-weight-bold' style={{fontSize: '1.5em'}}>Item #{props.number}</h2>
+            
             <input onChange={props.onNameChange} className='mt-4' style={inputStyle} name="name" type="text" placeholder="Name" required={true} value={props.name}/>
             <h2 className='mt-4' style={{fontSize: '1.5em'}}>Image</h2>
             <FileUpload acceptedFiles={'image/*'} onFileUpload={props.onImageChange} onFileDelete={props.onImageDelete}/>
@@ -50,20 +50,9 @@ function MenuItemForm(props) {
             <div className='w-100' style={{zIndex: 2}}>
                 <Select onChange={props.onAddCuisineType} className='w-100 mt-4' isMulti options={options} value={props.cuisine}/>
             </div>
+            <input type="submit" style={{marginTop: '20px', width: '100%', padding: '10px', color: '#fff', backgroundColor: '#dc3545'}} onClick={props.delete} value="Delete Menu Item"/>
         </div>
     )
-}
-
-function DeleteItem(props) {
-    if (props.totalItems > 0) {
-        return (
-            <div className='delete-item mb-4'>
-                <input type='submit' onClick={props.onClick} value='Delete Item' className='bg-danger btn btn-primary btn-block mt-4'/>
-            </div>
-        );
-    } else {
-        return null;
-    }
 }
 
 export class ManageRestaurantInformation extends Component {
@@ -79,7 +68,6 @@ export class ManageRestaurantInformation extends Component {
             restaurantName: undefined,
             description: '',
             profileDescription: '',
-            video: undefined,
             ratings: [],
             menuItems: [],
             restaurantID: undefined,
@@ -123,7 +111,6 @@ export class ManageRestaurantInformation extends Component {
                         restaurantName: results.data.name,
                         ratings: results.data.ratings,
                         imageURLs: results.data.imageURLs,
-                        ratings: results.data.ratings,
                         logo: results.data.logoURL,
                         description: results.data.longDescription,
                         profileDescription: results.data.description,
@@ -157,7 +144,7 @@ export class ManageRestaurantInformation extends Component {
         let {totalItems, menuItems} = this.state;
         menuItems = menuItems.concat({
             name: '',
-            restaurantID: this.state.restaurantID,      // TODO: change when log in works as expected
+            restaurantID: this.state.restaurantID,
             price: 0, 
             image: undefined,
             description: '',
@@ -169,15 +156,16 @@ export class ManageRestaurantInformation extends Component {
         })
     }
 
-    deleteMenuItem = e => {
+    deleteMenuItem = (e, i) => {
         e.preventDefault();
-        let {totalItems, menuItems} = this.state;
-        menuItems.pop()
+        let {totalItems, menuItems} = this.state
+        menuItems.splice(i, 1)
         this.setState({
             totalItems: totalItems - 1,
             menuItems: menuItems
         });
     }
+
 
     onLogoInputChange = e => {
         e.preventDefault();
@@ -204,21 +192,6 @@ export class ManageRestaurantInformation extends Component {
             description: e.target.value
         });
     }
-
-    onIntroVideoChange = e => {
-        e.preventDefault();
-        this.setState({
-            video: e.target.files[0] || undefined
-        });
-    }
-
-    onIntroVideoDelete = e => {
-        e.preventDefault();
-        this.setState({
-            video: undefined
-        });
-    }
-
 
     onMenuNameChange = (e, i) => {
         let {menuItems} = this.state;
@@ -289,7 +262,7 @@ export class ManageRestaurantInformation extends Component {
     _retrieveImageURL = async logo => {
         const formData = new FormData();
         formData.append('file', logo);
-        return axios.post('/media_upload/image', formData, {     // TODO: change to relative URL when that is set up properly
+        return axios.post('/media_upload/image', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             } 
@@ -301,19 +274,7 @@ export class ManageRestaurantInformation extends Component {
     _retrieveLogoImageURL = async logo => {
         const formData = new FormData();
         formData.append('file', logo);
-        return axios.post('/media_upload/image', formData, {     // TODO: change to relative URL when that is set up properly
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            } 
-        }).then(
-            response => response.data.result.secure_url || ''
-        ).catch(e => e);
-    }
-
-    _retrieveIntroVideoURL = async video => {
-        const formData = new FormData();
-        formData.append('file', video);
-        return axios.post('/media_upload/video', formData, {     // TODO: change to relative URL when that is set up properly
+        return axios.post('/media_upload/image', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             } 
@@ -335,11 +296,9 @@ export class ManageRestaurantInformation extends Component {
     onSubmit = async e => {
         e.preventDefault();
         
-        let {menuItems, logo, video} = this.state;
-        // TODO: add the logo image URL to the account once the login feature is
-        // TODO: add the video URL to the account once login feature implemented
-        let [logoImageURL, introVideoURL, menuImageURLs] = await Promise.all(
-            [this._retrieveLogoImageURL(logo), this._retrieveIntroVideoURL(video), this._retrieveMenuImageURLs(menuItems)]
+        let {menuItems, logo} = this.state;
+        let [logoImageURL, menuImageURLs] = await Promise.all(
+            [this._retrieveLogoImageURL(logo), this._retrieveMenuImageURLs(menuItems)]
         );
 
         if (!(logoImageURL === "")) {
@@ -395,7 +354,7 @@ export class ManageRestaurantInformation extends Component {
             <div>
                 <form style={formStyle} name="accountCreationForm" onSubmit={this.onSubmit}>
                     <div className='mb-4' style={containerStyle} name="accountInformation">
-                        <h2 className='mb-4 font-weight-bold' style={{fontSize: '2em'}}>Restaurant Information</h2>
+                        <h2 className='font-weight-bold' style={{paddingBottom: '10px'}}> Restaurant Contact Information</h2>
                         <input name="restaurantName" type="text" className="inputStyle" placeholder="Restaurant Name" required={true} value={this.state.restaurantName} onChange={this.handleChange}/>
                         <input name="phoneNumber" type="phone" className="inputStyle" placeholder="Restaurant Phone" required={true} value={this.state.phoneNumber} onChange={this.handleChange}/>
                         <input name="address" type="text" className="inputStyle" placeholder="Restaurant Address" required={true} value={this.state.address} onChange={this.handleChange}/>
@@ -403,6 +362,7 @@ export class ManageRestaurantInformation extends Component {
                         <input name="postalCode" type="text" className="inputStyle" placeholder="Postal Code" required={true} value={this.state.postalCode} onChange={this.handleChange}/>
                         <input name="province" type="text" className="inputStyle" placeholder="Province" required={true} value={this.state.province} onChange={this.handleChange}/>
                         <input name="yearEstablished" type="text" className="inputStyle" placeholder="Year Established (Optional)" required={false} value={this.state.yearEstablished} onChange={this.handleChange}/>
+                        <h2 className='font-weight-bold' style={{padding: '15px 0'}}> Restaurant Profile Information</h2>
                         <h2 className='font-weight-bold' style={{fontSize: '1.5em'}}>Logo</h2>
                         <FileUpload acceptedFiles={'image/*'} onFileUpload={this.onLogoInputChange} onFileDelete={this.onLogoInputDelete} placeHolderValue={this.state.logo}/>
                         <h2 className='font-weight-bold mb-4 mt-4' style={{fontSize: '1.5em'}}>Restaurant Description</h2>
@@ -415,18 +375,20 @@ export class ManageRestaurantInformation extends Component {
                         <FileUpload acceptedFiles={'video/*'} onFileUpload={this.onIntroVideoChange} onFileDelete={this.onIntroVideoDelete}/>
                         <input className="video mt-4" onChange={this.handleChange} name="restaurantVideoURL" placeholder="Intro Video YouTube URL" value={this.state.restaurantVideoURL} required={false}/>
                     </div>
-
+                    <div style={{display: 'flex',flexDirection: 'column', alignItems: 'center',}}>
+                        <h2>Menu Items</h2>
+                    </div>
                     {
-                        
-                        // TODO: find a way to update the state array
                         this.state.menuItems.map(
-                            (k, i) => <MenuItemForm 
+                            (k, i) =>
+                            <MenuItemForm 
                                 onAddCuisineType={e => this.onMenuCuisineChange(e, i)}
                                 onImageChange={e => this.onMenuImageChange(e, i)}
                                 onNameChange={e => this.onMenuNameChange(e, i)}
                                 onPriceChange={e => this.onMenuPriceChange(e, i)}
                                 onDescriptionChange={e => this.onMenuDescriptionChange(e, i)}
                                 onImageDelete={e => this.onMenuImageDelete(e, i)}
+                                delete={e => this.deleteMenuItem(e, i)}
                                 key={i + 1}
                                 number={i + 1}
                                 name={k.name}
@@ -438,11 +400,10 @@ export class ManageRestaurantInformation extends Component {
                                         value: cuisine
                                     }
                                 })}
-                                />
+                            />
                         )
                         
                     }
-                    <DeleteItem totalItems={this.state.totalItems} onClick={this.deleteMenuItem}/>
                     <input style={inputStyle} onClick={this.addMenuItem} name="addMenuItem" type="submit" value="Add Menu Item"/>
                     <input style={inputStyle} name="submitRestaurantInformation" type="submit" value="Submit Information"/>
                 </form>

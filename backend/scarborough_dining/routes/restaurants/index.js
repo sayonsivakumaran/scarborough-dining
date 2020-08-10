@@ -18,11 +18,14 @@ router.route('/').get((req, res) => {
 router.route('/search_results').get((req, res) => {
     let queryString = req.query.queryString
     //specifiy the query
-    Restaurant.find({$or: [
-        {address: queryString}, 
-        {name: queryString}, 
-        {cuisineTypes: queryString}
-    ]})
+    Restaurant.find({$and: [
+        {verified: {$eq: true}}, 
+        {$or: [
+            {address: queryString}, 
+            {name: queryString}, 
+            {cuisineTypes: queryString}
+            ]
+        }]})
         .then(restaurant => res.json(restaurant))
         .catch(err => res.status(400).json('Error: ' + err));
 });

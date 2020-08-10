@@ -11,6 +11,24 @@ router.route('/').get((req, res) => {
         .then(restaurant => res.json(restaurant))
         .catch(err => res.status(400).json('Error: ' + err));
 });
+/**
+ * Server-side get request to provide the search results requested by the user
+ * Requires a query string
+ */
+router.route('/search_results').get((req, res) => {
+    let queryString = req.query.queryString
+    //specifiy the query
+    Restaurant.find({$and: [
+        {verified: {$eq: true}}, 
+        {$or: [
+            {address: queryString}, 
+            {name: queryString}, 
+            {cuisineTypes: queryString}
+            ]
+        }]})
+        .then(restaurant => res.json(restaurant))
+        .catch(err => res.status(400).json('Error: ' + err));
+});
 
 /**
  * Server-side get request to retrieve all unverified restaurant data

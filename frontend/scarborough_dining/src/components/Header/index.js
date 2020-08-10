@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import './styles.css';
+import { SearchField } from '../Search/searchField';
 
 export class Header extends Component {
 
@@ -112,6 +113,7 @@ export class Header extends Component {
                         </li>
                         </ul>
                     </div>
+                    <SearchField></SearchField>
                 </nav>
             </header>
         )

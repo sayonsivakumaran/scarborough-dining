@@ -11,6 +11,8 @@ import ManageAnnouncements from './components/ManageAnnouncements';
 import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
 import Unknown from './components/Unknown';
+import SearchResults from './components/Search/searchResults';
+
 import RestaurantVerfication from './components/RestaurantVerification';
 import LogIn from './components/LogIn';
 import Register from './components/Register';
@@ -109,6 +111,7 @@ export class App extends Component {
               <Route path='/dashboard' component={Dashboard} />
               <Route path='/account-information' render={() => <AccountCreation userType={"user"}/>}/>
               <Route path='/discussion-board' component={CommunityDiscussionBoard}/>
+              <Route path="/search_results/:query?" component={SearchResults}/>
               <Route component={Unknown} />
             </Switch>
           </React.Fragment>

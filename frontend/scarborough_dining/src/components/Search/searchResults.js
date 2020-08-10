@@ -26,7 +26,8 @@ export class SearchResults extends Component {
                 results: response.data,
                 notFound: "Sorry, no results were found :("
             });
-        })   
+        })
+        
 
     }
     componentDidUpdate(prevProps) {
@@ -38,9 +39,9 @@ export class SearchResults extends Component {
         if(this.state.results.length > 0) {
             return (
                 <React.Fragment>
-                    <div className="restaurants">
+                    <div className="restaurants resultText">
                     <h2 className="restaurant-list-title mb-4 font-weight-bold">Search Results</h2>
-                        <div className="card-columns">
+                        <div className="row">
                             {
                                 this.state.results.map(restaurant => {
                                     return <Restaurant key={restaurant._id} restaurant={restaurant} />
@@ -52,7 +53,7 @@ export class SearchResults extends Component {
             )
         } else {
             return (
-                <div className="restaurants">
+                <div className="restaurants resultText">
                     <h2 className="restaurant-list-title mb-4 font-weight-bold">{this.state.notFound}</h2>
                 </div>
             )

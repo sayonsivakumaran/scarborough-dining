@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import './styles.css';
-import SearchResults from './searchResults';
-import {Route, Link, Switch} from 'react-router-dom';
-import RestaurantList from '../RestaurantList';
+import {Link} from 'react-router-dom';
 
 export class SearchField extends Component{
 
@@ -26,15 +24,16 @@ export class SearchField extends Component{
                     name="searchString"
                     type="text"
                     placeholder="Search by restaurants, location..."
-                    required={true}
                     onChange={this.handleChange}
+                    className="format"
                 />
                 <Link to={`/search_results/${this.state.searchString}`}>
                 <input
                     name="search"
                     type="submit"
                     value="Search"
-                    />
+                    className="format"
+                />
                 </Link>
             </form>
         </div>

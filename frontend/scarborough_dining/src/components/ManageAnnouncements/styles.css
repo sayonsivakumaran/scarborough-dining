@@ -2,7 +2,7 @@
 	background: #FFFFFF;
 	font-family: 'Didact Gothic', sans-serif;
 	font-size: 16px;
-	color: #3C3D3F;
+	color: black;
     text-align: left;
     max-width: 800px;
     margin: auto;
@@ -12,7 +12,7 @@
 .ann-form{
     margin-top:20px;
     border-radius: 10px;
-    border: 2px #3C3D3F solid;
+    border: 2px #2c3952 solid;
     padding:20px 10px 10px 10px;
     display:flex;
     flex-direction: column;
@@ -23,9 +23,10 @@
     font-weight:bold;
     margin:-20px -10px 20px -10px;
     padding:10px 0px 10px 25px;
-    color:white;
-    background-color: #b30000;
+    color:black;
+    background-color: #38b8d1;
     border-radius: 7px 7px 0px 0px;
+    border-bottom: 2px solid #2c3952;
 }
 
 .ann-form .form_element{
@@ -36,20 +37,18 @@
      border-width: 1px;
 }
 
-/* This snippet of code was generated using: http://css3buttongenerator.com/ */
-
 .post-btn{
     border-radius:10px;
     text-align:center;
     font-size: 16px;
-    color: #3C3D3F;
+    color: #2c3952;
     background: #ffffff;
-    border: 1px solid #3C3D3F;
+    border: 1px solid #2c3952;
     padding: 10px 20px 10px 20px;
 }
 
 .post-btn:hover {
-  background: #3C3D3F;
+  background: #2c3952;
   color: #ffffff;
 }
 
@@ -74,7 +73,7 @@
 
 .post {
     font-family: 'Didact Gothic', sans-serif;
-    border-top: 1px solid #3C3D3F;
+    border-top: 1px solid black;
 }
 
 .post-title {

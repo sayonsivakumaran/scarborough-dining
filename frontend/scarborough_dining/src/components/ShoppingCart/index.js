@@ -140,7 +140,7 @@ class ShoppingCart extends Component {
                 <h2>Shopping Cart</h2>
                 {this.state.totalItems > 0 ? (
                     <React.Fragment>
-                        <h3 className="total">{this.state.totalItems} Total Items</h3>
+                        <h3 className="total">{this.state.totalItems} Total Item{this.state.totalItems != 1 ? 's':''}</h3>
                         {this._getShoppingCartItems(Object.values(this.state.shoppingCart))}
                     </React.Fragment>
                 ) : (

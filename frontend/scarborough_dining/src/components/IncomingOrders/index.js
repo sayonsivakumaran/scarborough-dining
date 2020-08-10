@@ -127,7 +127,7 @@ class IncomingOrders extends Component {
                 <h2>Order Requests</h2>
                 {this.state.totalOrders > 0 ? (
                     <React.Fragment>
-                        <h3 className="total">{this.state.totalOrders} Total Orders</h3>
+                        <h3 className="total">{this.state.totalOrders} Total Order{this.state.totalOrders != 1 ? 's':''}</h3>
                         {this._getOrderRequestTables(this.state.orderRequests)}
                     </React.Fragment>
                 ) : (

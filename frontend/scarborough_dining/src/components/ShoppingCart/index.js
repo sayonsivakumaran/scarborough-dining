@@ -38,7 +38,24 @@ class ShoppingCart extends Component {
             .catch(err => err);
     }
 
-    _getShoppingCartItemsForRestaurant = (shoppingCart) => {
+    _postShoppingCartData = async (shoppingCart, restaurantID) => {
+        await axios.post(`/restaurants/addOrderRequest/${restaurantID}`, shoppingCart)
+            .then(async () => {
+                let response = await axios.post(`/user/clear-shopping-cart-by-restaurant/${this.state.userGoogleId}/${restaurantID}`);
+                this.setState({
+                    shoppingCart: response.data,
+                    totalItems: response.data.length,
+                    submissionMessage: 'Your items have succesfully been submitted!'
+                });
+            })
+            .catch(() => {
+                this.setState({
+                    submissionMessage: 'Sorry, something went wrong on our end, please try again.'
+                });
+            });
+    }
+
+    _getShoppingCartItemsForRestaurant = (shoppingCart, restaurantID) => {
         let shoppingCartItemTables = [];
         for (let i = 0, l = shoppingCart.length; i < l; i++) {
             let id = shoppingCart[i].menuItemID;
@@ -57,21 +74,29 @@ class ShoppingCart extends Component {
         }
             
         return (
-            <table className="table table-responsive table-hover">
-                <thead class="table-header">
-                    <tr className="t-header">
-                        <th scope="col">Item Image</th>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Item Price</th>
-                        <th scope="col">Total Items</th>
-                        <th scope="col">Total Cost</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {shoppingCartItemTables}
-                </tbody>
-            </table>
+            <React.Fragment>
+                <table className="table table-responsive table-hover">
+                    <thead class="table-header">
+                        <tr className="t-header">
+                            <th scope="col">Item Image</th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Item Price</th>
+                            <th scope="col">Total Items</th>
+                            <th scope="col">Total Cost</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {shoppingCartItemTables}
+                    </tbody>
+                </table>
+                <input 
+                    onClick={() => this._postShoppingCartData(shoppingCart, restaurantID)} 
+                    className="submit-shopping-cart-modal-button btn btn-primary mb-4" 
+                    name="submitShoppingCart" 
+                    type="submit" 
+                    value="Submit Order"/>
+            </React.Fragment>
         );
     }
 
@@ -89,7 +114,7 @@ class ShoppingCart extends Component {
         
         let shoppingCartTableArray = [];
         Object.keys(restaurantOrderMap).forEach(restaurantID => {
-            shoppingCartTableArray.push(this._getShoppingCartItemsForRestaurant(restaurantOrderMap[restaurantID]));
+            shoppingCartTableArray.push(this._getShoppingCartItemsForRestaurant(restaurantOrderMap[restaurantID], restaurantID));
         });
 
         return shoppingCartTableArray;
@@ -107,39 +132,6 @@ class ShoppingCart extends Component {
         });
     }
 
-    _postShoppingCartData = async shoppingCart => {
-        let restaurantOrderMap = {};
-
-        for (let i = 0; i < shoppingCart.length; i++) {
-            let restaurantID = shoppingCart[i].restaurantID;
-            shoppingCart[i].userGoogleId = this.state.userGoogleId;
-            if (!restaurantOrderMap[restaurantID]) {
-                restaurantOrderMap[restaurantID] = [];
-            }
-
-            restaurantOrderMap[restaurantID] = restaurantOrderMap[restaurantID].concat([shoppingCart[i]]);
-        }
-
-
-        let responses = Object.keys(restaurantOrderMap).map(restaurantID => axios.post(`/restaurants/addOrderRequest/${restaurantID}`, restaurantOrderMap[restaurantID]));
-        axios.post(`/user/clear-shopping-cart/${this.state.userGoogleId}`);
-
-        Promise.all(responses)
-            .then(() => {
-                this.setState({
-                    shoppingCart: [],
-                    totalItems: 0,
-                    submissionMessage: 'Your items have succesfully been submitted!'
-                });
-                this.open();
-            })
-            .catch(() => {
-                this.setState({
-                    submissionMessage: 'Sorry, something went wrong on our end, please try again.'
-                });
-            });
-    }
-
     render() {
         return (
             <div class="shoppingCartPage">
@@ -148,7 +140,6 @@ class ShoppingCart extends Component {
                     <React.Fragment>
                         <h3 className="total">{this.state.totalItems} Total Items</h3>
                         {this._getShoppingCartItems(Object.values(this.state.shoppingCart))}
-                        <input onClick={() => this._postShoppingCartData(Object.values(this.state.shoppingCart))} className="submit-shopping-cart-modal-button" name="submitShoppingCart" type="submit" value="Submit Order"/>
                     </React.Fragment>
                 ) : (
                     <div className="empty-message">No items inside shopping cart</div>

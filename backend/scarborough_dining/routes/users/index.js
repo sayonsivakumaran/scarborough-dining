@@ -134,15 +134,17 @@ router.route('/delete-cart-item/:googleId/:menuItemID').post((req, res) => {
 /**
  * @route               /user/clear-shopping-cart/:googleId
  * @description         Requires a valid googleId, updates user with specified 
- *                      googleId's account information by clearing shopping cart
+ *                      googleId's account information by clearing shopping cart based on provided restaurant
  */
-router.route('/clear-shopping-cart/:googleId').post((req, res) => {
+router.route('/clear-shopping-cart-by-restaurant/:googleId/:restaurantID').post((req, res) => {
     User.findOne({ googleId: req.params.googleId })
         .then(user => {
-            user.shoppingCart = [];
+            let shoppingCart = user.shoppingCart || [];
+            let updatedCart = shoppingCart.filter(item => item && item.restaurantID != req.params.restaurantID)
+            user.shoppingCart = updatedCart;
 
             user.save()
-                .then(() => res.json('Shopping cart has been cleared.'))
+                .then(() => res.json(updatedCart))
                 .catch(err => res.status(400).json(err));
         })
         .catch(err => res.status(400).json(err));

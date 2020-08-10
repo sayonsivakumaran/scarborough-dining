@@ -34,10 +34,17 @@ export class ManageAnnouncements extends Component {
             posts: [],
             newPostTitle: '',
             newPostBody: '',
-            restaurantID: this.props.restaurantID
+            restaurantID: ''
         }
-        
-        this._getAnnouncements(this.state.restaurantID);
+    }
+
+    async componentDidMount() {
+        this.setState({
+            restaurantID: this.props.restaurantID
+        });
+
+
+        this._getAnnouncements(this.props.restaurantID);
     }
 
     // Add a post to the state

@@ -16,6 +16,23 @@ router.route('/').get((req, res) => {
 })
 
 /**
+ * @route               /user/getUserNameMap
+ * @description         Server-side GET request to retrieve all user's  names in database
+ */
+router.route('/getUserNameMap').get((req, res) => {
+    User.find()
+    .then(response => {
+        let nameMap = {};
+        response.forEach(user => {
+            console.log(user);
+            nameMap[user.googleId] = user.firstName + " " + user.lastName;
+        });
+        res.json(nameMap);
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+})
+
+/**
  * @route               /user/:googleId
  * @description         Requires a valid googleId, returns the user with specified googleId
  */

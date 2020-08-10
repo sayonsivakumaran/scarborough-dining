@@ -13,7 +13,8 @@ class IncomingOrders extends Component {
             totalOrders: 0,
             restaurantID: '',
             submissionMessage: '',
-            showDialog: false
+            showDialog: false,
+            userNameMap: {}
         };
     }
 
@@ -28,6 +29,10 @@ class IncomingOrders extends Component {
                 totalOrders: res.data.length
             }))
             .catch(err => err);
+        await axios.get('/user/getUserNameMap')
+            .then(res => this.setState({
+                userNameMap: res.data
+            }));
     }
     
     _removeOrder = async (removeIndex) => {
@@ -41,8 +46,10 @@ class IncomingOrders extends Component {
 
     _getOrderRequestTablesByRequest = (orderRequests, removeIndex) => {
         let orderTables = [];
+        let userName = '';
         for (let i = 0, l = orderRequests.length; i < l; i++) {
             let id = orderRequests[i].menuItemID;
+            userName = orderRequests[i].userGoogleID;
             orderTables.push(
                 <tr className="pending-order-row" key={id}>
                     <td><img className="pending-order-image" src={orderRequests[i].imageURL}/></td>
@@ -56,7 +63,7 @@ class IncomingOrders extends Component {
             
         return (
             <React.Fragment>
-                <h4>{'s'}</h4>
+                <h4>{this.state.userNameMap[userName]}</h4>
                 <table className="table table-responsive table-hover">
                     <thead class="table-header">
                         <tr className="t-header">

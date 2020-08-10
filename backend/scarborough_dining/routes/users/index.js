@@ -137,6 +137,8 @@ router.route('/delete-cart-item/:googleId/:menuItemID').post((req, res) => {
  *                      googleId's account information by clearing shopping cart based on provided restaurant
  */
 router.route('/clear-shopping-cart-by-restaurant/:googleId/:restaurantID').post((req, res) => {
+
+    console.log(req.params.googleId);
     User.findOne({ googleId: req.params.googleId })
         .then(user => {
             let shoppingCart = user.shoppingCart || [];

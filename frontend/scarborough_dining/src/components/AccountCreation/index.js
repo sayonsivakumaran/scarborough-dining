@@ -53,13 +53,21 @@ export class AccountCreation extends React.Component {
      */
     async componentDidMount() {
 
+        window.scrollTo(0, 0);
+
         /* Request to see if user is logged in, if user is logged in
          * get user's googleId 
          */
         await axios.get('/auth/login/success')
           .then(results => this.setState({
-              loggedIn: true,
-              id: results.data.user.googleId
+                loggedIn: true,
+                id: results.data.user.googleId,
+                firstName: results.data.firstName,
+                lastName: results.data.lastName,
+                address: results.data.address,	
+                city: results.data.city,	
+                postalCode: results.data.postalCode,	
+                province: results.data.province
           })
         ).catch(err => this.setState({
                 loggedIn: false
@@ -79,10 +87,6 @@ export class AccountCreation extends React.Component {
                 })
             );
         }
-    }
-
-    componentDidMount() {
-        window.scrollTo(0, 0);
     }
 
     /**
@@ -385,7 +389,6 @@ export class AccountCreation extends React.Component {
             return <Redirect to='/'/>;
         }
         if (this.props.userType === "user") {
-            window.scrollTo(0, 0);
             return (
                 <form className="formStyle" onSubmit={this.handleSubmit}>
                     <this.UserForm />
@@ -400,7 +403,6 @@ export class AccountCreation extends React.Component {
                 </form>
             )
         } else {
-            window.scrollTo(0, 0);
             return (
                 <form className="formStyle" onSubmit={this.handleSubmit}>
                     <div className="formContainer">

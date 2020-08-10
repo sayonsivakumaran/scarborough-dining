@@ -4,6 +4,7 @@ import './styles.css'
 import { Link, Switch, Route } from 'react-router-dom';
 import ReactPlayer from "react-player"
 import axios from 'axios';
+import ManageAnnouncements from '../ManageAnnouncements';
 
 class RestaurantProfile extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class RestaurantProfile extends Component {
             phoneNumber: "",
             id: null,
             menuItems: [],
+            announcements: [],
             activeTab: "info"
         }
         let id = this.props.match.params.id;
@@ -104,9 +106,7 @@ class RestaurantProfile extends Component {
                         </Route>
                         <Route path={`/restaurants/${this.state.id}/announcements`}>
                             {/* TODO: This should be a new component */}
-                            <div className="announcements">
-                                <h1>Announcements</h1>
-                            </div>
+                            <ManageAnnouncements isManager={false}/>
                         </Route>
                     </Switch>
                 </div>

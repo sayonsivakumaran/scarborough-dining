@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 let MenuItem = require('../menu_item').schema;
 let Order = require('../order').schema;
 
+let Announcement = require('../announcement').schema;
 
 const restaurantSchema = new Schema({
     ownerID: {
@@ -78,6 +79,10 @@ const restaurantSchema = new Schema({
     menuItems: {
         type: [MenuItem],
         default: []
+    },
+    announcements: {
+        type: [Announcement],
+        required: false
     },
     verified: {
         type: Boolean,

@@ -28,7 +28,7 @@ const passport = require('passport');
  * @route           /auth/login/google
  * @description     Make a GET request to the google for authenticating google credentials
  */
-router.get('/login/google', passport.authenticate('google-login', {scope: ['profile']}));
+router.get('/login/google', passport.authenticate('google-login', {scope: ['profile', 'email']}));
 
 /**
  * @route           /auth/login/google/callback
@@ -44,7 +44,7 @@ router.get('/login/google/callback', passport.authenticate('google-login', {fail
  * @route           /auth/register/google
  * @description     Make a GET request to the google for authenticating google credentials
  */
-router.get('/register/google', passport.authenticate('google-register', {scope: ['profile']}));
+router.get('/register/google', passport.authenticate('google-register', {scope: ['profile', 'email']}));
 
 /**
  * @route           /auth/login/google/callback

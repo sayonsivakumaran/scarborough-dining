@@ -51,10 +51,11 @@ router.route('/add').post((req, res) => {
         cuisineTypes,
         description,
         longDescription,
-        menuItems,
         yearEstablished,
+        menuItems,
         verified,
-        orderRequests
+        orderRequests,
+        announcements
     } = req.body;
 
     const newRestaurant = new Restaurant({ 
@@ -75,6 +76,7 @@ router.route('/add').post((req, res) => {
         yearEstablished,
         menuItems,
         verified,
+        announcements,
         orderRequests
     });
     
@@ -140,6 +142,7 @@ router.route('/update/:id').post((req, res) => {
             restaurant.verified = req.body.verified;
             restaurant.orderRequests = req.body.orderRequests;
             restaurant.yearEstablished = req.body.yearEstablished;
+            restaurant.announcements = req.body.announcements;
 
             restaurant.save()
                 .then(() => res.json('Restaurant has been updated.'))
@@ -217,4 +220,16 @@ router.route('/addOrderRequest/:restaurantID').post((req, res) => {
         .catch(err => res.status(404).json('Error: ' + err));
 });
 
+router.route('/updateRes/:id').post((req, res) => {
+    Restaurant.findById(req.params.id)
+        .then(restaurant => {
+            restaurant.announcements = req.body.announcements;
+
+            restaurant.save()
+                .then(() => res.json('Restaurant announcements updated.'))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+
+})
 module.exports = router;

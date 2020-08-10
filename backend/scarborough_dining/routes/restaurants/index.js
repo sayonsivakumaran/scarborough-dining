@@ -226,6 +226,20 @@ router.route('/getOrderRequests/:restaurantID').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/deletePendingOrder/:restaurantID/:removeIndex').post((req, res) => {
+    Restaurant.findById(req.params.restaurantID)
+        .then(restaurant => {
+            let orderRequests = restaurant.orderRequests;
+            orderRequests.splice(req.params.removeIndex, 1);
+            restaurant.orderRequests = orderRequests;
+
+            restaurant.save()
+                .then(() => res.json(orderRequests))
+                .catch(err => res.status(400).json('Error: ' + err));
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
 router.route('/updateRes/:id').post((req, res) => {
     Restaurant.findById(req.params.id)
         .then(restaurant => {

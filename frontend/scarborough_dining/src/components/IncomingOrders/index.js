@@ -9,73 +9,54 @@ class IncomingOrders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            shoppingCart: [],
-            totalItems: 0,
-            userGoogleId: '',
+            orderRequests: [],
+            totalOrders: 0,
+            restaurantID: '',
             submissionMessage: '',
             showDialog: false
         };
     }
 
     async componentDidMount() {
-        await axios.get(`/user/get-shopping-cart/${this.props.userGoogleId}`)
+        let restaurantID = this.props.restaurantId;
+        this.setState({
+            restaurantID: restaurantID
+        });
+        await axios.get(`/restaurants/getOrderRequests/` + restaurantID)
             .then(res => this.setState({
-                shoppingCart: res.data,
-                totalItems: res.data.length
+                orderRequests: res.data,
+                totalOrders: res.data.length
             }))
             .catch(err => err);
-        this.setState({
-            userGoogleId: this.props.userGoogleId
-        });
     }
     
-    _removeMenuItems = async (id) => {
-        await axios.post(`/user/delete-cart-item/${this.state.userGoogleId}/${id}`)
+    _removeOrder = async (removeIndex) => {
+        axios.post(`/restaurants/deletePendingOrder/${this.state.restaurantID}/${removeIndex}`)
             .then(res => this.setState({
-                shoppingCart: res.data,
-                totalItems: res.data.length
+                orderRequests: res.data,
+                totalOrders: res.data.length
             }))
             .catch(err => err);
     }
 
-    _postShoppingCartData = async (shoppingCart, restaurantID) => {
-        await axios.post(`/restaurants/addOrderRequest/${restaurantID}`, shoppingCart)
-            .then(async () => {
-                let response = await axios.post(`/user/clear-shopping-cart-by-restaurant/${this.state.userGoogleId}/${restaurantID}`);
-                this.setState({
-                    shoppingCart: response.data,
-                    totalItems: response.data.length,
-                    submissionMessage: 'Your items have succesfully been submitted!'
-                });
-            })
-            .catch(() => {
-                this.setState({
-                    submissionMessage: 'Sorry, something went wrong on our end, please try again.'
-                });
-            });
-    }
-
-    _getShoppingCartItemsForRestaurant = (shoppingCart, restaurantID) => {
-        let shoppingCartItemTables = [];
-        for (let i = 0, l = shoppingCart.length; i < l; i++) {
-            let id = shoppingCart[i].menuItemID;
-            shoppingCartItemTables.push(
-                <tr className="unverified-restaurant-row" key={id}>
-                    <td><img className="shopping-cart-image" src={shoppingCart[i].imageURL}/></td>
-                    <td>{shoppingCart[i].name}</td>
-                    <td>${shoppingCart[i].price}</td>
-                    <td>{shoppingCart[i].total}</td>
-                    <td>${(shoppingCart[i].total * shoppingCart[i].price).toFixed(2)}</td>
-                    <td>
-                        <button type="button" onClick={async () => await this._removeMenuItems(id)} class="btn btn-danger"><i class="fa fa-trash"></i></button>     
-                    </td>
+    _getOrderRequestTablesByRequest = (orderRequests, removeIndex) => {
+        let orderTables = [];
+        for (let i = 0, l = orderRequests.length; i < l; i++) {
+            let id = orderRequests[i].menuItemID;
+            orderTables.push(
+                <tr className="pending-order-row" key={id}>
+                    <td><img className="pending-order-image" src={orderRequests[i].imageURL}/></td>
+                    <td>{orderRequests[i].name}</td>
+                    <td>${orderRequests[i].price}</td>
+                    <td>{orderRequests[i].total}</td>
+                    <td>${(orderRequests[i].total * orderRequests[i].price).toFixed(2)}</td>
                 </tr>
             )
         }
             
         return (
             <React.Fragment>
-                <h4>{restaurantID}</h4>     // TODO: change when working on the restaurant interface
+                <h4>{'s'}</h4>
                 <table className="table table-responsive table-hover">
                     <thead class="table-header">
                         <tr className="t-header">
@@ -84,41 +65,48 @@ class IncomingOrders extends Component {
                             <th scope="col">Item Price</th>
                             <th scope="col">Total Items</th>
                             <th scope="col">Total Cost</th>
-                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {shoppingCartItemTables}
+                        {orderTables}
                     </tbody>
                 </table>
                 <input 
-                    onClick={() => this._postShoppingCartData(shoppingCart, restaurantID)} 
-                    className="submit-shopping-cart-modal-button btn btn-primary mb-4" 
+                    onClick={() => this._removeOrder(removeIndex)} 
+                    className="submit-shopping-cart-modal-button btn btn-primary mb-4 mr-2" 
                     name="submitShoppingCart" 
                     type="submit" 
-                    value="Submit Order"/>
+                    value="Accept Order"/>
+                <input 
+                    onClick={() => this._removeOrder(removeIndex)} 
+                    className="submit-shopping-cart-modal-button btn btn-danger mb-4" 
+                    name="submitShoppingCart" 
+                    type="submit" 
+                    value="Reject Order"/>
             </React.Fragment>
         );
     }
 
-    _getShoppingCartItems = shoppingCart => {
-        let restaurantOrderMap = {};
+    _getOrderRequestTables = orderRequests => {
+        // let orderRequestMap = {};
 
-        for (let i = 0; i < shoppingCart.length; i++) {
-            let restaurantID = shoppingCart[i].restaurantID;
-            if (!restaurantOrderMap[restaurantID]) {
-                restaurantOrderMap[restaurantID] = [];
-            }
+        // for (let i = 0; i < orderRequests.length; i++) {
+        //     let userGoogleID = orderRequests[i].userGoogleID;
+        //     if (!orderRequestMap[userGoogleID]) {
+        //         orderRequestMap[userGoogleID] = [];
+        //     }
 
-            restaurantOrderMap[restaurantID] = restaurantOrderMap[restaurantID].concat([shoppingCart[i]]);
-        }
+        //     orderRequestMap[userGoogleID] = orderRequestMap[userGoogleID].concat([orderRequests[i]]);
+        // }
         
-        let shoppingCartTableArray = [];
-        Object.keys(restaurantOrderMap).forEach(restaurantID => {
-            shoppingCartTableArray.push(this._getShoppingCartItemsForRestaurant(restaurantOrderMap[restaurantID], restaurantID));
-        });
+        // let orderRequestsTableArray = [];
+        // Object.keys(orderRequestMap).forEach(userGoogleID => {
+        //     orderRequestsTableArray.push(this._getShoppingCartItemsForRestaurant(orderRequestMap[userGoogleID], restaurantID));
+        // });
 
-        return shoppingCartTableArray;
+        let orderRequestsTableArray = orderRequests.map((request, i) => this._getOrderRequestTablesByRequest(request, i));
+
+        return orderRequestsTableArray;
     }
 
     open = _ => {
@@ -136,11 +124,11 @@ class IncomingOrders extends Component {
     render() {
         return (
             <div class="shoppingCartPage">
-                <h2>Shopping Cart</h2>
-                {this.state.totalItems > 0 ? (
+                <h2>Order Requests</h2>
+                {this.state.totalOrders > 0 ? (
                     <React.Fragment>
-                        <h3 className="total">{this.state.totalItems} Total Items</h3>
-                        {this._getShoppingCartItems(Object.values(this.state.shoppingCart))}
+                        <h3 className="total">{this.state.totalOrders} Total Orders</h3>
+                        {this._getOrderRequestTables(this.state.orderRequests)}
                     </React.Fragment>
                 ) : (
                     <div className="empty-message">No items inside shopping cart</div>

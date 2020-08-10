@@ -13,6 +13,23 @@ router.route('/').get((req, res) => {
 });
 
 /**
+ * Server-side get request to retrieve all restaurant data
+ * @return tall of the restaurant data
+ */
+router.route('/getRestaurantNameMap/').get((req, res) => {
+    Restaurant.find()
+        .then(response => {
+            let nameMap = {};
+            response.forEach(restaurant => {
+                console.log(restaurant);
+                nameMap[restaurant._id] = restaurant.name;
+            });
+            res.json(nameMap);
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+/**
  * Server-side get request to retrieve all unverified restaurant data
  * @return all unverified restaurant data
  */
@@ -181,7 +198,9 @@ router.route('/verify/:id').post((req, res) => {
             restaurant.verified = true;
             restaurant.save()
                 .then(() => res.json('Restaurant has been verified.'))
-                .catch(err => res.status(400).json('Error: ' + err));
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).json('Error: ' + err)});
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });

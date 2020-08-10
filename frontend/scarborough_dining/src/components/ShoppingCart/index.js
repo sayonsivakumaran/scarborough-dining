@@ -10,6 +10,7 @@ class ShoppingCart extends Component {
         super(props);
         this.state = {
             shoppingCart: [],
+            restaurantNameMap: {},
             totalItems: 0,
             userGoogleId: '',
             submissionMessage: '',
@@ -24,6 +25,10 @@ class ShoppingCart extends Component {
                 totalItems: res.data.length
             }))
             .catch(err => err);
+        await axios.get('/restaurants/getRestaurantNameMap')
+            .then(res => this.setState({
+                restaurantNameMap: res.data
+            }));
         this.setState({
             userGoogleId: this.props.userGoogleId
         });
@@ -75,7 +80,7 @@ class ShoppingCart extends Component {
             
         return (
             <React.Fragment>
-                <h4>{restaurantID}</h4>     
+                <h4>{this.state.restaurantNameMap[restaurantID]}</h4>     
                 {/* TODO: change when working on the restaurant interface */}
                 <table className="table table-responsive table-hover">
                     <thead class="table-header">
@@ -115,6 +120,7 @@ class ShoppingCart extends Component {
         }
         
         let shoppingCartTableArray = [];
+
         Object.keys(restaurantOrderMap).forEach(restaurantID => {
             shoppingCartTableArray.push(this._getShoppingCartItemsForRestaurant(restaurantOrderMap[restaurantID], restaurantID));
         });

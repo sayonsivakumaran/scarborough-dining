@@ -6,6 +6,7 @@ import axios from 'axios';
 import Header from './components/Header/index';
 import AccountCreation from './components/AccountCreation';
 import ManageRestaurantInformation from './components/ManageRestaurantInformation';
+import ManageAnnouncements from './components/ManageAnnouncements';
 import RestaurantList from './components/RestaurantList';
 import RestaurantProfile from './components/RestaurantProfile';
 import Unknown from './components/Unknown';
@@ -68,7 +69,8 @@ export class App extends Component {
               <Route exact path="/" component={RestaurantList} />
               <Route path="/account-creation/restaurant" render={() => <AccountCreation userType={"restaurant"} id={this.state.googleId}/>}/>
               <Route path="/restaurants/:id" component={RestaurantProfile} />
-              <Route path='/manage-restaurant-information' component={ManageRestaurantInformation} />
+              <Route exact path='/manage-restaurant-information/general' component={ManageRestaurantInformation} />
+              <Route path='/manage-restaurant-information/announcements' render={() => <ManageAnnouncements isManager={true}/>} />
               <Route path='/manage-restaurants' component={RestaurantVerfication} />
 
               <Route path='/login/fail' render={() => <LogIn fail={true}/>}/>

@@ -87,6 +87,12 @@
     background-color: #f3f3f3;
 }
 
+.dropdown-menu {
+    position: absolute;
+    width: 100%;
+    font-family: 'Didact Gothic', sans-serif;
+    overflow: hidden;
+}
 .navbar-brand {
     padding-left: 20px;
 }

@@ -304,8 +304,6 @@ export class ManageRestaurantInformation extends Component {
             [this._retrieveLogoImageURL(logo), this._retrieveMenuImageURLs(menuItems)]
         );
 
-        console.log(menuImageURLs)
-
         if (!(logoImageURL === "")) {
             this.setState({
                 logo: logoImageURL
@@ -352,9 +350,6 @@ export class ManageRestaurantInformation extends Component {
            announcements: this.state.announcements,
            menuItems: []
        }
-
-       console.log(restaurantInfo);
-       console.log(menuItemReqs);
 
        await axios.post(`/restaurants/update/${this.state.restaurantID}`, restaurantInfo)
        await axios.post(`/restaurants/addMenuItems/${this.state.restaurantID}`, {menuItems: menuItemReqs});

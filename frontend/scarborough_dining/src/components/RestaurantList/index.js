@@ -13,8 +13,12 @@ export default class RestaurantList extends Component {
         this._getRestaurantList();
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+
     _getRestaurantList() {
-        axios.get('/restaurants').then(response => {
+        axios.get('/restaurants/verified').then(response => {
             this.setState({
                 restaurants: response.data,
                 totalRestaurants: response.data.length
@@ -26,19 +30,21 @@ export default class RestaurantList extends Component {
     render() {
         return (
             <React.Fragment>
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="header">
-                        <h1 class="display-4 title">Scarborough Dining</h1>
+                <div class="restaurant-list"> 
+                    <div class="jumbotron jumbotron-fluid">
+                        <div class="header">
+                            <h1 class="display-4 title">Scarborough Dining</h1>
+                        </div>
                     </div>
-                </div>
-                <div className="restaurants">
-                <h2 className="restaurant-list-title mb-4 font-weight-bold">Scarborough Owned Restaurants</h2>
-                    <div className="card-columns">
-                        {
-                            this.state.restaurants.map(restaurant => {
-                                return <Restaurant key={restaurant._id} restaurant={restaurant} />
-                            })
-                        }
+                    <div className="restaurants">
+                    <h2 className="restaurant-list-title mb-4 font-weight-bold">Scarborough Owned Restaurants</h2>
+                        <div className="row">
+                            {
+                                this.state.restaurants.map(restaurant => {
+                                    return <Restaurant key={restaurant._id} restaurant={restaurant} />
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             </React.Fragment>

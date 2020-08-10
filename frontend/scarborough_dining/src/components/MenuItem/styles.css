@@ -1,0 +1,89 @@
+.menu-item-title {
+    font-size: 20px;
+    text-align: center;
+}
+
+.text-link {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.text-link:hover {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.checked {
+    color: orange;
+}
+
+.menu .card .card-img-top {
+    width: 100%;
+    height: 20vw;
+    object-fit: cover;
+    border: solid;
+    border-color: #f3f3f3;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.menu-item-list {
+    font-size: 20px;
+    text-align: center;
+}
+
+.menu-item-list-title {
+    font-size: 36px;
+}
+
+.menu-item-modal {
+    text-align: center;
+}
+
+.add-menu-item-modal-button {
+    padding: 0.25em;
+    font-size: 16px;
+    width: 100%;
+    margin: 0.5em 0px;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;   
+}
+
+.menu-item-header {
+    background: cadetblue;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.menu-item-modal {
+    font-family: 'Didact Gothic', sans-serif;
+}
+
+.menu-item-modal .menu-item-quantity-input {
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;   
+}
+
+
+.category {
+    background-color: darksalmon;
+    margin: 10px 10px;
+    padding: 0px 10px;
+}

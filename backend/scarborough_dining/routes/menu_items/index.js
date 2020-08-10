@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 let MenuItem = require('../../models/menu_item');
+const { response } = require('express');
 
 /**
  * Server-side get request to retrieve menu item data.
@@ -79,6 +80,12 @@ router.route('/update/:id').post((req, res) => {
                 .then(() => res.json('MenuItem has been updated.'))
                 .catch(err => res.status(400).json('Error: ' + err));
         })
+        .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/restaurant/:restaurantId').get((req, res) => {
+    MenuItem.find({restaurantID: req.params.restaurantId})
+        .then(menuItem => res.json(menuItem))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 

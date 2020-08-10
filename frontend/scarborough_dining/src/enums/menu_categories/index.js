@@ -1,7 +1,8 @@
 export default {
-    'asian': 'Asian',
-    'indian': 'Indian',
-    'thai': 'Thai',
-    'vegan': 'Vegan',
-    'vegetarian': 'Vegetarian'
+    'Asian': 'Asian',
+    'Indian': 'Indian',
+    'Thai': 'Thai',
+    'Vegan': 'Vegan',
+    'Vegetarian': 'Vegetarian',
+    'Fast Food': "Fast Food"
 };

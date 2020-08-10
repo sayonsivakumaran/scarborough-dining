@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 let MenuItem = require('../menu_item').schema;
+let Order = require('../order').schema;
+
+let Announcement = require('../announcement').schema;
 
 const restaurantSchema = new Schema({
     ownerID: {
@@ -23,7 +26,7 @@ const restaurantSchema = new Schema({
     },
     introVideoURL: {
         type: String,
-        required: true
+        required: false
     },
     imageURLs: {
         type: [String],
@@ -65,9 +68,29 @@ const restaurantSchema = new Schema({
         type: String,
         required: true
     },
+    longDescription: {
+        type: String,
+        required: true
+    },
+    yearEstablished: {
+        type: String,
+        required: false
+    },
     menuItems: {
         type: [MenuItem],
-        required: true
+        default: []
+    },
+    announcements: {
+        type: [Announcement],
+        required: false
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    },
+    orderRequests: {
+        type: [[Order]],
+        default: []
     }
 }, {
     timestamps: true

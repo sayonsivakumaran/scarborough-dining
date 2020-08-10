@@ -1,5 +1,3 @@
-
-
 .restaurant-title {
     font-size: 20px;
     text-align: center;
@@ -19,16 +17,32 @@
     color: orange;
 }
 
+.card-title {
+    font-weight: bold;
+}
+
 .card-img-top {
     width: 100%;
-    height: 20vw;
+    height: 26vw;
     object-fit: cover;
-    border: solid;
     border-color: #f3f3f3;
+}
+
+.fa-map-marker {
+    padding-right: 10px;
+    color: red;
 }
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    flex: 1;
+}
+
+.card-deck {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .card:hover {
@@ -36,7 +50,7 @@
 }
 
 .restaurants{
-    padding: 20px 100px;
+    padding: 0px 60px;
     text-align: center;
     font-family: 'Didact Gothic', sans-serif;
 }
@@ -45,15 +59,23 @@
     font-size: 36px;
 }
 
-.cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;   
-}
-
 .restaurant-header{
     background: cadetblue;
     color: white;
     text-align: center;
     padding: 10px;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;   
+}
+.category {
+    background-color: darksalmon;
+    margin: 10px 10px;
+    padding: 0px 10px;
+}
+.resultText {
+    margin-top: 50px;
 }

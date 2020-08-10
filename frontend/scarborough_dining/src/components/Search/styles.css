@@ -1,0 +1,15 @@
+.search-container {
+    float: right;
+    /*margin-left: 5em;*/
+    display: flex;
+    line-height: 0em;
+    
+}
+.border {
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.format {
+    padding: 4px 5px;
+    line-height: normal;
+}

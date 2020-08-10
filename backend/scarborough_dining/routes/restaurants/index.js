@@ -156,6 +156,7 @@ router.route('/update/:id').post((req, res) => {
             restaurant.description = req.body.description;
             restaurant.longDescription = req.body.longDescription;
             restaurant.menuItems = req.body.menuItems;
+            restaurant.introVideoURL = req.body.introVideoURL;
             restaurant.verified = req.body.verified;
             restaurant.orderRequests = req.body.orderRequests;
             restaurant.yearEstablished = req.body.yearEstablished;
@@ -204,6 +205,7 @@ router.route('/verify/:id').post((req, res) => {
         })
         .catch(err => res.status(400).json('Error: ' + err));
 });
+
 
 /**
  * @route               /restaurants/addOrderRequest/:restaurantID

@@ -96,7 +96,6 @@ export class App extends Component {
               <Route exact path="/" component={RestaurantList} />
               <Route path="/account-creation/restaurant" render={() => <AccountCreation userType={"restaurant"} id={this.state.id}/>}/>
               <Route path="/restaurants/:id" component={(props) => <RestaurantProfile {...props} loggedIn={this.state.loggedIn} userId={this.state.id}/>} />
-              <Route path="/restaurants/:id/menu-item/:menuItemId" component={RestaurantProfile} />
               <Route path='/shopping-cart' component={(props) => <ShoppingCart {...props} userGoogleId={this.state.id} loggedIn={this.state.loggedIn} shoppingCart={this.state.shoppingCart}/>} onOrderAll={this.orderAll} onDeleteItemFromShoppingCart={this.deleteItemFromShoppingCart}/>
               <Route exact path='/manage-restaurant-information/general' component={ManageRestaurantInformation} />
               <Route path='/manage-restaurant-information/announcements' render={() => <ManageAnnouncements isManager={true}/>} />

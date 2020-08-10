@@ -17,7 +17,7 @@
     color: orange;
 }
 
-.menu .card-img-top {
+.menu .card .card-img-top {
     width: 100%;
     height: 20vw;
     object-fit: cover;

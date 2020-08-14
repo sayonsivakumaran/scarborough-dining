@@ -30,6 +30,7 @@ if (process.env.NODE_ENV === "production") {
     require('dotenv').config();
 }
 
+//CITATION: https://www.youtube.com/watch?v=SBvmnHTQIPY&t=4129s
 // Session middleware
 app.use(session({
     cookie: {
@@ -40,6 +41,7 @@ app.use(session({
     saveUninitialized: false
 }))
 
+//CITATION: https://www.youtube.com/watch?v=SBvmnHTQIPY&t=4129s
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());

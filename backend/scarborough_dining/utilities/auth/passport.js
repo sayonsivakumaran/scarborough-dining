@@ -3,6 +3,13 @@ const mongoose = require('mongoose');
 const User = require('../../models/user');
 require('dotenv').config()
 
+/* CITATION: Resources used for code in this section:
+ * (1) https://www.youtube.com/watch?v=o9e3ex-axzA
+ * (2) https://medium.com/free-code-camp/how-to-set-up-twitter-oauth-using-passport-js-and-reactjs-9ffa6f49ef0
+ * (3) https://www.youtube.com/watch?v=SBvmnHTQIPY&t=4129s
+ * (4) http://www.passportjs.org/ documentation
+ */
+
 /**
  * @param           passport - import from passport.js
  * @description     Function for using defined strategies to authenticate user information

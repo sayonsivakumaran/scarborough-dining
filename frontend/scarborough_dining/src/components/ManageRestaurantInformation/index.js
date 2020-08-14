@@ -81,6 +81,8 @@ export class ManageRestaurantInformation extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    //CITATION: https://medium.com/free-code-camp/how-to-set-up-twitter-oauth-using-passport-js-and-reactjs-9ffa6f49ef0
+    // All componentDidmount functions that call /auth/login/success use this resource
     async componentDidMount() {
 
         window.scrollTo(0, 0);

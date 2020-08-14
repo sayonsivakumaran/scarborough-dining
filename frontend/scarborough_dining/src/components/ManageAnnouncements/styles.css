@@ -9,6 +9,10 @@
     padding-top: 100px;
 }
 
+ /* CITATION: Some elements of the code below were inspired by:
+  * - https://github.com/MeowsterEric/cscc09-w17/blob/master/labs/3/microblog/style/form.css
+  */
+
 .ann-form{
     margin-top:20px;
     border-radius: 10px;

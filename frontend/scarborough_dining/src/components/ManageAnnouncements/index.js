@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './styles.css';
 
+/* CITATION: Resources used for code in this section:
+ * - https://www.youtube.com/watch?v=NMiYaaB0-fI
+ */
+
 // UI element for an announcement
 function Announcement(props) {
     return (

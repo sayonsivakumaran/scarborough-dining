@@ -21,3 +21,10 @@
 ### Latest Release
 
 - [Scarborough Dining](https://scarborough-dining-v3.herokuapp.com/)
+
+### Code Citations
+
+- [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+    - [Bootstrap Navbar](https://getbootstrap.com/docs/4.0/components/navbar/)
+    - [Bootstrap Cards](https://getbootstrap.com/docs/4.0/components/card/)
+    - [Bootstrap Table](https://getbootstrap.com/docs/4.0/content/tables/)

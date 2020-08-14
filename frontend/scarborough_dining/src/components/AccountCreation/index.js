@@ -141,6 +141,7 @@ export class AccountCreation extends React.Component {
         })
     }
 
+    // CITATION: https://reactjs.org/docs/forms.html (All handleChange fucntions use this as a source)
     //Handles when fields in the input are changed
     handleChange(event) {
         const value = event.target.value;

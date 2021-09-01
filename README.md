@@ -1,4 +1,6 @@
-# CodeShippers
+# Scarborough Dining
+
+Check out the Find Dining website [here](https://finddining.ca/)!
 
 ### Deployment
 - For local development do not start or install at the root directory. The package.json & package-lock.json is specifically for deployment on heroku
